@@ -15,6 +15,7 @@ npm run security:gate || gate_exit_code=$?
 
 npm run incident:orchestrate || true
 npm run normalize:reports || true
+npm run enrich:findings
 REPORT_HTML_NAME="security-report-normal.html" npm run report:html || true
 
 echo "=== Normal Production Security Pipeline Finished ==="

@@ -24,9 +24,9 @@
       "raw_ref": "reports/slither/vulnerable_bank.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "impact": "High",
@@ -58,9 +58,9 @@
       "raw_ref": "reports/slither/vulnerable_bank.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "impact": "High",
@@ -92,9 +92,9 @@
       "raw_ref": "reports/slither/vulnerable_bank.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "impact": "Low",
@@ -126,9 +126,9 @@
       "raw_ref": "reports/slither/vulnerable_bank.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "impact": "Low",
@@ -160,9 +160,9 @@
       "raw_ref": "reports/slither/vulnerable_bank.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "impact": "Low",
@@ -194,9 +194,9 @@
       "raw_ref": "reports/slither/vulnerable_bank.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "impact": "Informational",
@@ -228,9 +228,9 @@
       "raw_ref": "reports/slither/vulnerable_bank.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "impact": "Informational",
@@ -262,9 +262,9 @@
       "raw_ref": "reports/slither/secure_bank.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "impact": "Informational",
@@ -296,9 +296,9 @@
       "raw_ref": "reports/slither/secure_bank.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "impact": "Informational",
@@ -330,9 +330,9 @@
       "raw_ref": "reports/slither/secure_bank.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "impact": "Informational",
@@ -364,9 +364,9 @@
       "raw_ref": "reports/slither/secure_bank.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "impact": "Informational",
@@ -398,9 +398,9 @@
       "raw_ref": "reports/slither/secure_bank.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "impact": "Informational",
@@ -432,9 +432,9 @@
       "raw_ref": "reports/slither/secure_bank.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "impact": "Informational",
@@ -466,9 +466,9 @@
       "raw_ref": "reports/slither/secure_bank.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "impact": "Informational",
@@ -500,9 +500,9 @@
       "raw_ref": "reports/slither/secure_bank.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "impact": "Informational",
@@ -534,9 +534,9 @@
       "raw_ref": "reports/slither/secure_bank.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "impact": "Informational",
@@ -568,9 +568,9 @@
       "raw_ref": "reports/slither/secure_bank.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "impact": "Informational",
@@ -602,9 +602,9 @@
       "raw_ref": "reports/slither/secure_bank.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "impact": "Informational",
@@ -636,9 +636,9 @@
       "raw_ref": "reports/slither/secure_bank.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "impact": "Informational",
@@ -670,9 +670,9 @@
       "raw_ref": "reports/slither/secure_bank.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "impact": "Informational",
@@ -704,9 +704,9 @@
       "raw_ref": "reports/slither/secure_bank.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "impact": "Informational",
@@ -738,9 +738,9 @@
       "raw_ref": "reports/slither/secure_bank.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "impact": "Optimization",
@@ -772,9 +772,9 @@
       "raw_ref": "reports/defi/defi_alerts.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "tx_hashes": [
@@ -810,9 +810,9 @@
       "raw_ref": "reports/defi/defi_alerts.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "tx_hashes": [
@@ -849,9 +849,9 @@
       "raw_ref": "reports/defi/defi_alerts.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "tx_hashes": [
@@ -889,9 +889,9 @@
       "raw_ref": "reports/defi/defi_alerts.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "tx_hashes": [
@@ -927,9 +927,9 @@
       "raw_ref": "reports/defi/defi_alerts.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "tx_hashes": [
@@ -965,9 +965,9 @@
       "raw_ref": "reports/defi/defi_alerts.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "tx_hashes": [
@@ -1003,9 +1003,9 @@
       "raw_ref": "reports/defi/defi_alerts.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "tx_hashes": [
@@ -1041,9 +1041,9 @@
       "raw_ref": "reports/defi/defi_alerts.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "tx_hashes": [
@@ -1080,9 +1080,9 @@
       "raw_ref": "reports/defi/defi_alerts.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "tx_hashes": [
@@ -1103,7 +1103,7 @@
     "tool": "consensus-monitor",
     "rule": "consensus-health",
     "title": "Consensus / chain health status",
-    "summary": "No new blocks for 1661 seconds. Chain may be stalled.. Network: 31337. Latest block: 0. Seconds since last block: 1661",
+    "summary": "No new blocks for 1667 seconds. Chain may be stalled.. Network: 31337. Latest block: 0. Seconds since last block: 1667",
     "severity": "HIGH",
     "status": "BLOCKING",
     "asset": {
@@ -1120,13 +1120,13 @@
       "raw_ref": "reports/consensus/consensus_status.json"
     },
     "timestamps": {
-      "created_at": "2026-06-23T07:27:55.691Z",
+      "created_at": "2026-06-23T07:55:06.496Z",
       "updated_at": null,
-      "observed_at": "2026-06-23T07:27:55.691Z"
+      "observed_at": "2026-06-23T07:55:06.496Z"
     },
     "metadata": {
       "latest_block_number": 0,
-      "seconds_since_last_block": 1661
+      "seconds_since_last_block": 1667
     }
   }
 ]

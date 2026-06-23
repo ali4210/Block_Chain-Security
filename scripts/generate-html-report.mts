@@ -3,16 +3,34 @@ import path from "node:path";
 
 type Severity = "HIGH" | "MEDIUM" | "LOW" | "INFO";
 
+type EnrichedMetadata = {
+  swc_id?: string;
+  swc_title?: string;
+  owasp_sc_top10?: string;
+  weakness_class?: string;
+  impact_summary?: string;
+  remediation_summary?: string;
+  remediation_steps?: string[];
+  references?: string[];
+  confidence_note?: string;
+};
+
 type UnifiedFinding = {
-  tool: "slither" | "mythril" | "defi-detector" | "consensus-monitor" | "wallet-screening";
-  report: string;
-  contract: string;
+  id?: string;
+  record_type?: string;
+  source?: string;
+  source_report?: string;
+  tool: string;
+  report?: string;
+  contract?: string;
+  affected_component?: string;
   rule: string;
   severity: Severity;
   confidence?: string;
   title: string;
   description: string;
   location?: string;
+  enrichment?: EnrichedMetadata;
 };
 
 type IncidentAction = {
@@ -35,70 +53,50 @@ type IncidentAction = {
   created_at: string;
 };
 
+type FindingsBundle = {
+  generated_at?: string;
+  findings: UnifiedFinding[];
+  enrichment_summary?: Record<string, number>;
+};
+
 const ROOT = process.cwd();
 const OUTPUT_DIR = path.join(ROOT, "reports", "html");
 const REPORT_HTML_NAME = process.env.REPORT_HTML_NAME?.trim() || "security-report.html";
 const OUTPUT_FILE = path.join(OUTPUT_DIR, REPORT_HTML_NAME);
 
-const REPORTS = {
-  slither: [
-    { file: "reports/slither/vulnerable_bank.json", label: "slither-vulnerable" },
-    { file: "reports/slither/secure_bank.json", label: "slither-secure" }
-  ],
-  mythril: [
-    { file: "reports/mythril/vulnerable_bank.json", label: "mythril-vulnerable" }
-  ],
-  defi: [
-    { file: "reports/defi/defi_alerts.json", label: "defi-runtime-monitor" }
-  ],
-  consensus: [
-    { file: "reports/consensus/consensus_status.json", label: "consensus-health" }
-  ],
-  wallets: [
-    { file: "reports/wallet-screening/wallet_screening.json", label: "wallet-screening" }
-  ],
-  incident: {
-    file: "reports/incident/incident_response.json"
-  }
-};
+const ENRICHED_FINDINGS_FILE = path.join(ROOT, "dashboard", "data", "enriched-findings.json");
+const RAW_FINDINGS_FILE = path.join(ROOT, "dashboard", "data", "findings.json");
+const INCIDENT_FILE = path.join(ROOT, "reports", "incident", "incident_response.json");
 
-const SLITHER_RULE_MAP: Record<string, Severity> = {
-  "reentrancy-eth": "HIGH",
-  "reentrancy-no-eth": "HIGH",
-  "reentrancy-benign": "MEDIUM",
-  "arbitrary-send-eth": "HIGH",
-  "controlled-delegatecall": "HIGH",
-  "unchecked-lowlevel": "MEDIUM",
-  "unchecked-send": "MEDIUM",
-  "tx-origin": "HIGH",
-  "suicidal": "HIGH",
-  "shadowing-state": "MEDIUM",
-  "timestamp": "MEDIUM",
-  "weak-prng": "MEDIUM",
-  "assembly": "LOW",
-  "low-level-calls": "MEDIUM",
-  "pragma": "INFO",
-  "solc-version": "INFO",
-  "naming-convention": "INFO",
-  "dead-code": "LOW",
-  "external-function": "INFO",
-  "immutable-states": "LOW"
-};
+const SOURCE_FILES = [
+  "reports/slither/vulnerable_bank.json",
+  "reports/slither/secure_bank.json",
+  "reports/mythril/vulnerable_bank.json",
+  "reports/defi/defi_alerts.json",
+  "reports/consensus/consensus_status.json",
+  "reports/wallet-screening/wallet_screening.json",
+  "reports/incident/incident_response.json",
+  "dashboard/data/findings.json",
+  "dashboard/data/enriched-findings.json"
+];
 
 function fileExists(filePath: string): boolean {
   return fs.existsSync(path.join(ROOT, filePath));
 }
 
-function readJsonSafe(filePath: string): any | null {
-  const abs = path.join(ROOT, filePath);
-  if (!fs.existsSync(abs)) return null;
-  const raw = fs.readFileSync(abs, "utf8").trim();
+function readJsonSafeAbsolute(filePath: string): any | null {
+  if (!fs.existsSync(filePath)) return null;
+  const raw = fs.readFileSync(filePath, "utf8").trim();
   if (!raw) return null;
   try {
     return JSON.parse(raw);
   } catch {
     return null;
   }
+}
+
+function readJsonSafeRelative(filePath: string): any | null {
+  return readJsonSafeAbsolute(path.join(ROOT, filePath));
 }
 
 function escapeHtml(value: unknown): string {
@@ -110,182 +108,10 @@ function escapeHtml(value: unknown): string {
     .replace(/'/g, "&#39;");
 }
 
-function normalizeMythrilSeverity(value: unknown): Severity {
-  const v = String(value ?? "").toLowerCase().trim();
-  if (v === "high" || v === "error" || v === "fatal") return "HIGH";
-  if (v === "medium" || v === "warning") return "MEDIUM";
-  if (v === "low") return "LOW";
-  return "INFO";
-}
-
-function normalizeSlitherSeverity(check: string, impact?: string): Severity {
-  const mapped = SLITHER_RULE_MAP[check];
-  if (mapped) return mapped;
-
-  const v = String(impact ?? "").toLowerCase().trim();
-  if (v === "high") return "HIGH";
-  if (v === "medium") return "MEDIUM";
-  if (v === "low") return "LOW";
-  return "INFO";
-}
-
-function normalizeDefiSeverity(value: unknown): Severity {
+function normalizeSeverity(value: unknown): Severity {
   const v = String(value ?? "").toUpperCase().trim();
   if (v === "HIGH" || v === "MEDIUM" || v === "LOW" || v === "INFO") return v as Severity;
   return "INFO";
-}
-
-function normalizeWalletSeverity(value: unknown): Severity {
-  const v = String(value ?? "").toUpperCase().trim();
-  if (v === "HIGH" || v === "MEDIUM" || v === "LOW" || v === "INFO") return v as Severity;
-  return "INFO";
-}
-
-function parseSlitherReport(file: string, label: string): UnifiedFinding[] {
-  const data = readJsonSafe(file);
-  const detectors = Array.isArray(data?.results?.detectors) ? data.results.detectors : [];
-
-  return detectors.map((item: any): UnifiedFinding => {
-    const elements = Array.isArray(item?.elements) ? item.elements : [];
-    const first = elements[0] ?? {};
-    const source = first?.source_mapping ?? {};
-    const lines = Array.isArray(source?.lines) ? source.lines.join(",") : "";
-    const contract =
-      first?.type_specific_fields?.parent?.name ??
-      first?.type_specific_fields?.parent?.type ??
-      "UnknownContract";
-
-    return {
-      tool: "slither",
-      report: label,
-      contract,
-      rule: String(item?.check ?? "unknown"),
-      severity: normalizeSlitherSeverity(item?.check, item?.impact),
-      confidence: String(item?.confidence ?? ""),
-      title: String(item?.check ?? "Slither finding"),
-      description: String(item?.description ?? "").replace(/\s+/g, " ").trim(),
-      location: source?.filename_relative
-        ? `${source.filename_relative}${lines ? `:${lines}` : ""}`
-        : undefined
-    };
-  });
-}
-
-function parseMythrilReport(file: string, label: string): UnifiedFinding[] {
-  const data = readJsonSafe(file);
-  const issues = Array.isArray(data?.issues) ? data.issues : [];
-
-  return issues.map((item: any): UnifiedFinding => ({
-    tool: "mythril",
-    report: label,
-    contract: String(item?.contract ?? "UnknownContract"),
-    rule: String(item?.["swc-id"] ?? item?.title ?? "unknown"),
-    severity: normalizeMythrilSeverity(item?.severity),
-    title: String(item?.title ?? "Mythril issue"),
-    description: String(item?.description ?? "").replace(/\s+/g, " ").trim(),
-    location:
-      item?.filename && item?.lineno
-        ? `${item.filename}:${item.lineno}`
-        : item?.filename
-        ? String(item.filename)
-        : undefined
-  }));
-}
-
-function parseDefiReport(file: string, label: string): UnifiedFinding[] {
-  const data = readJsonSafe(file);
-  const alerts = Array.isArray(data?.alerts) ? data.alerts : [];
-
-  return alerts.map((item: any): UnifiedFinding => ({
-    tool: "defi-detector",
-    report: label,
-    contract: String(item?.protocols?.join(", ") ?? "RuntimeProtocol"),
-    rule: String(item?.rule_id ?? "unknown"),
-    severity: normalizeDefiSeverity(item?.severity),
-    title: String(item?.title ?? "DeFi detector alert"),
-    description: String(item?.description ?? "").replace(/\s+/g, " ").trim(),
-    location: item?.tx_hashes?.length ? `tx=${item.tx_hashes.join(",")}` : undefined
-  }));
-}
-
-function parseConsensusReport(file: string, label: string): UnifiedFinding[] {
-  const data = readJsonSafe(file);
-  if (!data) return [];
-
-  const health = String(data?.health ?? "INFO").toUpperCase().trim();
-  const severity: Severity =
-    health === "HIGH" || health === "MEDIUM" || health === "LOW" || health === "INFO"
-      ? (health as Severity)
-      : "INFO";
-
-  const network = String(data?.network ?? "unknown-network");
-  const latestBlock = Number(data?.latest_block_number ?? 0);
-  const seconds = Number(data?.seconds_since_last_block ?? 0);
-
-  return [
-    {
-      tool: "consensus-monitor",
-      report: label,
-      contract: network,
-      rule: "consensus-health",
-      severity,
-      title: "Consensus / chain health status",
-      description: [
-        data?.details ? String(data.details) : "",
-        `Network: ${network}`,
-        `Latest block: ${latestBlock}`,
-        `Seconds since last block: ${seconds}`
-      ]
-        .filter(Boolean)
-        .join(". "),
-      location: undefined
-    }
-  ];
-}
-
-function parseWalletReport(file: string, label: string): UnifiedFinding[] {
-  const data = readJsonSafe(file);
-  if (!data) return [];
-
-  const items = Array.isArray(data?.results)
-    ? data.results
-    : Array.isArray(data?.wallets)
-    ? data.wallets
-    : Array.isArray(data)
-    ? data
-    : [];
-
-  return items.map((item: any): UnifiedFinding => ({
-    tool: "wallet-screening",
-    report: label,
-    contract: String(item?.wallet ?? item?.address ?? item?.entity ?? "WalletEntity"),
-    rule: String(item?.rule_id ?? item?.status ?? item?.risk ?? "wallet-screening"),
-    severity: normalizeWalletSeverity(item?.severity ?? item?.risk_level ?? item?.risk),
-    title: String(item?.title ?? item?.label ?? "Wallet screening result"),
-    description: String(
-      item?.description ??
-        item?.details ??
-        `Wallet screening result for ${item?.wallet ?? item?.address ?? "unknown wallet"}`
-    ).replace(/\s+/g, " ").trim(),
-    location: item?.wallet || item?.address ? `wallet=${item?.wallet ?? item?.address}` : undefined
-  }));
-}
-
-function readIncidentActions(): IncidentAction[] {
-  const data = readJsonSafe(REPORTS.incident.file);
-  return Array.isArray(data?.incidents) ? data.incidents : [];
-}
-
-function collectFindings(): UnifiedFinding[] {
-  const findings: UnifiedFinding[] = [];
-
-  for (const report of REPORTS.slither) findings.push(...parseSlitherReport(report.file, report.label));
-  for (const report of REPORTS.mythril) findings.push(...parseMythrilReport(report.file, report.label));
-  for (const report of REPORTS.defi) findings.push(...parseDefiReport(report.file, report.label));
-  for (const report of REPORTS.consensus) findings.push(...parseConsensusReport(report.file, report.label));
-  for (const report of REPORTS.wallets) findings.push(...parseWalletReport(report.file, report.label));
-
-  return findings;
 }
 
 function severityRank(severity: Severity): number {
@@ -293,6 +119,49 @@ function severityRank(severity: Severity): number {
   if (severity === "MEDIUM") return 1;
   if (severity === "LOW") return 2;
   return 3;
+}
+
+function loadFindingsBundle(): FindingsBundle {
+  const enriched = readJsonSafeAbsolute(ENRICHED_FINDINGS_FILE);
+  if (Array.isArray(enriched?.findings)) {
+    return {
+      generated_at: enriched.generated_at,
+      findings: enriched.findings.map((f: any) => ({
+        ...f,
+        severity: normalizeSeverity(f?.severity)
+      })),
+      enrichment_summary: enriched.enrichment_summary ?? {}
+    };
+  }
+
+  const raw = readJsonSafeAbsolute(RAW_FINDINGS_FILE);
+  if (Array.isArray(raw)) {
+    return {
+      findings: raw.map((f: any) => ({
+        ...f,
+        severity: normalizeSeverity(f?.severity)
+      }))
+    };
+  }
+
+  if (Array.isArray(raw?.findings)) {
+    return {
+      generated_at: raw.generated_at,
+      findings: raw.findings.map((f: any) => ({
+        ...f,
+        severity: normalizeSeverity(f?.severity)
+      }))
+    };
+  }
+
+  return {
+    findings: []
+  };
+}
+
+function readIncidentActions(): IncidentAction[] {
+  const data = readJsonSafeAbsolute(INCIDENT_FILE);
+  return Array.isArray(data?.incidents) ? data.incidents : [];
 }
 
 function groupCounts(findings: UnifiedFinding[]) {
@@ -342,26 +211,44 @@ function renderFindingRows(findings: UnifiedFinding[]): string {
       if (sev !== 0) return sev;
       return a.tool.localeCompare(b.tool);
     })
-    .map(
-      (f) => `
+    .map((f) => {
+      const component = f.affected_component ?? f.contract ?? "-";
+      const swc = f.enrichment?.swc_id
+        ? `${escapeHtml(f.enrichment.swc_id)}${f.enrichment?.swc_title ? ` — ${escapeHtml(f.enrichment.swc_title)}` : ""}`
+        : "-";
+      const owasp = f.enrichment?.owasp_sc_top10 ? escapeHtml(f.enrichment.owasp_sc_top10) : "-";
+      const weakness = f.enrichment?.weakness_class ? escapeHtml(f.enrichment.weakness_class) : "-";
+      const impact = f.enrichment?.impact_summary ? escapeHtml(f.enrichment.impact_summary) : "-";
+      const remedy = f.enrichment?.remediation_summary ? escapeHtml(f.enrichment.remediation_summary) : "-";
+      const steps = Array.isArray(f.enrichment?.remediation_steps) && f.enrichment!.remediation_steps!.length
+        ? `<ul class="compact-list">${f.enrichment!.remediation_steps!.map((step) => `<li>${escapeHtml(step)}</li>`).join("")}</ul>`
+        : "-";
+
+      return `
         <tr>
           <td>${renderBadge(f.severity)}</td>
           <td>${escapeHtml(f.tool)}</td>
-          <td>${escapeHtml(f.contract)}</td>
+          <td>${escapeHtml(component)}</td>
           <td>${escapeHtml(f.rule)}</td>
           <td>${escapeHtml(f.title)}</td>
           <td>${escapeHtml(f.location ?? "-")}</td>
           <td>${escapeHtml(f.description)}</td>
+          <td>${swc}</td>
+          <td>${owasp}</td>
+          <td>${weakness}</td>
+          <td>${impact}</td>
+          <td>${remedy}</td>
+          <td>${steps}</td>
         </tr>
-      `
-    )
+      `;
+    })
     .join("");
 }
 
 function renderIncidentRows(incidents: IncidentAction[]): string {
   return incidents
     .sort((a, b) => {
-      const sev = severityRank(a.severity as Severity) - severityRank(b.severity as Severity);
+      const sev = severityRank(a.severity) - severityRank(b.severity);
       if (sev !== 0) return sev;
       return a.id.localeCompare(b.id);
     })
@@ -383,16 +270,7 @@ function renderIncidentRows(incidents: IncidentAction[]): string {
 }
 
 function renderSourceList(): string {
-  const allSources = [
-    ...REPORTS.slither.map((x) => x.file),
-    ...REPORTS.mythril.map((x) => x.file),
-    ...REPORTS.defi.map((x) => x.file),
-    ...REPORTS.consensus.map((x) => x.file),
-    ...REPORTS.wallets.map((x) => x.file),
-    REPORTS.incident.file
-  ];
-
-  return allSources
+  return SOURCE_FILES
     .map((file) => {
       const present = fileExists(file);
       return `
@@ -405,13 +283,16 @@ function renderSourceList(): string {
     .join("");
 }
 
-function buildHtml(findings: UnifiedFinding[], incidents: IncidentAction[]): string {
+function buildHtml(bundle: FindingsBundle, incidents: IncidentAction[]): string {
+  const findings = bundle.findings;
   const counts = groupCounts(findings);
   const byTool = toolCounts(findings);
   const totalFindings = findings.length;
   const totalIncidents = incidents.length;
   const gateStatus = determineGateStatus(findings);
   const generatedAt = new Date().toISOString();
+  const mappedSwc = findings.filter((f) => f.enrichment?.swc_id).length;
+  const mappedOwasp = findings.filter((f) => f.enrichment?.owasp_sc_top10).length;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -431,11 +312,11 @@ function buildHtml(findings: UnifiedFinding[], incidents: IncidentAction[]): str
       --medium: #f59e0b;
       --low: #22c55e;
       --info: #38bdf8;
-      --accent: #8b5cf6;
       --shadow: 0 10px 30px rgba(0,0,0,0.28);
     }
 
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       font-family: Inter, Arial, sans-serif;
@@ -445,7 +326,7 @@ function buildHtml(findings: UnifiedFinding[], incidents: IncidentAction[]): str
     }
 
     .container {
-      max-width: 1280px;
+      max-width: 1500px;
       margin: 0 auto;
       padding: 32px 20px 48px;
     }
@@ -511,6 +392,7 @@ function buildHtml(findings: UnifiedFinding[], incidents: IncidentAction[]): str
     .stat .value {
       font-size: 30px;
       font-weight: 800;
+      word-break: break-word;
     }
 
     .stat.high .value { color: var(--high); }
@@ -540,6 +422,7 @@ function buildHtml(findings: UnifiedFinding[], incidents: IncidentAction[]): str
       font-weight: 800;
       letter-spacing: 0.04em;
       text-transform: uppercase;
+      white-space: nowrap;
     }
 
     .badge.high { background: rgba(239,68,68,0.16); color: #fecaca; border: 1px solid rgba(239,68,68,0.35); }
@@ -547,8 +430,13 @@ function buildHtml(findings: UnifiedFinding[], incidents: IncidentAction[]): str
     .badge.low { background: rgba(34,197,94,0.16); color: #bbf7d0; border: 1px solid rgba(34,197,94,0.35); }
     .badge.info { background: rgba(56,189,248,0.16); color: #bae6fd; border: 1px solid rgba(56,189,248,0.35); }
 
+    .table-wrap {
+      overflow-x: auto;
+    }
+
     table {
       width: 100%;
+      min-width: 1400px;
       border-collapse: collapse;
       overflow: hidden;
       border-radius: 12px;
@@ -563,6 +451,7 @@ function buildHtml(findings: UnifiedFinding[], incidents: IncidentAction[]): str
       background: rgba(255,255,255,0.03);
       padding: 14px 12px;
       border-bottom: 1px solid var(--border);
+      vertical-align: top;
     }
 
     tbody td {
@@ -574,6 +463,15 @@ function buildHtml(findings: UnifiedFinding[], incidents: IncidentAction[]): str
 
     tbody tr:hover {
       background: rgba(255,255,255,0.025);
+    }
+
+    .compact-list {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .compact-list li {
+      margin: 0 0 6px;
     }
 
     .sources {
@@ -600,6 +498,7 @@ function buildHtml(findings: UnifiedFinding[], incidents: IncidentAction[]): str
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.04em;
+      white-space: nowrap;
     }
 
     .source-status.present { color: #86efac; }
@@ -629,10 +528,6 @@ function buildHtml(findings: UnifiedFinding[], incidents: IncidentAction[]): str
       .container {
         padding: 20px 14px 36px;
       }
-
-      table, thead, tbody, th, td, tr {
-        font-size: 13px;
-      }
     }
   </style>
 </head>
@@ -640,8 +535,9 @@ function buildHtml(findings: UnifiedFinding[], incidents: IncidentAction[]): str
   <div class="container">
     <section class="hero">
       <h1>Security Pipeline HTML Report</h1>
-      <p>Human-readable output for smart contract security, DeFi runtime alerts, consensus monitoring, wallet screening, and incident orchestration.</p>
+      <p>Human-readable output for smart contract security, DeFi runtime alerts, consensus monitoring, wallet screening, incident orchestration, and enrichment with SWC/OWASP context.</p>
       <p>Generated at: ${escapeHtml(generatedAt)}</p>
+      <p>Input dataset timestamp: ${escapeHtml(bundle.generated_at ?? "not provided")}</p>
       <div class="gate">Security Gate Status: ${escapeHtml(gateStatus)}</div>
     </section>
 
@@ -674,6 +570,17 @@ function buildHtml(findings: UnifiedFinding[], incidents: IncidentAction[]): str
         <div class="value">${totalIncidents}</div>
       </div>
       <div class="stat">
+        <div class="label">Mapped SWC</div>
+        <div class="value">${mappedSwc}</div>
+      </div>
+      <div class="stat">
+        <div class="label">Mapped OWASP</div>
+        <div class="value">${mappedOwasp}</div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="stat">
         <div class="label">Unique Tools</div>
         <div class="value">${Object.keys(byTool).length}</div>
       </div>
@@ -681,72 +588,92 @@ function buildHtml(findings: UnifiedFinding[], incidents: IncidentAction[]): str
         <div class="label">HTML Output</div>
         <div class="value" style="font-size:18px;">${escapeHtml(`reports/html/${REPORT_HTML_NAME}`)}</div>
       </div>
+      <div class="stat">
+        <div class="label">Findings Source</div>
+        <div class="value" style="font-size:18px;">${escapeHtml(fs.existsSync(ENRICHED_FINDINGS_FILE) ? "enriched-findings.json" : "findings.json")}</div>
+      </div>
+      <div class="stat">
+        <div class="label">Gate Basis</div>
+        <div class="value" style="font-size:18px;">High severity count</div>
+      </div>
     </section>
 
     <section class="panel">
       <h2>Executive Summary</h2>
       <p class="muted">
-        This report aggregates raw JSON outputs into a browser-readable format so stakeholders can review the overall risk picture, severity distribution, source tools, and response actions without opening machine-oriented files.
+        This report aggregates pipeline outputs into a browser-readable format so stakeholders can review severity distribution, source tools, incident response actions, and enrichment context without opening machine-oriented JSON files.
       </p>
       <p class="muted">
-        A FAIL status means at least one HIGH severity finding was detected by the pipeline input set. A PASS status means no HIGH severity findings were present in the collected findings.
+        A FAIL status means at least one HIGH severity finding was detected in the selected findings dataset. A PASS status means no HIGH severity findings were present in the collected findings.
       </p>
     </section>
 
     <section class="panel">
       <h2>Findings by Tool</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Tool</th>
-            <th>Finding Count</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${renderToolRows(byTool)}
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table style="min-width: 500px;">
+          <thead>
+            <tr>
+              <th>Tool</th>
+              <th>Finding Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${renderToolRows(byTool)}
+          </tbody>
+        </table>
+      </div>
     </section>
 
     <section class="panel">
       <h2>Detailed Findings</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Severity</th>
-            <th>Tool</th>
-            <th>Affected Component</th>
-            <th>Rule</th>
-            <th>Title</th>
-            <th>Location</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${renderFindingRows(findings)}
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Severity</th>
+              <th>Tool</th>
+              <th>Affected Component</th>
+              <th>Rule</th>
+              <th>Title</th>
+              <th>Location</th>
+              <th>Description</th>
+              <th>SWC</th>
+              <th>OWASP</th>
+              <th>Weakness Class</th>
+              <th>Impact</th>
+              <th>Remedy</th>
+              <th>Recommended Steps</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${renderFindingRows(findings)}
+          </tbody>
+        </table>
+      </div>
     </section>
 
     <section class="panel">
       <h2>Incident Actions</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Severity</th>
-            <th>Tool</th>
-            <th>Affected Component</th>
-            <th>Action</th>
-            <th>Owner</th>
-            <th>Status</th>
-            <th>Remediation</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${renderIncidentRows(incidents)}
-        </tbody>
-      </table>
+      <div class="table-wrap">
+        <table style="min-width: 1000px;">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Severity</th>
+              <th>Tool</th>
+              <th>Affected Component</th>
+              <th>Action</th>
+              <th>Owner</th>
+              <th>Status</th>
+              <th>Remediation</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${renderIncidentRows(incidents)}
+          </tbody>
+        </table>
+      </div>
     </section>
 
     <section class="panel">
@@ -755,7 +682,7 @@ function buildHtml(findings: UnifiedFinding[], incidents: IncidentAction[]): str
         ${renderSourceList()}
       </ul>
       <div class="footer">
-        Open this file directly in your browser after pipeline execution.
+        Open this file directly in your browser after pipeline execution or download it from GitHub Actions artifacts.
       </div>
     </section>
   </div>
@@ -766,16 +693,17 @@ function buildHtml(findings: UnifiedFinding[], incidents: IncidentAction[]): str
 function main() {
   fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
-  const findings = collectFindings();
+  const bundle = loadFindingsBundle();
   const incidents = readIncidentActions();
 
-  const html = buildHtml(findings, incidents);
+  const html = buildHtml(bundle, incidents);
   fs.writeFileSync(OUTPUT_FILE, html, "utf8");
 
   console.log("=== HTML Security Report Generated ===");
-  console.log(`Findings          : ${findings.length}`);
+  console.log(`Findings          : ${bundle.findings.length}`);
   console.log(`Incidents         : ${incidents.length}`);
+  console.log(`Mapped SWC        : ${bundle.findings.filter((f) => f.enrichment?.swc_id).length}`);
+  console.log(`Mapped OWASP      : ${bundle.findings.filter((f) => f.enrichment?.owasp_sc_top10).length}`);
   console.log(`Output            : reports/html/${REPORT_HTML_NAME}`);
 }
-
 main();

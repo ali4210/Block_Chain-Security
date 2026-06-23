@@ -1,0 +1,1616 @@
+{
+  "generated_at": "2026-06-23T07:57:14.647Z",
+  "findings": [
+    {
+      "id": "FND-0001",
+      "record_type": "finding",
+      "source": "slither",
+      "source_report": "slither-vulnerable",
+      "tool": "slither",
+      "rule": "arbitrary-send-eth",
+      "title": "arbitrary-send-eth",
+      "summary": "VulnerableBank.emergencyDrain() (contracts/VulnerableBank.sol#38-45) sends eth to arbitrary user Dangerous calls: - (success,None) = address(msg.sender).call{value: amount}() (contracts/VulnerableBank.sol#41)",
+      "severity": "HIGH",
+      "status": "BLOCKING",
+      "asset": {
+        "type": "SMART_CONTRACT",
+        "name": "VulnerableBank",
+        "network": "local-hardhat",
+        "location": "contracts/VulnerableBank.sol:38,39,40,41,42,43,44,45"
+      },
+      "confidence": "Medium",
+      "recommendation": "Review the flagged code path, remediate the vulnerability, and rerun the static scan.",
+      "evidence": {
+        "report": "slither-vulnerable",
+        "location": "contracts/VulnerableBank.sol:38,39,40,41,42,43,44,45",
+        "raw_ref": "reports/slither/vulnerable_bank.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "impact": "High",
+        "check": "arbitrary-send-eth"
+      },
+      "enrichment": {
+        "swc_id": "SWC-105",
+        "swc_title": "Unprotected Ether Withdrawal",
+        "owasp_sc_top10": "SC01:2025 - Access Control Vulnerabilities",
+        "weakness_class": "Access Control / Unauthorized Asset Movement",
+        "impact_summary": "A weakly protected withdrawal path may allow unauthorized Ether transfer to attacker-chosen destinations.",
+        "remediation_summary": "Restrict privileged withdrawals, validate recipients, and enforce role-based authorization.",
+        "remediation_steps": [
+          "Protect administrative transfer functions with strict access control.",
+          "Validate recipient and amount constraints.",
+          "Add tests for unauthorized drain scenarios."
+        ],
+        "references": [
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ]
+      }
+    },
+    {
+      "id": "FND-0002",
+      "record_type": "finding",
+      "source": "slither",
+      "source_report": "slither-vulnerable",
+      "tool": "slither",
+      "rule": "reentrancy-eth",
+      "title": "reentrancy-eth",
+      "summary": "Reentrancy in VulnerableBank.withdraw() (contracts/VulnerableBank.sol#21-32): External calls: - (success,None) = address(msg.sender).call{value: amount}() (contracts/VulnerableBank.sol#25) State variables written after the call(s): - balances[msg.sender] = 0 (contracts/VulnerableBank.sol#28) VulnerableBank.balances (contracts/VulnerableBank.sol#5) can be used in cross function reentrancies: - VulnerableBank.balances (contracts/VulnerableBank.sol#5) - VulnerableBank.deposit() (contracts/VulnerableBank.sol#12-19) - VulnerableBank.withdraw() (contracts/VulnerableBank.sol#21-32)",
+      "severity": "HIGH",
+      "status": "BLOCKING",
+      "asset": {
+        "type": "SMART_CONTRACT",
+        "name": "VulnerableBank",
+        "network": "local-hardhat",
+        "location": "contracts/VulnerableBank.sol:21,22,23,24,25,26,27,28,29,30,31,32"
+      },
+      "confidence": "Medium",
+      "recommendation": "Review the flagged code path, remediate the vulnerability, and rerun the static scan.",
+      "evidence": {
+        "report": "slither-vulnerable",
+        "location": "contracts/VulnerableBank.sol:21,22,23,24,25,26,27,28,29,30,31,32",
+        "raw_ref": "reports/slither/vulnerable_bank.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "impact": "High",
+        "check": "reentrancy-eth"
+      },
+      "enrichment": {
+        "swc_id": "SWC-107",
+        "swc_title": "Reentrancy",
+        "owasp_sc_top10": "SC05:2025 - Reentrancy Attacks",
+        "weakness_class": "Reentrancy",
+        "impact_summary": "An external call may re-enter the contract before internal state is finalized, enabling repeated withdrawals or inconsistent accounting.",
+        "remediation_summary": "Apply Checks-Effects-Interactions, add ReentrancyGuard, and prefer pull-payment patterns.",
+        "remediation_steps": [
+          "Update internal balances before external calls.",
+          "Add OpenZeppelin ReentrancyGuard to sensitive functions.",
+          "Prefer pull-over-push withdrawal logic.",
+          "Retest with static and symbolic analysis after patching."
+        ],
+        "references": [
+          "https://swcregistry.io/docs/SWC-107/",
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ]
+      }
+    },
+    {
+      "id": "FND-0003",
+      "record_type": "finding",
+      "source": "slither",
+      "source_report": "slither-vulnerable",
+      "tool": "slither",
+      "rule": "reentrancy-benign",
+      "title": "reentrancy-benign",
+      "summary": "Reentrancy in VulnerableBank.withdraw() (contracts/VulnerableBank.sol#21-32): External calls: - (success,None) = address(msg.sender).call{value: amount}() (contracts/VulnerableBank.sol#25) State variables written after the call(s): - totalDeposits -= amount (contracts/VulnerableBank.sol#29)",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "asset": {
+        "type": "SMART_CONTRACT",
+        "name": "VulnerableBank",
+        "network": "local-hardhat",
+        "location": "contracts/VulnerableBank.sol:21,22,23,24,25,26,27,28,29,30,31,32"
+      },
+      "confidence": "Medium",
+      "recommendation": "Review the flagged code path, remediate the vulnerability, and rerun the static scan.",
+      "evidence": {
+        "report": "slither-vulnerable",
+        "location": "contracts/VulnerableBank.sol:21,22,23,24,25,26,27,28,29,30,31,32",
+        "raw_ref": "reports/slither/vulnerable_bank.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "impact": "Low",
+        "check": "reentrancy-benign"
+      },
+      "enrichment": {
+        "swc_id": "SWC-107",
+        "swc_title": "Reentrancy",
+        "owasp_sc_top10": "SC05:2025 - Reentrancy Attacks",
+        "weakness_class": "Reentrancy",
+        "impact_summary": "Execution order may still create inconsistent state even when direct theft is not immediately confirmed.",
+        "remediation_summary": "Harden function sequencing and apply reentrancy-safe state management.",
+        "remediation_steps": [
+          "Move state updates before external interaction.",
+          "Use a reentrancy guard where needed.",
+          "Review cross-function state dependencies."
+        ],
+        "references": [
+          "https://swcregistry.io/docs/SWC-107/",
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ]
+      }
+    },
+    {
+      "id": "FND-0004",
+      "record_type": "finding",
+      "source": "slither",
+      "source_report": "slither-vulnerable",
+      "tool": "slither",
+      "rule": "reentrancy-events",
+      "title": "reentrancy-events",
+      "summary": "Reentrancy in VulnerableBank.withdraw() (contracts/VulnerableBank.sol#21-32): External calls: - (success,None) = address(msg.sender).call{value: amount}() (contracts/VulnerableBank.sol#25) Event emitted after the call(s): - Withdrawn(msg.sender,amount) (contracts/VulnerableBank.sol#31)",
+      "severity": "LOW",
+      "status": "ACKNOWLEDGED",
+      "asset": {
+        "type": "SMART_CONTRACT",
+        "name": "VulnerableBank",
+        "network": "local-hardhat",
+        "location": "contracts/VulnerableBank.sol:21,22,23,24,25,26,27,28,29,30,31,32"
+      },
+      "confidence": "Medium",
+      "recommendation": "Review the flagged code path, remediate the vulnerability, and rerun the static scan.",
+      "evidence": {
+        "report": "slither-vulnerable",
+        "location": "contracts/VulnerableBank.sol:21,22,23,24,25,26,27,28,29,30,31,32",
+        "raw_ref": "reports/slither/vulnerable_bank.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "impact": "Low",
+        "check": "reentrancy-events"
+      },
+      "enrichment": {
+        "weakness_class": "Unmapped Security Finding",
+        "impact_summary": "No predefined SWC/OWASP mapping exists yet for rule \"reentrancy-events\". Manual analyst review is recommended.",
+        "remediation_summary": "Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.",
+        "remediation_steps": [
+          "Review raw finding details and affected code path.",
+          "Assess exploitability and business impact.",
+          "Create a new local enrichment rule if this finding recurs."
+        ],
+        "references": [
+          "https://swcregistry.io",
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ],
+        "confidence_note": "Fallback enrichment applied because no exact mapping rule was found."
+      }
+    },
+    {
+      "id": "FND-0005",
+      "record_type": "finding",
+      "source": "slither",
+      "source_report": "slither-vulnerable",
+      "tool": "slither",
+      "rule": "reentrancy-events",
+      "title": "reentrancy-events",
+      "summary": "Reentrancy in VulnerableBank.emergencyDrain() (contracts/VulnerableBank.sol#38-45): External calls: - (success,None) = address(msg.sender).call{value: amount}() (contracts/VulnerableBank.sol#41) Event emitted after the call(s): - EmergencyDrain(msg.sender,amount) (contracts/VulnerableBank.sol#44)",
+      "severity": "LOW",
+      "status": "ACKNOWLEDGED",
+      "asset": {
+        "type": "SMART_CONTRACT",
+        "name": "VulnerableBank",
+        "network": "local-hardhat",
+        "location": "contracts/VulnerableBank.sol:38,39,40,41,42,43,44,45"
+      },
+      "confidence": "Medium",
+      "recommendation": "Review the flagged code path, remediate the vulnerability, and rerun the static scan.",
+      "evidence": {
+        "report": "slither-vulnerable",
+        "location": "contracts/VulnerableBank.sol:38,39,40,41,42,43,44,45",
+        "raw_ref": "reports/slither/vulnerable_bank.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "impact": "Low",
+        "check": "reentrancy-events"
+      },
+      "enrichment": {
+        "weakness_class": "Unmapped Security Finding",
+        "impact_summary": "No predefined SWC/OWASP mapping exists yet for rule \"reentrancy-events\". Manual analyst review is recommended.",
+        "remediation_summary": "Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.",
+        "remediation_steps": [
+          "Review raw finding details and affected code path.",
+          "Assess exploitability and business impact.",
+          "Create a new local enrichment rule if this finding recurs."
+        ],
+        "references": [
+          "https://swcregistry.io",
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ],
+        "confidence_note": "Fallback enrichment applied because no exact mapping rule was found."
+      }
+    },
+    {
+      "id": "FND-0006",
+      "record_type": "finding",
+      "source": "slither",
+      "source_report": "slither-vulnerable",
+      "tool": "slither",
+      "rule": "low-level-calls",
+      "title": "low-level-calls",
+      "summary": "Low level call in VulnerableBank.withdraw() (contracts/VulnerableBank.sol#21-32): - (success,None) = address(msg.sender).call{value: amount}() (contracts/VulnerableBank.sol#25)",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "asset": {
+        "type": "SMART_CONTRACT",
+        "name": "VulnerableBank",
+        "network": "local-hardhat",
+        "location": "contracts/VulnerableBank.sol:21,22,23,24,25,26,27,28,29,30,31,32"
+      },
+      "confidence": "High",
+      "recommendation": "Review the flagged code path, remediate the vulnerability, and rerun the static scan.",
+      "evidence": {
+        "report": "slither-vulnerable",
+        "location": "contracts/VulnerableBank.sol:21,22,23,24,25,26,27,28,29,30,31,32",
+        "raw_ref": "reports/slither/vulnerable_bank.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "impact": "Informational",
+        "check": "low-level-calls"
+      },
+      "enrichment": {
+        "swc_id": "SWC-104",
+        "swc_title": "Unchecked Call Return Value",
+        "owasp_sc_top10": "SC06:2025 - Unchecked External Calls",
+        "weakness_class": "Unchecked External Calls",
+        "impact_summary": "Low-level external calls can fail silently or behave unexpectedly if return values are not validated.",
+        "remediation_summary": "Check call success explicitly and reduce trust in external contracts.",
+        "remediation_steps": [
+          "Check the boolean success result of low-level calls.",
+          "Revert on failed external interactions unless failure is intentionally tolerated.",
+          "Review callback and fallback behavior."
+        ],
+        "references": [
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ]
+      }
+    },
+    {
+      "id": "FND-0007",
+      "record_type": "finding",
+      "source": "slither",
+      "source_report": "slither-vulnerable",
+      "tool": "slither",
+      "rule": "low-level-calls",
+      "title": "low-level-calls",
+      "summary": "Low level call in VulnerableBank.emergencyDrain() (contracts/VulnerableBank.sol#38-45): - (success,None) = address(msg.sender).call{value: amount}() (contracts/VulnerableBank.sol#41)",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "asset": {
+        "type": "SMART_CONTRACT",
+        "name": "VulnerableBank",
+        "network": "local-hardhat",
+        "location": "contracts/VulnerableBank.sol:38,39,40,41,42,43,44,45"
+      },
+      "confidence": "High",
+      "recommendation": "Review the flagged code path, remediate the vulnerability, and rerun the static scan.",
+      "evidence": {
+        "report": "slither-vulnerable",
+        "location": "contracts/VulnerableBank.sol:38,39,40,41,42,43,44,45",
+        "raw_ref": "reports/slither/vulnerable_bank.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "impact": "Informational",
+        "check": "low-level-calls"
+      },
+      "enrichment": {
+        "swc_id": "SWC-104",
+        "swc_title": "Unchecked Call Return Value",
+        "owasp_sc_top10": "SC06:2025 - Unchecked External Calls",
+        "weakness_class": "Unchecked External Calls",
+        "impact_summary": "Low-level external calls can fail silently or behave unexpectedly if return values are not validated.",
+        "remediation_summary": "Check call success explicitly and reduce trust in external contracts.",
+        "remediation_steps": [
+          "Check the boolean success result of low-level calls.",
+          "Revert on failed external interactions unless failure is intentionally tolerated.",
+          "Review callback and fallback behavior."
+        ],
+        "references": [
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ]
+      }
+    },
+    {
+      "id": "FND-0008",
+      "record_type": "finding",
+      "source": "slither",
+      "source_report": "slither-secure",
+      "tool": "slither",
+      "rule": "assembly",
+      "title": "assembly",
+      "summary": "StorageSlot.getAddressSlot(bytes32) (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#66-70) uses assembly - INLINE ASM (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#67-69)",
+      "severity": "LOW",
+      "status": "ACKNOWLEDGED",
+      "asset": {
+        "type": "SMART_CONTRACT",
+        "name": "StorageSlot",
+        "network": "local-hardhat",
+        "location": "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:66,67,68,69,70"
+      },
+      "confidence": "High",
+      "recommendation": "Review the flagged code path, remediate the vulnerability, and rerun the static scan.",
+      "evidence": {
+        "report": "slither-secure",
+        "location": "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:66,67,68,69,70",
+        "raw_ref": "reports/slither/secure_bank.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "impact": "Informational",
+        "check": "assembly"
+      },
+      "enrichment": {
+        "weakness_class": "Unmapped Security Finding",
+        "impact_summary": "No predefined SWC/OWASP mapping exists yet for rule \"assembly\". Manual analyst review is recommended.",
+        "remediation_summary": "Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.",
+        "remediation_steps": [
+          "Review raw finding details and affected code path.",
+          "Assess exploitability and business impact.",
+          "Create a new local enrichment rule if this finding recurs."
+        ],
+        "references": [
+          "https://swcregistry.io",
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ],
+        "confidence_note": "Fallback enrichment applied because no exact mapping rule was found."
+      }
+    },
+    {
+      "id": "FND-0009",
+      "record_type": "finding",
+      "source": "slither",
+      "source_report": "slither-secure",
+      "tool": "slither",
+      "rule": "assembly",
+      "title": "assembly",
+      "summary": "StorageSlot.getUint256Slot(bytes32) (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#93-97) uses assembly - INLINE ASM (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#94-96)",
+      "severity": "LOW",
+      "status": "ACKNOWLEDGED",
+      "asset": {
+        "type": "SMART_CONTRACT",
+        "name": "StorageSlot",
+        "network": "local-hardhat",
+        "location": "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:93,94,95,96,97"
+      },
+      "confidence": "High",
+      "recommendation": "Review the flagged code path, remediate the vulnerability, and rerun the static scan.",
+      "evidence": {
+        "report": "slither-secure",
+        "location": "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:93,94,95,96,97",
+        "raw_ref": "reports/slither/secure_bank.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "impact": "Informational",
+        "check": "assembly"
+      },
+      "enrichment": {
+        "weakness_class": "Unmapped Security Finding",
+        "impact_summary": "No predefined SWC/OWASP mapping exists yet for rule \"assembly\". Manual analyst review is recommended.",
+        "remediation_summary": "Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.",
+        "remediation_steps": [
+          "Review raw finding details and affected code path.",
+          "Assess exploitability and business impact.",
+          "Create a new local enrichment rule if this finding recurs."
+        ],
+        "references": [
+          "https://swcregistry.io",
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ],
+        "confidence_note": "Fallback enrichment applied because no exact mapping rule was found."
+      }
+    },
+    {
+      "id": "FND-0010",
+      "record_type": "finding",
+      "source": "slither",
+      "source_report": "slither-secure",
+      "tool": "slither",
+      "rule": "assembly",
+      "title": "assembly",
+      "summary": "StorageSlot.getBooleanSlot(bytes32) (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#75-79) uses assembly - INLINE ASM (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#76-78)",
+      "severity": "LOW",
+      "status": "ACKNOWLEDGED",
+      "asset": {
+        "type": "SMART_CONTRACT",
+        "name": "StorageSlot",
+        "network": "local-hardhat",
+        "location": "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:75,76,77,78,79"
+      },
+      "confidence": "High",
+      "recommendation": "Review the flagged code path, remediate the vulnerability, and rerun the static scan.",
+      "evidence": {
+        "report": "slither-secure",
+        "location": "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:75,76,77,78,79",
+        "raw_ref": "reports/slither/secure_bank.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "impact": "Informational",
+        "check": "assembly"
+      },
+      "enrichment": {
+        "weakness_class": "Unmapped Security Finding",
+        "impact_summary": "No predefined SWC/OWASP mapping exists yet for rule \"assembly\". Manual analyst review is recommended.",
+        "remediation_summary": "Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.",
+        "remediation_steps": [
+          "Review raw finding details and affected code path.",
+          "Assess exploitability and business impact.",
+          "Create a new local enrichment rule if this finding recurs."
+        ],
+        "references": [
+          "https://swcregistry.io",
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ],
+        "confidence_note": "Fallback enrichment applied because no exact mapping rule was found."
+      }
+    },
+    {
+      "id": "FND-0011",
+      "record_type": "finding",
+      "source": "slither",
+      "source_report": "slither-secure",
+      "tool": "slither",
+      "rule": "assembly",
+      "title": "assembly",
+      "summary": "StorageSlot.getBytes32Slot(bytes32) (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#84-88) uses assembly - INLINE ASM (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#85-87)",
+      "severity": "LOW",
+      "status": "ACKNOWLEDGED",
+      "asset": {
+        "type": "SMART_CONTRACT",
+        "name": "StorageSlot",
+        "network": "local-hardhat",
+        "location": "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:84,85,86,87,88"
+      },
+      "confidence": "High",
+      "recommendation": "Review the flagged code path, remediate the vulnerability, and rerun the static scan.",
+      "evidence": {
+        "report": "slither-secure",
+        "location": "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:84,85,86,87,88",
+        "raw_ref": "reports/slither/secure_bank.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "impact": "Informational",
+        "check": "assembly"
+      },
+      "enrichment": {
+        "weakness_class": "Unmapped Security Finding",
+        "impact_summary": "No predefined SWC/OWASP mapping exists yet for rule \"assembly\". Manual analyst review is recommended.",
+        "remediation_summary": "Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.",
+        "remediation_steps": [
+          "Review raw finding details and affected code path.",
+          "Assess exploitability and business impact.",
+          "Create a new local enrichment rule if this finding recurs."
+        ],
+        "references": [
+          "https://swcregistry.io",
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ],
+        "confidence_note": "Fallback enrichment applied because no exact mapping rule was found."
+      }
+    },
+    {
+      "id": "FND-0012",
+      "record_type": "finding",
+      "source": "slither",
+      "source_report": "slither-secure",
+      "tool": "slither",
+      "rule": "assembly",
+      "title": "assembly",
+      "summary": "StorageSlot.getInt256Slot(bytes32) (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#102-106) uses assembly - INLINE ASM (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#103-105)",
+      "severity": "LOW",
+      "status": "ACKNOWLEDGED",
+      "asset": {
+        "type": "SMART_CONTRACT",
+        "name": "StorageSlot",
+        "network": "local-hardhat",
+        "location": "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:102,103,104,105,106"
+      },
+      "confidence": "High",
+      "recommendation": "Review the flagged code path, remediate the vulnerability, and rerun the static scan.",
+      "evidence": {
+        "report": "slither-secure",
+        "location": "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:102,103,104,105,106",
+        "raw_ref": "reports/slither/secure_bank.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "impact": "Informational",
+        "check": "assembly"
+      },
+      "enrichment": {
+        "weakness_class": "Unmapped Security Finding",
+        "impact_summary": "No predefined SWC/OWASP mapping exists yet for rule \"assembly\". Manual analyst review is recommended.",
+        "remediation_summary": "Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.",
+        "remediation_steps": [
+          "Review raw finding details and affected code path.",
+          "Assess exploitability and business impact.",
+          "Create a new local enrichment rule if this finding recurs."
+        ],
+        "references": [
+          "https://swcregistry.io",
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ],
+        "confidence_note": "Fallback enrichment applied because no exact mapping rule was found."
+      }
+    },
+    {
+      "id": "FND-0013",
+      "record_type": "finding",
+      "source": "slither",
+      "source_report": "slither-secure",
+      "tool": "slither",
+      "rule": "assembly",
+      "title": "assembly",
+      "summary": "StorageSlot.getBytesSlot(bytes) (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#138-142) uses assembly - INLINE ASM (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#139-141)",
+      "severity": "LOW",
+      "status": "ACKNOWLEDGED",
+      "asset": {
+        "type": "SMART_CONTRACT",
+        "name": "StorageSlot",
+        "network": "local-hardhat",
+        "location": "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:138,139,140,141,142"
+      },
+      "confidence": "High",
+      "recommendation": "Review the flagged code path, remediate the vulnerability, and rerun the static scan.",
+      "evidence": {
+        "report": "slither-secure",
+        "location": "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:138,139,140,141,142",
+        "raw_ref": "reports/slither/secure_bank.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "impact": "Informational",
+        "check": "assembly"
+      },
+      "enrichment": {
+        "weakness_class": "Unmapped Security Finding",
+        "impact_summary": "No predefined SWC/OWASP mapping exists yet for rule \"assembly\". Manual analyst review is recommended.",
+        "remediation_summary": "Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.",
+        "remediation_steps": [
+          "Review raw finding details and affected code path.",
+          "Assess exploitability and business impact.",
+          "Create a new local enrichment rule if this finding recurs."
+        ],
+        "references": [
+          "https://swcregistry.io",
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ],
+        "confidence_note": "Fallback enrichment applied because no exact mapping rule was found."
+      }
+    },
+    {
+      "id": "FND-0014",
+      "record_type": "finding",
+      "source": "slither",
+      "source_report": "slither-secure",
+      "tool": "slither",
+      "rule": "assembly",
+      "title": "assembly",
+      "summary": "StorageSlot.getStringSlot(bytes32) (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#111-115) uses assembly - INLINE ASM (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#112-114)",
+      "severity": "LOW",
+      "status": "ACKNOWLEDGED",
+      "asset": {
+        "type": "SMART_CONTRACT",
+        "name": "StorageSlot",
+        "network": "local-hardhat",
+        "location": "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:111,112,113,114,115"
+      },
+      "confidence": "High",
+      "recommendation": "Review the flagged code path, remediate the vulnerability, and rerun the static scan.",
+      "evidence": {
+        "report": "slither-secure",
+        "location": "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:111,112,113,114,115",
+        "raw_ref": "reports/slither/secure_bank.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "impact": "Informational",
+        "check": "assembly"
+      },
+      "enrichment": {
+        "weakness_class": "Unmapped Security Finding",
+        "impact_summary": "No predefined SWC/OWASP mapping exists yet for rule \"assembly\". Manual analyst review is recommended.",
+        "remediation_summary": "Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.",
+        "remediation_steps": [
+          "Review raw finding details and affected code path.",
+          "Assess exploitability and business impact.",
+          "Create a new local enrichment rule if this finding recurs."
+        ],
+        "references": [
+          "https://swcregistry.io",
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ],
+        "confidence_note": "Fallback enrichment applied because no exact mapping rule was found."
+      }
+    },
+    {
+      "id": "FND-0015",
+      "record_type": "finding",
+      "source": "slither",
+      "source_report": "slither-secure",
+      "tool": "slither",
+      "rule": "assembly",
+      "title": "assembly",
+      "summary": "StorageSlot.getStringSlot(string) (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#120-124) uses assembly - INLINE ASM (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#121-123)",
+      "severity": "LOW",
+      "status": "ACKNOWLEDGED",
+      "asset": {
+        "type": "SMART_CONTRACT",
+        "name": "StorageSlot",
+        "network": "local-hardhat",
+        "location": "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:120,121,122,123,124"
+      },
+      "confidence": "High",
+      "recommendation": "Review the flagged code path, remediate the vulnerability, and rerun the static scan.",
+      "evidence": {
+        "report": "slither-secure",
+        "location": "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:120,121,122,123,124",
+        "raw_ref": "reports/slither/secure_bank.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "impact": "Informational",
+        "check": "assembly"
+      },
+      "enrichment": {
+        "weakness_class": "Unmapped Security Finding",
+        "impact_summary": "No predefined SWC/OWASP mapping exists yet for rule \"assembly\". Manual analyst review is recommended.",
+        "remediation_summary": "Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.",
+        "remediation_steps": [
+          "Review raw finding details and affected code path.",
+          "Assess exploitability and business impact.",
+          "Create a new local enrichment rule if this finding recurs."
+        ],
+        "references": [
+          "https://swcregistry.io",
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ],
+        "confidence_note": "Fallback enrichment applied because no exact mapping rule was found."
+      }
+    },
+    {
+      "id": "FND-0016",
+      "record_type": "finding",
+      "source": "slither",
+      "source_report": "slither-secure",
+      "tool": "slither",
+      "rule": "assembly",
+      "title": "assembly",
+      "summary": "StorageSlot.getBytesSlot(bytes32) (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#129-133) uses assembly - INLINE ASM (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#130-132)",
+      "severity": "LOW",
+      "status": "ACKNOWLEDGED",
+      "asset": {
+        "type": "SMART_CONTRACT",
+        "name": "StorageSlot",
+        "network": "local-hardhat",
+        "location": "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:129,130,131,132,133"
+      },
+      "confidence": "High",
+      "recommendation": "Review the flagged code path, remediate the vulnerability, and rerun the static scan.",
+      "evidence": {
+        "report": "slither-secure",
+        "location": "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:129,130,131,132,133",
+        "raw_ref": "reports/slither/secure_bank.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "impact": "Informational",
+        "check": "assembly"
+      },
+      "enrichment": {
+        "weakness_class": "Unmapped Security Finding",
+        "impact_summary": "No predefined SWC/OWASP mapping exists yet for rule \"assembly\". Manual analyst review is recommended.",
+        "remediation_summary": "Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.",
+        "remediation_steps": [
+          "Review raw finding details and affected code path.",
+          "Assess exploitability and business impact.",
+          "Create a new local enrichment rule if this finding recurs."
+        ],
+        "references": [
+          "https://swcregistry.io",
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ],
+        "confidence_note": "Fallback enrichment applied because no exact mapping rule was found."
+      }
+    },
+    {
+      "id": "FND-0017",
+      "record_type": "finding",
+      "source": "slither",
+      "source_report": "slither-secure",
+      "tool": "slither",
+      "rule": "pragma",
+      "title": "pragma",
+      "summary": "2 different versions of Solidity are used: - Version constraint ^0.8.28 is used by: -^0.8.28 (contracts/OpenZep-SecureBank.sol#2) - Version constraint ^0.8.20 is used by: -^0.8.20 (node_modules/@openzeppelin/contracts/utils/ReentrancyGuard.sol#4) -^0.8.20 (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#5)",
+      "severity": "INFO",
+      "status": "INFORMATIONAL",
+      "asset": {
+        "type": "SMART_CONTRACT",
+        "name": "UnknownContract",
+        "network": "local-hardhat",
+        "location": "contracts/OpenZep-SecureBank.sol:2"
+      },
+      "confidence": "High",
+      "recommendation": "Review the flagged code path, remediate the vulnerability, and rerun the static scan.",
+      "evidence": {
+        "report": "slither-secure",
+        "location": "contracts/OpenZep-SecureBank.sol:2",
+        "raw_ref": "reports/slither/secure_bank.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "impact": "Informational",
+        "check": "pragma"
+      },
+      "enrichment": {
+        "weakness_class": "Unmapped Security Finding",
+        "impact_summary": "No predefined SWC/OWASP mapping exists yet for rule \"pragma\". Manual analyst review is recommended.",
+        "remediation_summary": "Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.",
+        "remediation_steps": [
+          "Review raw finding details and affected code path.",
+          "Assess exploitability and business impact.",
+          "Create a new local enrichment rule if this finding recurs."
+        ],
+        "references": [
+          "https://swcregistry.io",
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ],
+        "confidence_note": "Fallback enrichment applied because no exact mapping rule was found."
+      }
+    },
+    {
+      "id": "FND-0018",
+      "record_type": "finding",
+      "source": "slither",
+      "source_report": "slither-secure",
+      "tool": "slither",
+      "rule": "solc-version",
+      "title": "solc-version",
+      "summary": "Version constraint ^0.8.20 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html) - VerbatimInvalidDeduplication - FullInlinerNonExpressionSplitArgumentEvaluationOrder - MissingSideEffectsOnSelectorAccess. It is used by: - ^0.8.20 (node_modules/@openzeppelin/contracts/utils/ReentrancyGuard.sol#4) - ^0.8.20 (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#5)",
+      "severity": "INFO",
+      "status": "INFORMATIONAL",
+      "asset": {
+        "type": "SMART_CONTRACT",
+        "name": "UnknownContract",
+        "network": "local-hardhat",
+        "location": "node_modules/@openzeppelin/contracts/utils/ReentrancyGuard.sol:4"
+      },
+      "confidence": "High",
+      "recommendation": "Review the flagged code path, remediate the vulnerability, and rerun the static scan.",
+      "evidence": {
+        "report": "slither-secure",
+        "location": "node_modules/@openzeppelin/contracts/utils/ReentrancyGuard.sol:4",
+        "raw_ref": "reports/slither/secure_bank.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "impact": "Informational",
+        "check": "solc-version"
+      },
+      "enrichment": {
+        "weakness_class": "Unmapped Security Finding",
+        "impact_summary": "No predefined SWC/OWASP mapping exists yet for rule \"solc-version\". Manual analyst review is recommended.",
+        "remediation_summary": "Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.",
+        "remediation_steps": [
+          "Review raw finding details and affected code path.",
+          "Assess exploitability and business impact.",
+          "Create a new local enrichment rule if this finding recurs."
+        ],
+        "references": [
+          "https://swcregistry.io",
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ],
+        "confidence_note": "Fallback enrichment applied because no exact mapping rule was found."
+      }
+    },
+    {
+      "id": "FND-0019",
+      "record_type": "finding",
+      "source": "slither",
+      "source_report": "slither-secure",
+      "tool": "slither",
+      "rule": "low-level-calls",
+      "title": "low-level-calls",
+      "summary": "Low level call in OpenZep_SecureBank.emergencyDrain() (contracts/OpenZep-SecureBank.sol#50-57): - (success,None) = address(owner).call{value: amount}() (contracts/OpenZep-SecureBank.sol#53)",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "asset": {
+        "type": "SMART_CONTRACT",
+        "name": "OpenZep_SecureBank",
+        "network": "local-hardhat",
+        "location": "contracts/OpenZep-SecureBank.sol:50,51,52,53,54,55,56,57"
+      },
+      "confidence": "High",
+      "recommendation": "Review the flagged code path, remediate the vulnerability, and rerun the static scan.",
+      "evidence": {
+        "report": "slither-secure",
+        "location": "contracts/OpenZep-SecureBank.sol:50,51,52,53,54,55,56,57",
+        "raw_ref": "reports/slither/secure_bank.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "impact": "Informational",
+        "check": "low-level-calls"
+      },
+      "enrichment": {
+        "swc_id": "SWC-104",
+        "swc_title": "Unchecked Call Return Value",
+        "owasp_sc_top10": "SC06:2025 - Unchecked External Calls",
+        "weakness_class": "Unchecked External Calls",
+        "impact_summary": "Low-level external calls can fail silently or behave unexpectedly if return values are not validated.",
+        "remediation_summary": "Check call success explicitly and reduce trust in external contracts.",
+        "remediation_steps": [
+          "Check the boolean success result of low-level calls.",
+          "Revert on failed external interactions unless failure is intentionally tolerated.",
+          "Review callback and fallback behavior."
+        ],
+        "references": [
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ]
+      }
+    },
+    {
+      "id": "FND-0020",
+      "record_type": "finding",
+      "source": "slither",
+      "source_report": "slither-secure",
+      "tool": "slither",
+      "rule": "low-level-calls",
+      "title": "low-level-calls",
+      "summary": "Low level call in OpenZep_SecureBank.withdraw(uint256) (contracts/OpenZep-SecureBank.sol#33-44): - (success,None) = address(msg.sender).call{value: amount}() (contracts/OpenZep-SecureBank.sol#40)",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "asset": {
+        "type": "SMART_CONTRACT",
+        "name": "OpenZep_SecureBank",
+        "network": "local-hardhat",
+        "location": "contracts/OpenZep-SecureBank.sol:33,34,35,36,37,38,39,40,41,42,43,44"
+      },
+      "confidence": "High",
+      "recommendation": "Review the flagged code path, remediate the vulnerability, and rerun the static scan.",
+      "evidence": {
+        "report": "slither-secure",
+        "location": "contracts/OpenZep-SecureBank.sol:33,34,35,36,37,38,39,40,41,42,43,44",
+        "raw_ref": "reports/slither/secure_bank.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "impact": "Informational",
+        "check": "low-level-calls"
+      },
+      "enrichment": {
+        "swc_id": "SWC-104",
+        "swc_title": "Unchecked Call Return Value",
+        "owasp_sc_top10": "SC06:2025 - Unchecked External Calls",
+        "weakness_class": "Unchecked External Calls",
+        "impact_summary": "Low-level external calls can fail silently or behave unexpectedly if return values are not validated.",
+        "remediation_summary": "Check call success explicitly and reduce trust in external contracts.",
+        "remediation_steps": [
+          "Check the boolean success result of low-level calls.",
+          "Revert on failed external interactions unless failure is intentionally tolerated.",
+          "Review callback and fallback behavior."
+        ],
+        "references": [
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ]
+      }
+    },
+    {
+      "id": "FND-0021",
+      "record_type": "finding",
+      "source": "slither",
+      "source_report": "slither-secure",
+      "tool": "slither",
+      "rule": "naming-convention",
+      "title": "naming-convention",
+      "summary": "Contract OpenZep_SecureBank (contracts/OpenZep-SecureBank.sol#6-58) is not in CapWords",
+      "severity": "INFO",
+      "status": "INFORMATIONAL",
+      "asset": {
+        "type": "SMART_CONTRACT",
+        "name": "UnknownContract",
+        "network": "local-hardhat",
+        "location": "contracts/OpenZep-SecureBank.sol:6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58"
+      },
+      "confidence": "High",
+      "recommendation": "Review the flagged code path, remediate the vulnerability, and rerun the static scan.",
+      "evidence": {
+        "report": "slither-secure",
+        "location": "contracts/OpenZep-SecureBank.sol:6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58",
+        "raw_ref": "reports/slither/secure_bank.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "impact": "Informational",
+        "check": "naming-convention"
+      },
+      "enrichment": {
+        "weakness_class": "Unmapped Security Finding",
+        "impact_summary": "No predefined SWC/OWASP mapping exists yet for rule \"naming-convention\". Manual analyst review is recommended.",
+        "remediation_summary": "Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.",
+        "remediation_steps": [
+          "Review raw finding details and affected code path.",
+          "Assess exploitability and business impact.",
+          "Create a new local enrichment rule if this finding recurs."
+        ],
+        "references": [
+          "https://swcregistry.io",
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ],
+        "confidence_note": "Fallback enrichment applied because no exact mapping rule was found."
+      }
+    },
+    {
+      "id": "FND-0022",
+      "record_type": "finding",
+      "source": "slither",
+      "source_report": "slither-secure",
+      "tool": "slither",
+      "rule": "immutable-states",
+      "title": "immutable-states",
+      "summary": "OpenZep_SecureBank.owner (contracts/OpenZep-SecureBank.sol#9) should be immutable",
+      "severity": "LOW",
+      "status": "ACKNOWLEDGED",
+      "asset": {
+        "type": "SMART_CONTRACT",
+        "name": "OpenZep_SecureBank",
+        "network": "local-hardhat",
+        "location": "contracts/OpenZep-SecureBank.sol:9"
+      },
+      "confidence": "High",
+      "recommendation": "Review the flagged code path, remediate the vulnerability, and rerun the static scan.",
+      "evidence": {
+        "report": "slither-secure",
+        "location": "contracts/OpenZep-SecureBank.sol:9",
+        "raw_ref": "reports/slither/secure_bank.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "impact": "Optimization",
+        "check": "immutable-states"
+      },
+      "enrichment": {
+        "weakness_class": "Unmapped Security Finding",
+        "impact_summary": "No predefined SWC/OWASP mapping exists yet for rule \"immutable-states\". Manual analyst review is recommended.",
+        "remediation_summary": "Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.",
+        "remediation_steps": [
+          "Review raw finding details and affected code path.",
+          "Assess exploitability and business impact.",
+          "Create a new local enrichment rule if this finding recurs."
+        ],
+        "references": [
+          "https://swcregistry.io",
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ],
+        "confidence_note": "Fallback enrichment applied because no exact mapping rule was found."
+      }
+    },
+    {
+      "id": "FND-0023",
+      "record_type": "finding",
+      "source": "defi-detector",
+      "source_report": "defi-runtime-monitor",
+      "tool": "defi-detector",
+      "rule": "emergency-function-use",
+      "title": "Emergency administrative action detected",
+      "summary": "Administrative action emergencyDrain was executed by 0xAdmin01 against 0xTreasury.",
+      "severity": "HIGH",
+      "status": "BLOCKING",
+      "asset": {
+        "type": "PROTOCOL_ACTIVITY",
+        "name": "TreasuryCore",
+        "network": "unknown",
+        "location": "tx=0xccc333"
+      },
+      "confidence": null,
+      "recommendation": "Investigate the suspicious runtime behavior and confirm whether exploit conditions exist.",
+      "evidence": {
+        "report": "defi-runtime-monitor",
+        "location": "tx=0xccc333",
+        "raw_ref": "reports/defi/defi_alerts.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "tx_hashes": [
+          "0xccc333"
+        ],
+        "protocols": [
+          "TreasuryCore"
+        ]
+      },
+      "enrichment": {
+        "weakness_class": "Unmapped Security Finding",
+        "impact_summary": "No predefined SWC/OWASP mapping exists yet for rule \"emergency-function-use\". Manual analyst review is recommended.",
+        "remediation_summary": "Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.",
+        "remediation_steps": [
+          "Review raw finding details and affected code path.",
+          "Assess exploitability and business impact.",
+          "Create a new local enrichment rule if this finding recurs."
+        ],
+        "references": [
+          "https://swcregistry.io",
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ],
+        "confidence_note": "Fallback enrichment applied because no exact mapping rule was found."
+      }
+    },
+    {
+      "id": "FND-0024",
+      "record_type": "finding",
+      "source": "defi-detector",
+      "source_report": "defi-runtime-monitor",
+      "tool": "defi-detector",
+      "rule": "flash-loan-pattern",
+      "title": "Flash-loan-like transaction pattern detected",
+      "summary": "Transaction 0xaaa111 contains borrow, swap, and repay actions consistent with a flash-loan-style sequence for address 0xBorrower01.",
+      "severity": "HIGH",
+      "status": "BLOCKING",
+      "asset": {
+        "type": "PROTOCOL_ACTIVITY",
+        "name": "DemoLend, DemoSwap",
+        "network": "unknown",
+        "location": "tx=0xaaa111"
+      },
+      "confidence": null,
+      "recommendation": "Investigate the suspicious runtime behavior and confirm whether exploit conditions exist.",
+      "evidence": {
+        "report": "defi-runtime-monitor",
+        "location": "tx=0xaaa111",
+        "raw_ref": "reports/defi/defi_alerts.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "tx_hashes": [
+          "0xaaa111"
+        ],
+        "protocols": [
+          "DemoLend",
+          "DemoSwap"
+        ]
+      },
+      "enrichment": {
+        "owasp_sc_top10": "SC07:2025 - Flash Loan Attacks",
+        "weakness_class": "Flash Loan Facilitated Attack",
+        "impact_summary": "The transaction pattern matches borrow-manipulate-repay behavior consistent with flash-loan-assisted exploitation.",
+        "remediation_summary": "Add protocol invariants, oracle protections, liquidity checks, and slippage guards.",
+        "remediation_steps": [
+          "Model single-transaction capital amplification scenarios.",
+          "Harden oracle and governance logic against temporary liquidity manipulation.",
+          "Add circuit breakers for abnormal transaction paths."
+        ],
+        "references": [
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ]
+      }
+    },
+    {
+      "id": "FND-0025",
+      "record_type": "finding",
+      "source": "defi-detector",
+      "source_report": "defi-runtime-monitor",
+      "tool": "defi-detector",
+      "rule": "rapid-withdrawals",
+      "title": "Rapid repeated withdrawals detected",
+      "summary": "Address 0xUser77 executed 3 withdrawals within 45 seconds.",
+      "severity": "HIGH",
+      "status": "BLOCKING",
+      "asset": {
+        "type": "PROTOCOL_ACTIVITY",
+        "name": "VaultX",
+        "network": "unknown",
+        "location": "tx=0xbbb222,0xbbb223,0xbbb224"
+      },
+      "confidence": null,
+      "recommendation": "Investigate the suspicious runtime behavior and confirm whether exploit conditions exist.",
+      "evidence": {
+        "report": "defi-runtime-monitor",
+        "location": "tx=0xbbb222,0xbbb223,0xbbb224",
+        "raw_ref": "reports/defi/defi_alerts.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "tx_hashes": [
+          "0xbbb222",
+          "0xbbb223",
+          "0xbbb224"
+        ],
+        "protocols": [
+          "VaultX"
+        ]
+      },
+      "enrichment": {
+        "owasp_sc_top10": "SC05:2025 - Reentrancy Attacks",
+        "weakness_class": "Rapid Drain / Suspicious Withdrawal Pattern",
+        "impact_summary": "Rapid repeated withdrawals may indicate exploit execution or compromised account activity.",
+        "remediation_summary": "Investigate withdrawal controls, rate limits, and abnormal activity protections.",
+        "remediation_steps": [
+          "Review withdrawal rate thresholds.",
+          "Add anomaly detection or temporary account freezing logic.",
+          "Validate whether the pattern reflects exploit replay behavior."
+        ],
+        "references": [
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ]
+      }
+    },
+    {
+      "id": "FND-0026",
+      "record_type": "finding",
+      "source": "defi-detector",
+      "source_report": "defi-runtime-monitor",
+      "tool": "defi-detector",
+      "rule": "large-transfer",
+      "title": "Large value movement detected",
+      "summary": "Transaction 0xddd444 moved 200000 USDC, exceeding the configured threshold of 100000.",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "asset": {
+        "type": "PROTOCOL_ACTIVITY",
+        "name": "BridgeHop",
+        "network": "unknown",
+        "location": "tx=0xddd444"
+      },
+      "confidence": null,
+      "recommendation": "Investigate the suspicious runtime behavior and confirm whether exploit conditions exist.",
+      "evidence": {
+        "report": "defi-runtime-monitor",
+        "location": "tx=0xddd444",
+        "raw_ref": "reports/defi/defi_alerts.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "tx_hashes": [
+          "0xddd444"
+        ],
+        "protocols": [
+          "BridgeHop"
+        ]
+      },
+      "enrichment": {
+        "owasp_sc_top10": "SC03:2025 - Logic Errors",
+        "weakness_class": "Operational / Abnormal Value Movement",
+        "impact_summary": "Large value movement may indicate misuse, compromised workflow, or a need for stronger transfer safeguards.",
+        "remediation_summary": "Investigate thresholds, validate counterparties, and apply transfer controls where necessary.",
+        "remediation_steps": [
+          "Review movement against approved operational baselines.",
+          "Add rate limits or additional approvals for large transfers."
+        ],
+        "references": [
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ]
+      }
+    },
+    {
+      "id": "FND-0027",
+      "record_type": "finding",
+      "source": "defi-detector",
+      "source_report": "defi-runtime-monitor",
+      "tool": "defi-detector",
+      "rule": "large-transfer",
+      "title": "Large value movement detected",
+      "summary": "Transaction 0xddd445 moved 199500 USDC, exceeding the configured threshold of 100000.",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "asset": {
+        "type": "PROTOCOL_ACTIVITY",
+        "name": "BridgeHop",
+        "network": "unknown",
+        "location": "tx=0xddd445"
+      },
+      "confidence": null,
+      "recommendation": "Investigate the suspicious runtime behavior and confirm whether exploit conditions exist.",
+      "evidence": {
+        "report": "defi-runtime-monitor",
+        "location": "tx=0xddd445",
+        "raw_ref": "reports/defi/defi_alerts.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "tx_hashes": [
+          "0xddd445"
+        ],
+        "protocols": [
+          "BridgeHop"
+        ]
+      },
+      "enrichment": {
+        "owasp_sc_top10": "SC03:2025 - Logic Errors",
+        "weakness_class": "Operational / Abnormal Value Movement",
+        "impact_summary": "Large value movement may indicate misuse, compromised workflow, or a need for stronger transfer safeguards.",
+        "remediation_summary": "Investigate thresholds, validate counterparties, and apply transfer controls where necessary.",
+        "remediation_steps": [
+          "Review movement against approved operational baselines.",
+          "Add rate limits or additional approvals for large transfers."
+        ],
+        "references": [
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ]
+      }
+    },
+    {
+      "id": "FND-0028",
+      "record_type": "finding",
+      "source": "defi-detector",
+      "source_report": "defi-runtime-monitor",
+      "tool": "defi-detector",
+      "rule": "large-transfer",
+      "title": "Large value movement detected",
+      "summary": "Transaction 0xddd446 moved 199000 USDC, exceeding the configured threshold of 100000.",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "asset": {
+        "type": "PROTOCOL_ACTIVITY",
+        "name": "BridgeHop",
+        "network": "unknown",
+        "location": "tx=0xddd446"
+      },
+      "confidence": null,
+      "recommendation": "Investigate the suspicious runtime behavior and confirm whether exploit conditions exist.",
+      "evidence": {
+        "report": "defi-runtime-monitor",
+        "location": "tx=0xddd446",
+        "raw_ref": "reports/defi/defi_alerts.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "tx_hashes": [
+          "0xddd446"
+        ],
+        "protocols": [
+          "BridgeHop"
+        ]
+      },
+      "enrichment": {
+        "owasp_sc_top10": "SC03:2025 - Logic Errors",
+        "weakness_class": "Operational / Abnormal Value Movement",
+        "impact_summary": "Large value movement may indicate misuse, compromised workflow, or a need for stronger transfer safeguards.",
+        "remediation_summary": "Investigate thresholds, validate counterparties, and apply transfer controls where necessary.",
+        "remediation_steps": [
+          "Review movement against approved operational baselines.",
+          "Add rate limits or additional approvals for large transfers."
+        ],
+        "references": [
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ]
+      }
+    },
+    {
+      "id": "FND-0029",
+      "record_type": "finding",
+      "source": "defi-detector",
+      "source_report": "defi-runtime-monitor",
+      "tool": "defi-detector",
+      "rule": "large-transfer",
+      "title": "Large value movement detected",
+      "summary": "Transaction 0xeee556 moved 180000 USDT, exceeding the configured threshold of 100000.",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "asset": {
+        "type": "PROTOCOL_ACTIVITY",
+        "name": "LiquidityHub",
+        "network": "unknown",
+        "location": "tx=0xeee556"
+      },
+      "confidence": null,
+      "recommendation": "Investigate the suspicious runtime behavior and confirm whether exploit conditions exist.",
+      "evidence": {
+        "report": "defi-runtime-monitor",
+        "location": "tx=0xeee556",
+        "raw_ref": "reports/defi/defi_alerts.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "tx_hashes": [
+          "0xeee556"
+        ],
+        "protocols": [
+          "LiquidityHub"
+        ]
+      },
+      "enrichment": {
+        "owasp_sc_top10": "SC03:2025 - Logic Errors",
+        "weakness_class": "Operational / Abnormal Value Movement",
+        "impact_summary": "Large value movement may indicate misuse, compromised workflow, or a need for stronger transfer safeguards.",
+        "remediation_summary": "Investigate thresholds, validate counterparties, and apply transfer controls where necessary.",
+        "remediation_steps": [
+          "Review movement against approved operational baselines.",
+          "Add rate limits or additional approvals for large transfers."
+        ],
+        "references": [
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ]
+      }
+    },
+    {
+      "id": "FND-0030",
+      "record_type": "finding",
+      "source": "defi-detector",
+      "source_report": "defi-runtime-monitor",
+      "tool": "defi-detector",
+      "rule": "liquidity-spike",
+      "title": "Liquidity spike detected",
+      "summary": "Liquidity activity increased by 175000 USDT between consecutive events in LiquidityHub.",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "asset": {
+        "type": "PROTOCOL_ACTIVITY",
+        "name": "LiquidityHub",
+        "network": "unknown",
+        "location": "tx=0xeee555,0xeee556"
+      },
+      "confidence": null,
+      "recommendation": "Investigate the suspicious runtime behavior and confirm whether exploit conditions exist.",
+      "evidence": {
+        "report": "defi-runtime-monitor",
+        "location": "tx=0xeee555,0xeee556",
+        "raw_ref": "reports/defi/defi_alerts.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "tx_hashes": [
+          "0xeee555",
+          "0xeee556"
+        ],
+        "protocols": [
+          "LiquidityHub"
+        ]
+      },
+      "enrichment": {
+        "owasp_sc_top10": "SC07:2025 - Flash Loan Attacks",
+        "weakness_class": "Liquidity Manipulation Signal",
+        "impact_summary": "Sudden liquidity changes may indicate flash-loan-assisted market distortion or exploit staging.",
+        "remediation_summary": "Add liquidity monitoring thresholds and strengthen dependent pricing logic.",
+        "remediation_steps": [
+          "Review dependent business logic for liquidity sensitivity.",
+          "Introduce circuit breakers for abrupt liquidity jumps."
+        ],
+        "references": [
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ]
+      }
+    },
+    {
+      "id": "FND-0031",
+      "record_type": "finding",
+      "source": "defi-detector",
+      "source_report": "defi-runtime-monitor",
+      "tool": "defi-detector",
+      "rule": "multi-hop-transfer",
+      "title": "Rapid multi-hop transfer chain detected",
+      "summary": "Detected 3 linked transfers across multiple addresses within 50 seconds.",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "asset": {
+        "type": "PROTOCOL_ACTIVITY",
+        "name": "BridgeHop",
+        "network": "unknown",
+        "location": "tx=0xddd444,0xddd445,0xddd446"
+      },
+      "confidence": null,
+      "recommendation": "Investigate the suspicious runtime behavior and confirm whether exploit conditions exist.",
+      "evidence": {
+        "report": "defi-runtime-monitor",
+        "location": "tx=0xddd444,0xddd445,0xddd446",
+        "raw_ref": "reports/defi/defi_alerts.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "tx_hashes": [
+          "0xddd444",
+          "0xddd445",
+          "0xddd446"
+        ],
+        "protocols": [
+          "BridgeHop"
+        ]
+      },
+      "enrichment": {
+        "owasp_sc_top10": "SC03:2025 - Logic Errors",
+        "weakness_class": "Suspicious Movement Pattern",
+        "impact_summary": "Multi-hop value transfer chains can indicate laundering, obfuscation, or exploit cash-out behavior.",
+        "remediation_summary": "Correlate transfers, counterparties, and protocol rules before approving or ignoring the pattern.",
+        "remediation_steps": [
+          "Track linked addresses and timing clusters.",
+          "Review whether the flow bypasses intended treasury or bridge constraints."
+        ],
+        "references": [
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ]
+      }
+    },
+    {
+      "id": "FND-0032",
+      "record_type": "finding",
+      "source": "consensus-monitor",
+      "source_report": "consensus-health",
+      "tool": "consensus-monitor",
+      "rule": "consensus-health",
+      "title": "Consensus / chain health status",
+      "summary": "No new blocks for 1667 seconds. Chain may be stalled.. Network: 31337. Latest block: 0. Seconds since last block: 1667",
+      "severity": "HIGH",
+      "status": "BLOCKING",
+      "asset": {
+        "type": "BLOCKCHAIN_NETWORK",
+        "name": "31337",
+        "network": "31337",
+        "location": null
+      },
+      "confidence": null,
+      "recommendation": "Verify node health, RPC connectivity, and block production timing before promotion.",
+      "evidence": {
+        "report": "consensus-health",
+        "location": null,
+        "raw_ref": "reports/consensus/consensus_status.json"
+      },
+      "timestamps": {
+        "created_at": "2026-06-23T07:55:06.496Z",
+        "updated_at": null,
+        "observed_at": "2026-06-23T07:55:06.496Z"
+      },
+      "metadata": {
+        "latest_block_number": 0,
+        "seconds_since_last_block": 1667
+      },
+      "enrichment": {
+        "owasp_sc_top10": "SC10:2025 - Denial of Service (DoS) Attacks",
+        "weakness_class": "Chain Availability / DoS Exposure",
+        "impact_summary": "A stalled or unhealthy chain can delay or block execution, monitoring, and operational response.",
+        "remediation_summary": "Validate RPC health, monitor liveness, and route critical operations through resilient infrastructure.",
+        "remediation_steps": [
+          "Monitor block production delay thresholds.",
+          "Fail over to secondary RPC infrastructure.",
+          "Pause sensitive automations when chain liveness is degraded."
+        ],
+        "references": [
+          "https://owasp.org/www-project-smart-contract-top-10/"
+        ]
+      }
+    }
+  ],
+  "enrichment_summary": {
+    "total_findings": 32,
+    "enriched_findings": 32,
+    "mapped_swc": 7,
+    "mapped_owasp": 16
+  }
+}

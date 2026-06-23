@@ -26,7 +26,7 @@ jobs:
           node-version: 20
           cache: npm
 
-      - name: Setup Python
+      - name: Setup Python 3.11 for Slither
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -34,7 +34,7 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y python3-pip jq curl build-essential
+          sudo apt-get install -y python3-pip python3-venv jq curl build-essential software-properties-common
 
       - name: Install Solidity compiler
         run: |
@@ -42,15 +42,26 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y solc
 
-      - name: Install Python security tools
+      - name: Install Slither only
         run: |
           python3 -m pip install --upgrade pip
-          pip install slither-analyzer mythril
+          python3 -m pip install "slither-analyzer==0.11.5"
+
+      - name: Create Mythril isolated environment
+        run: |
+          python3 -m venv mythril-only-env
+          ./mythril-only-env/bin/python -m pip install --upgrade pip setuptools wheel
+          ./mythril-only-env/bin/pip install "mythril==0.24.8" || true
+
+      - name: Verify Python security tools
+        run: |
+          slither --version
+          ./mythril-only-env/bin/myth version || true
 
       - name: Install Node dependencies
         run: npm install
 
-      - name: Make pipeline scripts executable
+      - name: Make scripts executable
         run: |
           chmod +x ./scripts/run-slither.sh || true
           chmod +x ./scripts/pipeline-security.sh || true
@@ -59,6 +70,10 @@ jobs:
 
       - name: Run normal security pipeline
         run: npm run pipeline:security
+
+      - name: Run enrichment stage
+        if: always()
+        run: npm run enrich:findings
 
       - name: Upload HTML reports
         if: always()
@@ -76,7 +91,7 @@ jobs:
           path: reports/incident/
           if-no-files-found: warn
 
-      - name: Upload normalized dashboard data
+      - name: Upload normalized and enriched dashboard data
         if: always()
         uses: actions/upload-artifact@v4
         with:

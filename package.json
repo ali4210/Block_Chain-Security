@@ -18,6 +18,7 @@
     "security:gate": "tsx ./scripts/security-gate.mts",
     "incident:orchestrate": "mkdir -p reports/incident && tsx ./scripts/incident-orchestrator.mts",
     "normalize:reports": "mkdir -p dashboard/data && tsx ./scripts/normalize-reports.mts",
+    "enrich:findings": "mkdir -p dashboard/data && tsx ./scripts/enrich-findings.mts",
     "report:html": "mkdir -p reports/html && tsx ./scripts/generate-html-report.mts",
 
     "pipeline:security": "bash ./scripts/pipeline-security.sh",

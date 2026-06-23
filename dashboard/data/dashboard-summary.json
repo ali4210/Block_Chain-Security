@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-23T07:27:55.691Z",
+  "generated_at": "2026-06-23T07:55:06.496Z",
   "pipeline_status": "FAIL",
-  "last_pipeline_run": "2026-06-23T07:27:55.691Z",
+  "last_pipeline_run": "2026-06-23T07:55:06.496Z",
   "kpis": {
     "total_findings": 32,
     "high_findings": 6,
@@ -62,7 +62,7 @@
         "file": "reports/defi/defi_alerts.json",
         "state": "FOUND",
         "size_bytes": 11536,
-        "sha256": "dcec147ad1c10412bbf9ac6656a1c8f2720ab87c142aa8d36fc07d9c15143d97",
+        "sha256": "13e820d2df296cec376037b8b8e3ac5b3faa739b30f57239bcbf35c2c05e0a65",
         "note": null
       },
       {
@@ -70,7 +70,7 @@
         "file": "reports/consensus/consensus_status.json",
         "state": "FOUND",
         "size_bytes": 287,
-        "sha256": "a023e204715f405e0e7331f39195d6098e491fb6203699c7c78ce650eb5f2df7",
+        "sha256": "c614c5823e667fbaed16bb8c2124a4894c97182a58cb7a5a89bed6a579886d3a",
         "note": null
       },
       {
@@ -86,7 +86,7 @@
         "file": "reports/wallet-screening/wallet_screening.json",
         "state": "FOUND",
         "size_bytes": 18594,
-        "sha256": "0dc324e56950c9e030cd01ad25aa8bdec75b86e980626933a43acfe1b7cc7d97",
+        "sha256": "8e012700fe6c71bf70d5d2975fd9eb24df5752caf3acde50abb84e867700b629",
         "note": null
       },
       {

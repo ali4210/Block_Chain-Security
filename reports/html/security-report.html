@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Security Pipeline HTML Report</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #121a2b;
+      --panel-2: #0f1726;
+      --text: #e8eefc;
+      --muted: #9fb0d0;
+      --border: #233252;
+      --high: #ef4444;
+      --medium: #f59e0b;
+      --low: #22c55e;
+      --info: #38bdf8;
+      --shadow: 0 10px 30px rgba(0,0,0,0.28);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background: linear-gradient(180deg, #0a0f1d 0%, #12192b 100%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+    }
+
+    .hero, .panel {
+      background: rgba(18, 26, 43, 0.95);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      padding: 28px;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+    }
+
+    .hero p {
+      margin: 6px 0;
+      color: var(--muted);
+    }
+
+    .gate {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      background: rgba(239,68,68,0.12);
+      color: #fecaca;
+      border: 1px solid rgba(239,68,68,0.35);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .stat {
+      padding: 20px;
+      background: rgba(15, 23, 38, 0.95);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .stat .label {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .stat .value {
+      font-size: 30px;
+      font-weight: 800;
+      word-break: break-word;
+    }
+
+    .stat.high .value { color: var(--high); }
+    .stat.medium .value { color: var(--medium); }
+    .stat.low .value { color: var(--low); }
+    .stat.info .value { color: var(--info); }
+
+    .panel {
+      padding: 22px;
+      margin-bottom: 22px;
+    }
+
+    .panel h2 {
+      margin: 0 0 14px;
+      font-size: 22px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .badge.high { background: rgba(239,68,68,0.16); color: #fecaca; border: 1px solid rgba(239,68,68,0.35); }
+    .badge.medium { background: rgba(245,158,11,0.16); color: #fde68a; border: 1px solid rgba(245,158,11,0.35); }
+    .badge.low { background: rgba(34,197,94,0.16); color: #bbf7d0; border: 1px solid rgba(34,197,94,0.35); }
+    .badge.info { background: rgba(56,189,248,0.16); color: #bae6fd; border: 1px solid rgba(56,189,248,0.35); }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 1400px;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+
+    thead th {
+      text-align: left;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: rgba(255,255,255,0.03);
+      padding: 14px 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    tbody td {
+      padding: 14px 12px;
+      border-bottom: 1px solid rgba(35,50,82,0.7);
+      vertical-align: top;
+      font-size: 14px;
+    }
+
+    tbody tr:hover {
+      background: rgba(255,255,255,0.025);
+    }
+
+    .compact-list {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .compact-list li {
+      margin: 0 0 6px;
+    }
+
+    .sources {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .sources li {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.02);
+      word-break: break-word;
+    }
+
+    .source-status {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    .source-status.present { color: #86efac; }
+    .source-status.missing { color: #fca5a5; }
+
+    .footer {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 14px;
+    }
+
+    @media (max-width: 960px) {
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 26px;
+      }
+
+      .container {
+        padding: 20px 14px 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="hero">
+      <h1>Security Pipeline HTML Report</h1>
+      <p>Human-readable output for smart contract security, DeFi runtime alerts, consensus monitoring, wallet screening, incident orchestration, and enrichment with SWC/OWASP context.</p>
+      <p>Generated at: 2026-06-23T08:00:09.333Z</p>
+      <p>Input dataset timestamp: 2026-06-23T07:57:14.647Z</p>
+      <div class="gate">Security Gate Status: FAIL</div>
+    </section>
+
+    <section class="grid">
+      <div class="stat high">
+        <div class="label">High</div>
+        <div class="value">6</div>
+      </div>
+      <div class="stat medium">
+        <div class="label">Medium</div>
+        <div class="value">11</div>
+      </div>
+      <div class="stat low">
+        <div class="label">Low</div>
+        <div class="value">12</div>
+      </div>
+      <div class="stat info">
+        <div class="label">Info</div>
+        <div class="value">3</div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="stat">
+        <div class="label">Total Findings</div>
+        <div class="value">32</div>
+      </div>
+      <div class="stat">
+        <div class="label">Total Incidents</div>
+        <div class="value">32</div>
+      </div>
+      <div class="stat">
+        <div class="label">Mapped SWC</div>
+        <div class="value">7</div>
+      </div>
+      <div class="stat">
+        <div class="label">Mapped OWASP</div>
+        <div class="value">16</div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="stat">
+        <div class="label">Unique Tools</div>
+        <div class="value">3</div>
+      </div>
+      <div class="stat">
+        <div class="label">HTML Output</div>
+        <div class="value" style="font-size:18px;">reports/html/security-report.html</div>
+      </div>
+      <div class="stat">
+        <div class="label">Findings Source</div>
+        <div class="value" style="font-size:18px;">enriched-findings.json</div>
+      </div>
+      <div class="stat">
+        <div class="label">Gate Basis</div>
+        <div class="value" style="font-size:18px;">High severity count</div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Executive Summary</h2>
+      <p class="muted">
+        This report aggregates pipeline outputs into a browser-readable format so stakeholders can review severity distribution, source tools, incident response actions, and enrichment context without opening machine-oriented JSON files.
+      </p>
+      <p class="muted">
+        A FAIL status means at least one HIGH severity finding was detected in the selected findings dataset. A PASS status means no HIGH severity findings were present in the collected findings.
+      </p>
+    </section>
+
+    <section class="panel">
+      <h2>Findings by Tool</h2>
+      <div class="table-wrap">
+        <table style="min-width: 500px;">
+          <thead>
+            <tr>
+              <th>Tool</th>
+              <th>Finding Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+        <tr>
+          <td>consensus-monitor</td>
+          <td>1</td>
+        </tr>
+      
+        <tr>
+          <td>defi-detector</td>
+          <td>9</td>
+        </tr>
+      
+        <tr>
+          <td>slither</td>
+          <td>22</td>
+        </tr>
+      
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Detailed Findings</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Severity</th>
+              <th>Tool</th>
+              <th>Affected Component</th>
+              <th>Rule</th>
+              <th>Title</th>
+              <th>Location</th>
+              <th>Description</th>
+              <th>SWC</th>
+              <th>OWASP</th>
+              <th>Weakness Class</th>
+              <th>Impact</th>
+              <th>Remedy</th>
+              <th>Recommended Steps</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+        <tr>
+          <td><span class="badge high">HIGH</span></td>
+          <td>consensus-monitor</td>
+          <td>-</td>
+          <td>consensus-health</td>
+          <td>Consensus / chain health status</td>
+          <td>-</td>
+          <td></td>
+          <td>-</td>
+          <td>SC10:2025 - Denial of Service (DoS) Attacks</td>
+          <td>Chain Availability / DoS Exposure</td>
+          <td>A stalled or unhealthy chain can delay or block execution, monitoring, and operational response.</td>
+          <td>Validate RPC health, monitor liveness, and route critical operations through resilient infrastructure.</td>
+          <td><ul class="compact-list"><li>Monitor block production delay thresholds.</li><li>Fail over to secondary RPC infrastructure.</li><li>Pause sensitive automations when chain liveness is degraded.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge high">HIGH</span></td>
+          <td>defi-detector</td>
+          <td>-</td>
+          <td>emergency-function-use</td>
+          <td>Emergency administrative action detected</td>
+          <td>-</td>
+          <td></td>
+          <td>-</td>
+          <td>-</td>
+          <td>Unmapped Security Finding</td>
+          <td>No predefined SWC/OWASP mapping exists yet for rule &quot;emergency-function-use&quot;. Manual analyst review is recommended.</td>
+          <td>Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.</td>
+          <td><ul class="compact-list"><li>Review raw finding details and affected code path.</li><li>Assess exploitability and business impact.</li><li>Create a new local enrichment rule if this finding recurs.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge high">HIGH</span></td>
+          <td>defi-detector</td>
+          <td>-</td>
+          <td>flash-loan-pattern</td>
+          <td>Flash-loan-like transaction pattern detected</td>
+          <td>-</td>
+          <td></td>
+          <td>-</td>
+          <td>SC07:2025 - Flash Loan Attacks</td>
+          <td>Flash Loan Facilitated Attack</td>
+          <td>The transaction pattern matches borrow-manipulate-repay behavior consistent with flash-loan-assisted exploitation.</td>
+          <td>Add protocol invariants, oracle protections, liquidity checks, and slippage guards.</td>
+          <td><ul class="compact-list"><li>Model single-transaction capital amplification scenarios.</li><li>Harden oracle and governance logic against temporary liquidity manipulation.</li><li>Add circuit breakers for abnormal transaction paths.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge high">HIGH</span></td>
+          <td>defi-detector</td>
+          <td>-</td>
+          <td>rapid-withdrawals</td>
+          <td>Rapid repeated withdrawals detected</td>
+          <td>-</td>
+          <td></td>
+          <td>-</td>
+          <td>SC05:2025 - Reentrancy Attacks</td>
+          <td>Rapid Drain / Suspicious Withdrawal Pattern</td>
+          <td>Rapid repeated withdrawals may indicate exploit execution or compromised account activity.</td>
+          <td>Investigate withdrawal controls, rate limits, and abnormal activity protections.</td>
+          <td><ul class="compact-list"><li>Review withdrawal rate thresholds.</li><li>Add anomaly detection or temporary account freezing logic.</li><li>Validate whether the pattern reflects exploit replay behavior.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge high">HIGH</span></td>
+          <td>slither</td>
+          <td>-</td>
+          <td>arbitrary-send-eth</td>
+          <td>arbitrary-send-eth</td>
+          <td>-</td>
+          <td></td>
+          <td>SWC-105 — Unprotected Ether Withdrawal</td>
+          <td>SC01:2025 - Access Control Vulnerabilities</td>
+          <td>Access Control / Unauthorized Asset Movement</td>
+          <td>A weakly protected withdrawal path may allow unauthorized Ether transfer to attacker-chosen destinations.</td>
+          <td>Restrict privileged withdrawals, validate recipients, and enforce role-based authorization.</td>
+          <td><ul class="compact-list"><li>Protect administrative transfer functions with strict access control.</li><li>Validate recipient and amount constraints.</li><li>Add tests for unauthorized drain scenarios.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge high">HIGH</span></td>
+          <td>slither</td>
+          <td>-</td>
+          <td>reentrancy-eth</td>
+          <td>reentrancy-eth</td>
+          <td>-</td>
+          <td></td>
+          <td>SWC-107 — Reentrancy</td>
+          <td>SC05:2025 - Reentrancy Attacks</td>
+          <td>Reentrancy</td>
+          <td>An external call may re-enter the contract before internal state is finalized, enabling repeated withdrawals or inconsistent accounting.</td>
+          <td>Apply Checks-Effects-Interactions, add ReentrancyGuard, and prefer pull-payment patterns.</td>
+          <td><ul class="compact-list"><li>Update internal balances before external calls.</li><li>Add OpenZeppelin ReentrancyGuard to sensitive functions.</li><li>Prefer pull-over-push withdrawal logic.</li><li>Retest with static and symbolic analysis after patching.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>defi-detector</td>
+          <td>-</td>
+          <td>large-transfer</td>
+          <td>Large value movement detected</td>
+          <td>-</td>
+          <td></td>
+          <td>-</td>
+          <td>SC03:2025 - Logic Errors</td>
+          <td>Operational / Abnormal Value Movement</td>
+          <td>Large value movement may indicate misuse, compromised workflow, or a need for stronger transfer safeguards.</td>
+          <td>Investigate thresholds, validate counterparties, and apply transfer controls where necessary.</td>
+          <td><ul class="compact-list"><li>Review movement against approved operational baselines.</li><li>Add rate limits or additional approvals for large transfers.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>defi-detector</td>
+          <td>-</td>
+          <td>large-transfer</td>
+          <td>Large value movement detected</td>
+          <td>-</td>
+          <td></td>
+          <td>-</td>
+          <td>SC03:2025 - Logic Errors</td>
+          <td>Operational / Abnormal Value Movement</td>
+          <td>Large value movement may indicate misuse, compromised workflow, or a need for stronger transfer safeguards.</td>
+          <td>Investigate thresholds, validate counterparties, and apply transfer controls where necessary.</td>
+          <td><ul class="compact-list"><li>Review movement against approved operational baselines.</li><li>Add rate limits or additional approvals for large transfers.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>defi-detector</td>
+          <td>-</td>
+          <td>large-transfer</td>
+          <td>Large value movement detected</td>
+          <td>-</td>
+          <td></td>
+          <td>-</td>
+          <td>SC03:2025 - Logic Errors</td>
+          <td>Operational / Abnormal Value Movement</td>
+          <td>Large value movement may indicate misuse, compromised workflow, or a need for stronger transfer safeguards.</td>
+          <td>Investigate thresholds, validate counterparties, and apply transfer controls where necessary.</td>
+          <td><ul class="compact-list"><li>Review movement against approved operational baselines.</li><li>Add rate limits or additional approvals for large transfers.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>defi-detector</td>
+          <td>-</td>
+          <td>large-transfer</td>
+          <td>Large value movement detected</td>
+          <td>-</td>
+          <td></td>
+          <td>-</td>
+          <td>SC03:2025 - Logic Errors</td>
+          <td>Operational / Abnormal Value Movement</td>
+          <td>Large value movement may indicate misuse, compromised workflow, or a need for stronger transfer safeguards.</td>
+          <td>Investigate thresholds, validate counterparties, and apply transfer controls where necessary.</td>
+          <td><ul class="compact-list"><li>Review movement against approved operational baselines.</li><li>Add rate limits or additional approvals for large transfers.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>defi-detector</td>
+          <td>-</td>
+          <td>liquidity-spike</td>
+          <td>Liquidity spike detected</td>
+          <td>-</td>
+          <td></td>
+          <td>-</td>
+          <td>SC07:2025 - Flash Loan Attacks</td>
+          <td>Liquidity Manipulation Signal</td>
+          <td>Sudden liquidity changes may indicate flash-loan-assisted market distortion or exploit staging.</td>
+          <td>Add liquidity monitoring thresholds and strengthen dependent pricing logic.</td>
+          <td><ul class="compact-list"><li>Review dependent business logic for liquidity sensitivity.</li><li>Introduce circuit breakers for abrupt liquidity jumps.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>defi-detector</td>
+          <td>-</td>
+          <td>multi-hop-transfer</td>
+          <td>Rapid multi-hop transfer chain detected</td>
+          <td>-</td>
+          <td></td>
+          <td>-</td>
+          <td>SC03:2025 - Logic Errors</td>
+          <td>Suspicious Movement Pattern</td>
+          <td>Multi-hop value transfer chains can indicate laundering, obfuscation, or exploit cash-out behavior.</td>
+          <td>Correlate transfers, counterparties, and protocol rules before approving or ignoring the pattern.</td>
+          <td><ul class="compact-list"><li>Track linked addresses and timing clusters.</li><li>Review whether the flow bypasses intended treasury or bridge constraints.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>slither</td>
+          <td>-</td>
+          <td>reentrancy-benign</td>
+          <td>reentrancy-benign</td>
+          <td>-</td>
+          <td></td>
+          <td>SWC-107 — Reentrancy</td>
+          <td>SC05:2025 - Reentrancy Attacks</td>
+          <td>Reentrancy</td>
+          <td>Execution order may still create inconsistent state even when direct theft is not immediately confirmed.</td>
+          <td>Harden function sequencing and apply reentrancy-safe state management.</td>
+          <td><ul class="compact-list"><li>Move state updates before external interaction.</li><li>Use a reentrancy guard where needed.</li><li>Review cross-function state dependencies.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>slither</td>
+          <td>-</td>
+          <td>low-level-calls</td>
+          <td>low-level-calls</td>
+          <td>-</td>
+          <td></td>
+          <td>SWC-104 — Unchecked Call Return Value</td>
+          <td>SC06:2025 - Unchecked External Calls</td>
+          <td>Unchecked External Calls</td>
+          <td>Low-level external calls can fail silently or behave unexpectedly if return values are not validated.</td>
+          <td>Check call success explicitly and reduce trust in external contracts.</td>
+          <td><ul class="compact-list"><li>Check the boolean success result of low-level calls.</li><li>Revert on failed external interactions unless failure is intentionally tolerated.</li><li>Review callback and fallback behavior.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>slither</td>
+          <td>-</td>
+          <td>low-level-calls</td>
+          <td>low-level-calls</td>
+          <td>-</td>
+          <td></td>
+          <td>SWC-104 — Unchecked Call Return Value</td>
+          <td>SC06:2025 - Unchecked External Calls</td>
+          <td>Unchecked External Calls</td>
+          <td>Low-level external calls can fail silently or behave unexpectedly if return values are not validated.</td>
+          <td>Check call success explicitly and reduce trust in external contracts.</td>
+          <td><ul class="compact-list"><li>Check the boolean success result of low-level calls.</li><li>Revert on failed external interactions unless failure is intentionally tolerated.</li><li>Review callback and fallback behavior.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>slither</td>
+          <td>-</td>
+          <td>low-level-calls</td>
+          <td>low-level-calls</td>
+          <td>-</td>
+          <td></td>
+          <td>SWC-104 — Unchecked Call Return Value</td>
+          <td>SC06:2025 - Unchecked External Calls</td>
+          <td>Unchecked External Calls</td>
+          <td>Low-level external calls can fail silently or behave unexpectedly if return values are not validated.</td>
+          <td>Check call success explicitly and reduce trust in external contracts.</td>
+          <td><ul class="compact-list"><li>Check the boolean success result of low-level calls.</li><li>Revert on failed external interactions unless failure is intentionally tolerated.</li><li>Review callback and fallback behavior.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>slither</td>
+          <td>-</td>
+          <td>low-level-calls</td>
+          <td>low-level-calls</td>
+          <td>-</td>
+          <td></td>
+          <td>SWC-104 — Unchecked Call Return Value</td>
+          <td>SC06:2025 - Unchecked External Calls</td>
+          <td>Unchecked External Calls</td>
+          <td>Low-level external calls can fail silently or behave unexpectedly if return values are not validated.</td>
+          <td>Check call success explicitly and reduce trust in external contracts.</td>
+          <td><ul class="compact-list"><li>Check the boolean success result of low-level calls.</li><li>Revert on failed external interactions unless failure is intentionally tolerated.</li><li>Review callback and fallback behavior.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>-</td>
+          <td>reentrancy-events</td>
+          <td>reentrancy-events</td>
+          <td>-</td>
+          <td></td>
+          <td>-</td>
+          <td>-</td>
+          <td>Unmapped Security Finding</td>
+          <td>No predefined SWC/OWASP mapping exists yet for rule &quot;reentrancy-events&quot;. Manual analyst review is recommended.</td>
+          <td>Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.</td>
+          <td><ul class="compact-list"><li>Review raw finding details and affected code path.</li><li>Assess exploitability and business impact.</li><li>Create a new local enrichment rule if this finding recurs.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>-</td>
+          <td>reentrancy-events</td>
+          <td>reentrancy-events</td>
+          <td>-</td>
+          <td></td>
+          <td>-</td>
+          <td>-</td>
+          <td>Unmapped Security Finding</td>
+          <td>No predefined SWC/OWASP mapping exists yet for rule &quot;reentrancy-events&quot;. Manual analyst review is recommended.</td>
+          <td>Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.</td>
+          <td><ul class="compact-list"><li>Review raw finding details and affected code path.</li><li>Assess exploitability and business impact.</li><li>Create a new local enrichment rule if this finding recurs.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>-</td>
+          <td>assembly</td>
+          <td>assembly</td>
+          <td>-</td>
+          <td></td>
+          <td>-</td>
+          <td>-</td>
+          <td>Unmapped Security Finding</td>
+          <td>No predefined SWC/OWASP mapping exists yet for rule &quot;assembly&quot;. Manual analyst review is recommended.</td>
+          <td>Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.</td>
+          <td><ul class="compact-list"><li>Review raw finding details and affected code path.</li><li>Assess exploitability and business impact.</li><li>Create a new local enrichment rule if this finding recurs.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>-</td>
+          <td>assembly</td>
+          <td>assembly</td>
+          <td>-</td>
+          <td></td>
+          <td>-</td>
+          <td>-</td>
+          <td>Unmapped Security Finding</td>
+          <td>No predefined SWC/OWASP mapping exists yet for rule &quot;assembly&quot;. Manual analyst review is recommended.</td>
+          <td>Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.</td>
+          <td><ul class="compact-list"><li>Review raw finding details and affected code path.</li><li>Assess exploitability and business impact.</li><li>Create a new local enrichment rule if this finding recurs.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>-</td>
+          <td>assembly</td>
+          <td>assembly</td>
+          <td>-</td>
+          <td></td>
+          <td>-</td>
+          <td>-</td>
+          <td>Unmapped Security Finding</td>
+          <td>No predefined SWC/OWASP mapping exists yet for rule &quot;assembly&quot;. Manual analyst review is recommended.</td>
+          <td>Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.</td>
+          <td><ul class="compact-list"><li>Review raw finding details and affected code path.</li><li>Assess exploitability and business impact.</li><li>Create a new local enrichment rule if this finding recurs.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>-</td>
+          <td>assembly</td>
+          <td>assembly</td>
+          <td>-</td>
+          <td></td>
+          <td>-</td>
+          <td>-</td>
+          <td>Unmapped Security Finding</td>
+          <td>No predefined SWC/OWASP mapping exists yet for rule &quot;assembly&quot;. Manual analyst review is recommended.</td>
+          <td>Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.</td>
+          <td><ul class="compact-list"><li>Review raw finding details and affected code path.</li><li>Assess exploitability and business impact.</li><li>Create a new local enrichment rule if this finding recurs.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>-</td>
+          <td>assembly</td>
+          <td>assembly</td>
+          <td>-</td>
+          <td></td>
+          <td>-</td>
+          <td>-</td>
+          <td>Unmapped Security Finding</td>
+          <td>No predefined SWC/OWASP mapping exists yet for rule &quot;assembly&quot;. Manual analyst review is recommended.</td>
+          <td>Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.</td>
+          <td><ul class="compact-list"><li>Review raw finding details and affected code path.</li><li>Assess exploitability and business impact.</li><li>Create a new local enrichment rule if this finding recurs.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>-</td>
+          <td>assembly</td>
+          <td>assembly</td>
+          <td>-</td>
+          <td></td>
+          <td>-</td>
+          <td>-</td>
+          <td>Unmapped Security Finding</td>
+          <td>No predefined SWC/OWASP mapping exists yet for rule &quot;assembly&quot;. Manual analyst review is recommended.</td>
+          <td>Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.</td>
+          <td><ul class="compact-list"><li>Review raw finding details and affected code path.</li><li>Assess exploitability and business impact.</li><li>Create a new local enrichment rule if this finding recurs.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>-</td>
+          <td>assembly</td>
+          <td>assembly</td>
+          <td>-</td>
+          <td></td>
+          <td>-</td>
+          <td>-</td>
+          <td>Unmapped Security Finding</td>
+          <td>No predefined SWC/OWASP mapping exists yet for rule &quot;assembly&quot;. Manual analyst review is recommended.</td>
+          <td>Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.</td>
+          <td><ul class="compact-list"><li>Review raw finding details and affected code path.</li><li>Assess exploitability and business impact.</li><li>Create a new local enrichment rule if this finding recurs.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>-</td>
+          <td>assembly</td>
+          <td>assembly</td>
+          <td>-</td>
+          <td></td>
+          <td>-</td>
+          <td>-</td>
+          <td>Unmapped Security Finding</td>
+          <td>No predefined SWC/OWASP mapping exists yet for rule &quot;assembly&quot;. Manual analyst review is recommended.</td>
+          <td>Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.</td>
+          <td><ul class="compact-list"><li>Review raw finding details and affected code path.</li><li>Assess exploitability and business impact.</li><li>Create a new local enrichment rule if this finding recurs.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>-</td>
+          <td>assembly</td>
+          <td>assembly</td>
+          <td>-</td>
+          <td></td>
+          <td>-</td>
+          <td>-</td>
+          <td>Unmapped Security Finding</td>
+          <td>No predefined SWC/OWASP mapping exists yet for rule &quot;assembly&quot;. Manual analyst review is recommended.</td>
+          <td>Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.</td>
+          <td><ul class="compact-list"><li>Review raw finding details and affected code path.</li><li>Assess exploitability and business impact.</li><li>Create a new local enrichment rule if this finding recurs.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>-</td>
+          <td>immutable-states</td>
+          <td>immutable-states</td>
+          <td>-</td>
+          <td></td>
+          <td>-</td>
+          <td>-</td>
+          <td>Unmapped Security Finding</td>
+          <td>No predefined SWC/OWASP mapping exists yet for rule &quot;immutable-states&quot;. Manual analyst review is recommended.</td>
+          <td>Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.</td>
+          <td><ul class="compact-list"><li>Review raw finding details and affected code path.</li><li>Assess exploitability and business impact.</li><li>Create a new local enrichment rule if this finding recurs.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge info">INFO</span></td>
+          <td>slither</td>
+          <td>-</td>
+          <td>pragma</td>
+          <td>pragma</td>
+          <td>-</td>
+          <td></td>
+          <td>-</td>
+          <td>-</td>
+          <td>Unmapped Security Finding</td>
+          <td>No predefined SWC/OWASP mapping exists yet for rule &quot;pragma&quot;. Manual analyst review is recommended.</td>
+          <td>Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.</td>
+          <td><ul class="compact-list"><li>Review raw finding details and affected code path.</li><li>Assess exploitability and business impact.</li><li>Create a new local enrichment rule if this finding recurs.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge info">INFO</span></td>
+          <td>slither</td>
+          <td>-</td>
+          <td>solc-version</td>
+          <td>solc-version</td>
+          <td>-</td>
+          <td></td>
+          <td>-</td>
+          <td>-</td>
+          <td>Unmapped Security Finding</td>
+          <td>No predefined SWC/OWASP mapping exists yet for rule &quot;solc-version&quot;. Manual analyst review is recommended.</td>
+          <td>Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.</td>
+          <td><ul class="compact-list"><li>Review raw finding details and affected code path.</li><li>Assess exploitability and business impact.</li><li>Create a new local enrichment rule if this finding recurs.</li></ul></td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge info">INFO</span></td>
+          <td>slither</td>
+          <td>-</td>
+          <td>naming-convention</td>
+          <td>naming-convention</td>
+          <td>-</td>
+          <td></td>
+          <td>-</td>
+          <td>-</td>
+          <td>Unmapped Security Finding</td>
+          <td>No predefined SWC/OWASP mapping exists yet for rule &quot;naming-convention&quot;. Manual analyst review is recommended.</td>
+          <td>Review the tool output manually, validate exploitability, and map the finding into your internal taxonomy.</td>
+          <td><ul class="compact-list"><li>Review raw finding details and affected code path.</li><li>Assess exploitability and business impact.</li><li>Create a new local enrichment rule if this finding recurs.</li></ul></td>
+        </tr>
+      
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Incident Actions</h2>
+      <div class="table-wrap">
+        <table style="min-width: 1000px;">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Severity</th>
+              <th>Tool</th>
+              <th>Affected Component</th>
+              <th>Action</th>
+              <th>Owner</th>
+              <th>Status</th>
+              <th>Remediation</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+        <tr>
+          <td>INC-0001</td>
+          <td><span class="badge high">HIGH</span></td>
+          <td>slither</td>
+          <td>VulnerableBank</td>
+          <td>BLOCK_BUILD</td>
+          <td>Application Security Team</td>
+          <td>OPEN</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0002</td>
+          <td><span class="badge high">HIGH</span></td>
+          <td>slither</td>
+          <td>VulnerableBank</td>
+          <td>BLOCK_BUILD</td>
+          <td>Application Security Team</td>
+          <td>OPEN</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0023</td>
+          <td><span class="badge high">HIGH</span></td>
+          <td>defi-detector</td>
+          <td>TreasuryCore</td>
+          <td>ESCALATE_SECURITY</td>
+          <td>SOC / Blockchain Monitoring Team</td>
+          <td>OPEN</td>
+          <td>Investigate the suspicious transaction pattern, validate counterparties and wallet behavior, and consider pausing sensitive protocol actions if exploit conditions are confirmed.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0024</td>
+          <td><span class="badge high">HIGH</span></td>
+          <td>defi-detector</td>
+          <td>DemoLend, DemoSwap</td>
+          <td>ESCALATE_SECURITY</td>
+          <td>SOC / Blockchain Monitoring Team</td>
+          <td>OPEN</td>
+          <td>Investigate the suspicious transaction pattern, validate counterparties and wallet behavior, and consider pausing sensitive protocol actions if exploit conditions are confirmed.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0025</td>
+          <td><span class="badge high">HIGH</span></td>
+          <td>defi-detector</td>
+          <td>VaultX</td>
+          <td>ESCALATE_SECURITY</td>
+          <td>SOC / Blockchain Monitoring Team</td>
+          <td>OPEN</td>
+          <td>Investigate the suspicious transaction pattern, validate counterparties and wallet behavior, and consider pausing sensitive protocol actions if exploit conditions are confirmed.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0032</td>
+          <td><span class="badge high">HIGH</span></td>
+          <td>consensus-monitor</td>
+          <td>31337</td>
+          <td>BLOCK_BUILD</td>
+          <td>DevOps / Node Operations Team</td>
+          <td>OPEN</td>
+          <td>Verify node health, inspect RPC connectivity and recent blocks, confirm expected chain activity, and restore normal monitoring thresholds if the slowdown is benign.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0003</td>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>slither</td>
+          <td>VulnerableBank</td>
+          <td>MANUAL_REVIEW</td>
+          <td>Application Security Team</td>
+          <td>REVIEW_REQUIRED</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0006</td>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>slither</td>
+          <td>VulnerableBank</td>
+          <td>MANUAL_REVIEW</td>
+          <td>Application Security Team</td>
+          <td>REVIEW_REQUIRED</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0007</td>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>slither</td>
+          <td>VulnerableBank</td>
+          <td>MANUAL_REVIEW</td>
+          <td>Application Security Team</td>
+          <td>REVIEW_REQUIRED</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0019</td>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>slither</td>
+          <td>OpenZep_SecureBank</td>
+          <td>MANUAL_REVIEW</td>
+          <td>Application Security Team</td>
+          <td>REVIEW_REQUIRED</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0020</td>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>slither</td>
+          <td>OpenZep_SecureBank</td>
+          <td>MANUAL_REVIEW</td>
+          <td>Application Security Team</td>
+          <td>REVIEW_REQUIRED</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0026</td>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>defi-detector</td>
+          <td>BridgeHop</td>
+          <td>MANUAL_REVIEW</td>
+          <td>SOC / Blockchain Monitoring Team</td>
+          <td>REVIEW_REQUIRED</td>
+          <td>Investigate the suspicious transaction pattern, validate counterparties and wallet behavior, and consider pausing sensitive protocol actions if exploit conditions are confirmed.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0027</td>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>defi-detector</td>
+          <td>BridgeHop</td>
+          <td>MANUAL_REVIEW</td>
+          <td>SOC / Blockchain Monitoring Team</td>
+          <td>REVIEW_REQUIRED</td>
+          <td>Investigate the suspicious transaction pattern, validate counterparties and wallet behavior, and consider pausing sensitive protocol actions if exploit conditions are confirmed.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0028</td>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>defi-detector</td>
+          <td>BridgeHop</td>
+          <td>MANUAL_REVIEW</td>
+          <td>SOC / Blockchain Monitoring Team</td>
+          <td>REVIEW_REQUIRED</td>
+          <td>Investigate the suspicious transaction pattern, validate counterparties and wallet behavior, and consider pausing sensitive protocol actions if exploit conditions are confirmed.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0029</td>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>defi-detector</td>
+          <td>LiquidityHub</td>
+          <td>MANUAL_REVIEW</td>
+          <td>SOC / Blockchain Monitoring Team</td>
+          <td>REVIEW_REQUIRED</td>
+          <td>Investigate the suspicious transaction pattern, validate counterparties and wallet behavior, and consider pausing sensitive protocol actions if exploit conditions are confirmed.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0030</td>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>defi-detector</td>
+          <td>LiquidityHub</td>
+          <td>MANUAL_REVIEW</td>
+          <td>SOC / Blockchain Monitoring Team</td>
+          <td>REVIEW_REQUIRED</td>
+          <td>Investigate the suspicious transaction pattern, validate counterparties and wallet behavior, and consider pausing sensitive protocol actions if exploit conditions are confirmed.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0031</td>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>defi-detector</td>
+          <td>BridgeHop</td>
+          <td>MANUAL_REVIEW</td>
+          <td>SOC / Blockchain Monitoring Team</td>
+          <td>REVIEW_REQUIRED</td>
+          <td>Investigate the suspicious transaction pattern, validate counterparties and wallet behavior, and consider pausing sensitive protocol actions if exploit conditions are confirmed.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0004</td>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>VulnerableBank</td>
+          <td>MONITOR</td>
+          <td>Application Security Team</td>
+          <td>MONITORING</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0005</td>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>VulnerableBank</td>
+          <td>MONITOR</td>
+          <td>Application Security Team</td>
+          <td>MONITORING</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0008</td>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>StorageSlot</td>
+          <td>MONITOR</td>
+          <td>Application Security Team</td>
+          <td>MONITORING</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0009</td>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>StorageSlot</td>
+          <td>MONITOR</td>
+          <td>Application Security Team</td>
+          <td>MONITORING</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0010</td>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>StorageSlot</td>
+          <td>MONITOR</td>
+          <td>Application Security Team</td>
+          <td>MONITORING</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0011</td>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>StorageSlot</td>
+          <td>MONITOR</td>
+          <td>Application Security Team</td>
+          <td>MONITORING</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0012</td>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>StorageSlot</td>
+          <td>MONITOR</td>
+          <td>Application Security Team</td>
+          <td>MONITORING</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0013</td>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>StorageSlot</td>
+          <td>MONITOR</td>
+          <td>Application Security Team</td>
+          <td>MONITORING</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0014</td>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>StorageSlot</td>
+          <td>MONITOR</td>
+          <td>Application Security Team</td>
+          <td>MONITORING</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0015</td>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>StorageSlot</td>
+          <td>MONITOR</td>
+          <td>Application Security Team</td>
+          <td>MONITORING</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0016</td>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>StorageSlot</td>
+          <td>MONITOR</td>
+          <td>Application Security Team</td>
+          <td>MONITORING</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0022</td>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>OpenZep_SecureBank</td>
+          <td>MONITOR</td>
+          <td>Application Security Team</td>
+          <td>MONITORING</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0017</td>
+          <td><span class="badge info">INFO</span></td>
+          <td>slither</td>
+          <td>UnknownContract</td>
+          <td>LOG_ONLY</td>
+          <td>Application Security Team</td>
+          <td>CLOSED</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0018</td>
+          <td><span class="badge info">INFO</span></td>
+          <td>slither</td>
+          <td>UnknownContract</td>
+          <td>LOG_ONLY</td>
+          <td>Application Security Team</td>
+          <td>CLOSED</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0021</td>
+          <td><span class="badge info">INFO</span></td>
+          <td>slither</td>
+          <td>UnknownContract</td>
+          <td>LOG_ONLY</td>
+          <td>Application Security Team</td>
+          <td>CLOSED</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Source Files</h2>
+      <ul class="sources">
+        
+        <li>
+          <span>reports/slither/vulnerable_bank.json</span>
+          <span class="source-status present">present</span>
+        </li>
+      
+        <li>
+          <span>reports/slither/secure_bank.json</span>
+          <span class="source-status present">present</span>
+        </li>
+      
+        <li>
+          <span>reports/mythril/vulnerable_bank.json</span>
+          <span class="source-status present">present</span>
+        </li>
+      
+        <li>
+          <span>reports/defi/defi_alerts.json</span>
+          <span class="source-status present">present</span>
+        </li>
+      
+        <li>
+          <span>reports/consensus/consensus_status.json</span>
+          <span class="source-status present">present</span>
+        </li>
+      
+        <li>
+          <span>reports/wallet-screening/wallet_screening.json</span>
+          <span class="source-status present">present</span>
+        </li>
+      
+        <li>
+          <span>reports/incident/incident_response.json</span>
+          <span class="source-status present">present</span>
+        </li>
+      
+        <li>
+          <span>dashboard/data/findings.json</span>
+          <span class="source-status present">present</span>
+        </li>
+      
+        <li>
+          <span>dashboard/data/enriched-findings.json</span>
+          <span class="source-status present">present</span>
+        </li>
+      
+      </ul>
+      <div class="footer">
+        Open this file directly in your browser after pipeline execution or download it from GitHub Actions artifacts.
+      </div>
+    </section>
+  </div>
+</body>
+</html>
