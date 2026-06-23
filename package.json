@@ -11,13 +11,12 @@
     "scan:slither": "./scripts/run-slither.sh",
     "scan:mythril": "mkdir -p reports/mythril && if [ -f ./mythril-only-env/bin/myth ] && [ -x ./mythril-only-env/bin/myth ]; then ./mythril-only-env/bin/myth analyze ./contracts/VulnerableBank.sol -o json > reports/mythril/vulnerable_bank.json || echo '{\"issues\":[]}' > reports/mythril/vulnerable_bank.json; else echo '{\"issues\":[]}' > reports/mythril/vulnerable_bank.json; fi",
     "detect:defi": "mkdir -p reports/defi && python3 ./scripts/defi-detector.py",
-    "monitor:consensus": "mkdir -p reports/consensus && RPC_URL=${RPC_URL:-http://127.0.0.1:8545} tsx ./scripts/consensus-monitor.mts",
     "screen:wallets": "mkdir -p reports/wallet-screening && tsx ./scripts/wallet-screening.mts",
-
+    "monitor:consensus": "mkdir -p reports/consensus && (RPC_URL=${RPC_URL:-http://127.0.0.1:8545} tsx ./scripts/consensus-monitor.mts || echo '{\"status\":\"ERROR\",\"message\":\"Consensus monitor failed\",\"source\":\"fallback\"}' > reports/consensus/consensus_status.json)",
     "security:gate": "tsx ./scripts/security-gate.mts",
     "incident:orchestrate": "mkdir -p reports/incident && tsx ./scripts/incident-orchestrator.mts",
     "normalize:reports": "mkdir -p dashboard/data && tsx ./scripts/normalize-reports.mts",
-    "enrich:findings": "mkdir -p dashboard/data && tsx ./scripts/enrich-findings.mts",
+    "enrich:findings": "mkdir -p dashboard/data && if [ -f dashboard/data/findings.json ]; then tsx ./scripts/enrich-findings.mts; else echo 'Skipping enrichment: findings.json not found'; fi",
     "report:html": "mkdir -p reports/html && tsx ./scripts/generate-html-report.mts",
 
     "pipeline:security": "bash ./scripts/pipeline-security.sh",
