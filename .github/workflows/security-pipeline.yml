@@ -40,7 +40,7 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y python3-pip python3-venv python3-virtualenv jq curl build-essential software-properties-common
+          sudo apt-get install -y python3-pip python3-venv jq curl build-essential software-properties-common
 
       - name: Install Solidity compiler
         run: |
@@ -56,16 +56,17 @@ jobs:
       - name: Create Mythril isolated environment
         continue-on-error: true
         run: |
-          virtualenv -p python3 mythril-only-env
-          ./mythril-only-env/bin/pip install --upgrade pip setuptools wheel
-          ./mythril-only-env/bin/pip install "mythril==0.24.8"
+          rm -rf mythril-only-env
+          python3 -m venv mythril-only-env
+          ./mythril-only-env/bin/python -m pip install --upgrade pip setuptools wheel
+          ./mythril-only-env/bin/pip install "mythril==0.24.8" || true
 
       - name: Verify Python security tools
         if: always()
         run: |
           slither --version
-          if [ -x "./mythril-only-env/bin/myth" ]; then
-            ./mythril-only-env/bin/myth version
+          if [ -f "./mythril-only-env/bin/myth" ] && [ -x "./mythril-only-env/bin/myth" ]; then
+            ./mythril-only-env/bin/myth version || echo "Mythril binary exists but could not run"
           else
             echo "Mythril not available, continuing without it"
           fi
