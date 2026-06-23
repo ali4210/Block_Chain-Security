@@ -12,6 +12,6 @@ npm run security:gate
 npm run incident:orchestrate
 npm run normalize:reports
 npm run enrich:findings
-REPORT_HTML_NAME="security-report-failfast.html" npm run report:html
+npm run report:html
 
 echo "=== Fail-Fast Security Pipeline Finished ==="
