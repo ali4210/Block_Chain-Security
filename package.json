@@ -1,0 +1,56 @@
+{
+  "name": "architecture_implementation",
+  "version": "1.0.0",
+  "description": "Architecture Implementation for blockchain smart contract security analysis using Hardhat, Slither, Mythril, DeFi detection, consensus monitoring, incident orchestration, and wallet screening",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "compile": "npx hardhat compile",
+    "test": "npx hardhat test",
+
+    "scan:slither": "./scripts/run-slither.sh",
+    "scan:mythril": "mkdir -p reports/mythril && ./mythril-only-env/bin/myth analyze ./contracts/VulnerableBank.sol -o json > reports/mythril/vulnerable_bank.json || true",
+
+    "detect:defi": "mkdir -p reports/defi && python3 ./scripts/defi-detector.py",
+    "monitor:consensus": "mkdir -p reports/consensus && RPC_URL=${RPC_URL:-http://127.0.0.1:8545} tsx ./scripts/consensus-monitor.mts",
+    "screen:wallets": "mkdir -p reports/wallet-screening && tsx ./scripts/wallet-screening.mts",
+
+    "security:gate": "tsx ./scripts/security-gate.mts",
+    "incident:orchestrate": "mkdir -p reports/incident && tsx ./scripts/incident-orchestrator.mts",
+    "normalize:reports": "mkdir -p dashboard/data && tsx ./scripts/normalize-reports.mts",
+    "report:html": "mkdir -p reports/html && tsx ./scripts/generate-html-report.mts",
+
+    "pipeline:security": "bash ./scripts/pipeline-security.sh",
+    "pipeline:security:strict": "bash ./scripts/pipeline-security-strict.sh",
+    "pipeline:security:failfast": "bash ./scripts/pipeline-security-failfast.sh"
+  },
+  "keywords": [
+    "blockchain",
+    "smart-contracts",
+    "hardhat",
+    "slither",
+    "mythril",
+    "security",
+    "solidity",
+    "defi",
+    "consensus",
+    "incident-response",
+    "wallet-screening",
+    "compliance"
+  ],
+  "author": "Saleem Ali",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-ignition": "^3.1.7",
+    "@nomicfoundation/hardhat-toolbox-viem": "^5.0.7",
+    "@types/node": "^22.20.0",
+    "forge-std": "github:foundry-rs/forge-std#v1.9.4",
+    "hardhat": "^3.9.0",
+    "tsx": "^4.22.4",
+    "typescript": "~6.0.3",
+    "viem": "^2.53.1"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.6.1"
+  }
+}

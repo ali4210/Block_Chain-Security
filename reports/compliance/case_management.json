@@ -1,0 +1,736 @@
+{
+  "generated_at": "2026-06-22T09:40:57.207Z",
+  "summary": {
+    "total_cases": 32,
+    "queued": 15,
+    "under_review": 11,
+    "escalated": 6,
+    "closed": 0
+  },
+  "managed_cases": [
+    {
+      "case_id": "CASE-0001",
+      "incident_id": "INC-0001",
+      "domain": "AUDIT",
+      "decision": "REPORT",
+      "owner": "Application Security Team",
+      "workflow_status": "ESCALATED",
+      "retention_class": "SECURITY_3Y",
+      "regulator_mapping": [
+        "Internal Security Audit"
+      ]
+    },
+    {
+      "case_id": "CASE-0002",
+      "incident_id": "INC-0002",
+      "domain": "AUDIT",
+      "decision": "REPORT",
+      "owner": "Application Security Team",
+      "workflow_status": "ESCALATED",
+      "retention_class": "SECURITY_3Y",
+      "regulator_mapping": [
+        "Internal Security Audit"
+      ]
+    },
+    {
+      "case_id": "CASE-0003",
+      "incident_id": "INC-0003",
+      "domain": "AUDIT",
+      "decision": "REVIEW",
+      "owner": "Application Security Team",
+      "workflow_status": "UNDER_REVIEW",
+      "retention_class": "SECURITY_3Y",
+      "regulator_mapping": [
+        "Internal Security Audit"
+      ]
+    },
+    {
+      "case_id": "CASE-0004",
+      "incident_id": "INC-0004",
+      "domain": "AUDIT",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "workflow_status": "QUEUED",
+      "retention_class": "SECURITY_3Y",
+      "regulator_mapping": [
+        "Internal Security Audit"
+      ]
+    },
+    {
+      "case_id": "CASE-0005",
+      "incident_id": "INC-0005",
+      "domain": "AUDIT",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "workflow_status": "QUEUED",
+      "retention_class": "SECURITY_3Y",
+      "regulator_mapping": [
+        "Internal Security Audit"
+      ]
+    },
+    {
+      "case_id": "CASE-0006",
+      "incident_id": "INC-0006",
+      "domain": "AUDIT",
+      "decision": "REVIEW",
+      "owner": "Application Security Team",
+      "workflow_status": "UNDER_REVIEW",
+      "retention_class": "SECURITY_3Y",
+      "regulator_mapping": [
+        "Internal Security Audit"
+      ]
+    },
+    {
+      "case_id": "CASE-0007",
+      "incident_id": "INC-0007",
+      "domain": "AUDIT",
+      "decision": "REVIEW",
+      "owner": "Application Security Team",
+      "workflow_status": "UNDER_REVIEW",
+      "retention_class": "SECURITY_3Y",
+      "regulator_mapping": [
+        "Internal Security Audit"
+      ]
+    },
+    {
+      "case_id": "CASE-0008",
+      "incident_id": "INC-0008",
+      "domain": "AUDIT",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "workflow_status": "QUEUED",
+      "retention_class": "SECURITY_3Y",
+      "regulator_mapping": [
+        "Internal Security Audit"
+      ]
+    },
+    {
+      "case_id": "CASE-0009",
+      "incident_id": "INC-0009",
+      "domain": "AUDIT",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "workflow_status": "QUEUED",
+      "retention_class": "SECURITY_3Y",
+      "regulator_mapping": [
+        "Internal Security Audit"
+      ]
+    },
+    {
+      "case_id": "CASE-0010",
+      "incident_id": "INC-0010",
+      "domain": "AUDIT",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "workflow_status": "QUEUED",
+      "retention_class": "SECURITY_3Y",
+      "regulator_mapping": [
+        "Internal Security Audit"
+      ]
+    },
+    {
+      "case_id": "CASE-0011",
+      "incident_id": "INC-0011",
+      "domain": "AUDIT",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "workflow_status": "QUEUED",
+      "retention_class": "SECURITY_3Y",
+      "regulator_mapping": [
+        "Internal Security Audit"
+      ]
+    },
+    {
+      "case_id": "CASE-0012",
+      "incident_id": "INC-0012",
+      "domain": "AUDIT",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "workflow_status": "QUEUED",
+      "retention_class": "SECURITY_3Y",
+      "regulator_mapping": [
+        "Internal Security Audit"
+      ]
+    },
+    {
+      "case_id": "CASE-0013",
+      "incident_id": "INC-0013",
+      "domain": "AUDIT",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "workflow_status": "QUEUED",
+      "retention_class": "SECURITY_3Y",
+      "regulator_mapping": [
+        "Internal Security Audit"
+      ]
+    },
+    {
+      "case_id": "CASE-0014",
+      "incident_id": "INC-0014",
+      "domain": "AUDIT",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "workflow_status": "QUEUED",
+      "retention_class": "SECURITY_3Y",
+      "regulator_mapping": [
+        "Internal Security Audit"
+      ]
+    },
+    {
+      "case_id": "CASE-0015",
+      "incident_id": "INC-0015",
+      "domain": "AUDIT",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "workflow_status": "QUEUED",
+      "retention_class": "SECURITY_3Y",
+      "regulator_mapping": [
+        "Internal Security Audit"
+      ]
+    },
+    {
+      "case_id": "CASE-0016",
+      "incident_id": "INC-0016",
+      "domain": "AUDIT",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "workflow_status": "QUEUED",
+      "retention_class": "SECURITY_3Y",
+      "regulator_mapping": [
+        "Internal Security Audit"
+      ]
+    },
+    {
+      "case_id": "CASE-0017",
+      "incident_id": "INC-0017",
+      "domain": "AUDIT",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "workflow_status": "QUEUED",
+      "retention_class": "SECURITY_3Y",
+      "regulator_mapping": [
+        "Internal Security Audit"
+      ]
+    },
+    {
+      "case_id": "CASE-0018",
+      "incident_id": "INC-0018",
+      "domain": "AUDIT",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "workflow_status": "QUEUED",
+      "retention_class": "SECURITY_3Y",
+      "regulator_mapping": [
+        "Internal Security Audit"
+      ]
+    },
+    {
+      "case_id": "CASE-0019",
+      "incident_id": "INC-0019",
+      "domain": "AUDIT",
+      "decision": "REVIEW",
+      "owner": "Application Security Team",
+      "workflow_status": "UNDER_REVIEW",
+      "retention_class": "SECURITY_3Y",
+      "regulator_mapping": [
+        "Internal Security Audit"
+      ]
+    },
+    {
+      "case_id": "CASE-0020",
+      "incident_id": "INC-0020",
+      "domain": "AUDIT",
+      "decision": "REVIEW",
+      "owner": "Application Security Team",
+      "workflow_status": "UNDER_REVIEW",
+      "retention_class": "SECURITY_3Y",
+      "regulator_mapping": [
+        "Internal Security Audit"
+      ]
+    },
+    {
+      "case_id": "CASE-0021",
+      "incident_id": "INC-0021",
+      "domain": "AUDIT",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "workflow_status": "QUEUED",
+      "retention_class": "SECURITY_3Y",
+      "regulator_mapping": [
+        "Internal Security Audit"
+      ]
+    },
+    {
+      "case_id": "CASE-0022",
+      "incident_id": "INC-0022",
+      "domain": "AUDIT",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "workflow_status": "QUEUED",
+      "retention_class": "SECURITY_3Y",
+      "regulator_mapping": [
+        "Internal Security Audit"
+      ]
+    },
+    {
+      "case_id": "CASE-0023",
+      "incident_id": "INC-0023",
+      "domain": "AML",
+      "decision": "BLOCK",
+      "owner": "Compliance Team",
+      "workflow_status": "ESCALATED",
+      "retention_class": "AML_5Y",
+      "regulator_mapping": [
+        "FATF",
+        "MiCA",
+        "FinCEN"
+      ]
+    },
+    {
+      "case_id": "CASE-0024",
+      "incident_id": "INC-0024",
+      "domain": "KYT",
+      "decision": "REPORT",
+      "owner": "Compliance Team",
+      "workflow_status": "ESCALATED",
+      "retention_class": "AML_5Y",
+      "regulator_mapping": [
+        "FATF",
+        "MiCA",
+        "FinCEN"
+      ]
+    },
+    {
+      "case_id": "CASE-0025",
+      "incident_id": "INC-0025",
+      "domain": "KYT",
+      "decision": "BLOCK",
+      "owner": "Compliance Team",
+      "workflow_status": "ESCALATED",
+      "retention_class": "AML_5Y",
+      "regulator_mapping": [
+        "FATF",
+        "MiCA",
+        "FinCEN"
+      ]
+    },
+    {
+      "case_id": "CASE-0026",
+      "incident_id": "INC-0026",
+      "domain": "KYT",
+      "decision": "REVIEW",
+      "owner": "Compliance Team",
+      "workflow_status": "UNDER_REVIEW",
+      "retention_class": "AML_5Y",
+      "regulator_mapping": [
+        "FATF",
+        "MiCA",
+        "FinCEN"
+      ]
+    },
+    {
+      "case_id": "CASE-0027",
+      "incident_id": "INC-0027",
+      "domain": "KYT",
+      "decision": "REVIEW",
+      "owner": "Compliance Team",
+      "workflow_status": "UNDER_REVIEW",
+      "retention_class": "AML_5Y",
+      "regulator_mapping": [
+        "FATF",
+        "MiCA",
+        "FinCEN"
+      ]
+    },
+    {
+      "case_id": "CASE-0028",
+      "incident_id": "INC-0028",
+      "domain": "KYT",
+      "decision": "REVIEW",
+      "owner": "Compliance Team",
+      "workflow_status": "UNDER_REVIEW",
+      "retention_class": "AML_5Y",
+      "regulator_mapping": [
+        "FATF",
+        "MiCA",
+        "FinCEN"
+      ]
+    },
+    {
+      "case_id": "CASE-0029",
+      "incident_id": "INC-0029",
+      "domain": "KYT",
+      "decision": "REVIEW",
+      "owner": "Compliance Team",
+      "workflow_status": "UNDER_REVIEW",
+      "retention_class": "AML_5Y",
+      "regulator_mapping": [
+        "FATF",
+        "MiCA",
+        "FinCEN"
+      ]
+    },
+    {
+      "case_id": "CASE-0030",
+      "incident_id": "INC-0030",
+      "domain": "KYC",
+      "decision": "REVIEW",
+      "owner": "Compliance Team",
+      "workflow_status": "UNDER_REVIEW",
+      "retention_class": "AML_5Y",
+      "regulator_mapping": [
+        "FATF",
+        "MiCA",
+        "FinCEN"
+      ]
+    },
+    {
+      "case_id": "CASE-0031",
+      "incident_id": "INC-0031",
+      "domain": "KYT",
+      "decision": "REVIEW",
+      "owner": "Compliance Team",
+      "workflow_status": "UNDER_REVIEW",
+      "retention_class": "AML_5Y",
+      "regulator_mapping": [
+        "FATF",
+        "MiCA",
+        "FinCEN"
+      ]
+    },
+    {
+      "case_id": "CASE-0032",
+      "incident_id": "INC-0032",
+      "domain": "OPS",
+      "decision": "REPORT",
+      "owner": "DevOps / Node Operations Team",
+      "workflow_status": "ESCALATED",
+      "retention_class": "OPS_1Y",
+      "regulator_mapping": [
+        "MiCA"
+      ]
+    }
+  ],
+  "audit_log": [
+    {
+      "event_id": "AUD-0001",
+      "case_id": "CASE-0001",
+      "incident_id": "INC-0001",
+      "actor": "Application Security Team",
+      "action": "CASE_ESCALATED",
+      "status": "ESCALATED",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0001 routed to Application Security Team with REPORT decision and SECURITY_3Y retention policy."
+    },
+    {
+      "event_id": "AUD-0002",
+      "case_id": "CASE-0002",
+      "incident_id": "INC-0002",
+      "actor": "Application Security Team",
+      "action": "CASE_ESCALATED",
+      "status": "ESCALATED",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0002 routed to Application Security Team with REPORT decision and SECURITY_3Y retention policy."
+    },
+    {
+      "event_id": "AUD-0003",
+      "case_id": "CASE-0003",
+      "incident_id": "INC-0003",
+      "actor": "Application Security Team",
+      "action": "CASE_UNDER_REVIEW",
+      "status": "UNDER_REVIEW",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0003 routed to Application Security Team with REVIEW decision and SECURITY_3Y retention policy."
+    },
+    {
+      "event_id": "AUD-0004",
+      "case_id": "CASE-0004",
+      "incident_id": "INC-0004",
+      "actor": "Application Security Team",
+      "action": "CASE_QUEUED",
+      "status": "QUEUED",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0004 routed to Application Security Team with ALLOW decision and SECURITY_3Y retention policy."
+    },
+    {
+      "event_id": "AUD-0005",
+      "case_id": "CASE-0005",
+      "incident_id": "INC-0005",
+      "actor": "Application Security Team",
+      "action": "CASE_QUEUED",
+      "status": "QUEUED",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0005 routed to Application Security Team with ALLOW decision and SECURITY_3Y retention policy."
+    },
+    {
+      "event_id": "AUD-0006",
+      "case_id": "CASE-0006",
+      "incident_id": "INC-0006",
+      "actor": "Application Security Team",
+      "action": "CASE_UNDER_REVIEW",
+      "status": "UNDER_REVIEW",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0006 routed to Application Security Team with REVIEW decision and SECURITY_3Y retention policy."
+    },
+    {
+      "event_id": "AUD-0007",
+      "case_id": "CASE-0007",
+      "incident_id": "INC-0007",
+      "actor": "Application Security Team",
+      "action": "CASE_UNDER_REVIEW",
+      "status": "UNDER_REVIEW",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0007 routed to Application Security Team with REVIEW decision and SECURITY_3Y retention policy."
+    },
+    {
+      "event_id": "AUD-0008",
+      "case_id": "CASE-0008",
+      "incident_id": "INC-0008",
+      "actor": "Application Security Team",
+      "action": "CASE_QUEUED",
+      "status": "QUEUED",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0008 routed to Application Security Team with ALLOW decision and SECURITY_3Y retention policy."
+    },
+    {
+      "event_id": "AUD-0009",
+      "case_id": "CASE-0009",
+      "incident_id": "INC-0009",
+      "actor": "Application Security Team",
+      "action": "CASE_QUEUED",
+      "status": "QUEUED",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0009 routed to Application Security Team with ALLOW decision and SECURITY_3Y retention policy."
+    },
+    {
+      "event_id": "AUD-0010",
+      "case_id": "CASE-0010",
+      "incident_id": "INC-0010",
+      "actor": "Application Security Team",
+      "action": "CASE_QUEUED",
+      "status": "QUEUED",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0010 routed to Application Security Team with ALLOW decision and SECURITY_3Y retention policy."
+    },
+    {
+      "event_id": "AUD-0011",
+      "case_id": "CASE-0011",
+      "incident_id": "INC-0011",
+      "actor": "Application Security Team",
+      "action": "CASE_QUEUED",
+      "status": "QUEUED",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0011 routed to Application Security Team with ALLOW decision and SECURITY_3Y retention policy."
+    },
+    {
+      "event_id": "AUD-0012",
+      "case_id": "CASE-0012",
+      "incident_id": "INC-0012",
+      "actor": "Application Security Team",
+      "action": "CASE_QUEUED",
+      "status": "QUEUED",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0012 routed to Application Security Team with ALLOW decision and SECURITY_3Y retention policy."
+    },
+    {
+      "event_id": "AUD-0013",
+      "case_id": "CASE-0013",
+      "incident_id": "INC-0013",
+      "actor": "Application Security Team",
+      "action": "CASE_QUEUED",
+      "status": "QUEUED",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0013 routed to Application Security Team with ALLOW decision and SECURITY_3Y retention policy."
+    },
+    {
+      "event_id": "AUD-0014",
+      "case_id": "CASE-0014",
+      "incident_id": "INC-0014",
+      "actor": "Application Security Team",
+      "action": "CASE_QUEUED",
+      "status": "QUEUED",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0014 routed to Application Security Team with ALLOW decision and SECURITY_3Y retention policy."
+    },
+    {
+      "event_id": "AUD-0015",
+      "case_id": "CASE-0015",
+      "incident_id": "INC-0015",
+      "actor": "Application Security Team",
+      "action": "CASE_QUEUED",
+      "status": "QUEUED",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0015 routed to Application Security Team with ALLOW decision and SECURITY_3Y retention policy."
+    },
+    {
+      "event_id": "AUD-0016",
+      "case_id": "CASE-0016",
+      "incident_id": "INC-0016",
+      "actor": "Application Security Team",
+      "action": "CASE_QUEUED",
+      "status": "QUEUED",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0016 routed to Application Security Team with ALLOW decision and SECURITY_3Y retention policy."
+    },
+    {
+      "event_id": "AUD-0017",
+      "case_id": "CASE-0017",
+      "incident_id": "INC-0017",
+      "actor": "Application Security Team",
+      "action": "CASE_QUEUED",
+      "status": "QUEUED",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0017 routed to Application Security Team with ALLOW decision and SECURITY_3Y retention policy."
+    },
+    {
+      "event_id": "AUD-0018",
+      "case_id": "CASE-0018",
+      "incident_id": "INC-0018",
+      "actor": "Application Security Team",
+      "action": "CASE_QUEUED",
+      "status": "QUEUED",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0018 routed to Application Security Team with ALLOW decision and SECURITY_3Y retention policy."
+    },
+    {
+      "event_id": "AUD-0019",
+      "case_id": "CASE-0019",
+      "incident_id": "INC-0019",
+      "actor": "Application Security Team",
+      "action": "CASE_UNDER_REVIEW",
+      "status": "UNDER_REVIEW",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0019 routed to Application Security Team with REVIEW decision and SECURITY_3Y retention policy."
+    },
+    {
+      "event_id": "AUD-0020",
+      "case_id": "CASE-0020",
+      "incident_id": "INC-0020",
+      "actor": "Application Security Team",
+      "action": "CASE_UNDER_REVIEW",
+      "status": "UNDER_REVIEW",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0020 routed to Application Security Team with REVIEW decision and SECURITY_3Y retention policy."
+    },
+    {
+      "event_id": "AUD-0021",
+      "case_id": "CASE-0021",
+      "incident_id": "INC-0021",
+      "actor": "Application Security Team",
+      "action": "CASE_QUEUED",
+      "status": "QUEUED",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0021 routed to Application Security Team with ALLOW decision and SECURITY_3Y retention policy."
+    },
+    {
+      "event_id": "AUD-0022",
+      "case_id": "CASE-0022",
+      "incident_id": "INC-0022",
+      "actor": "Application Security Team",
+      "action": "CASE_QUEUED",
+      "status": "QUEUED",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0022 routed to Application Security Team with ALLOW decision and SECURITY_3Y retention policy."
+    },
+    {
+      "event_id": "AUD-0023",
+      "case_id": "CASE-0023",
+      "incident_id": "INC-0023",
+      "actor": "Compliance Team",
+      "action": "CASE_ESCALATED",
+      "status": "ESCALATED",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0023 routed to Compliance Team with BLOCK decision and AML_5Y retention policy."
+    },
+    {
+      "event_id": "AUD-0024",
+      "case_id": "CASE-0024",
+      "incident_id": "INC-0024",
+      "actor": "Compliance Team",
+      "action": "CASE_ESCALATED",
+      "status": "ESCALATED",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0024 routed to Compliance Team with REPORT decision and AML_5Y retention policy."
+    },
+    {
+      "event_id": "AUD-0025",
+      "case_id": "CASE-0025",
+      "incident_id": "INC-0025",
+      "actor": "Compliance Team",
+      "action": "CASE_ESCALATED",
+      "status": "ESCALATED",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0025 routed to Compliance Team with BLOCK decision and AML_5Y retention policy."
+    },
+    {
+      "event_id": "AUD-0026",
+      "case_id": "CASE-0026",
+      "incident_id": "INC-0026",
+      "actor": "Compliance Team",
+      "action": "CASE_UNDER_REVIEW",
+      "status": "UNDER_REVIEW",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0026 routed to Compliance Team with REVIEW decision and AML_5Y retention policy."
+    },
+    {
+      "event_id": "AUD-0027",
+      "case_id": "CASE-0027",
+      "incident_id": "INC-0027",
+      "actor": "Compliance Team",
+      "action": "CASE_UNDER_REVIEW",
+      "status": "UNDER_REVIEW",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0027 routed to Compliance Team with REVIEW decision and AML_5Y retention policy."
+    },
+    {
+      "event_id": "AUD-0028",
+      "case_id": "CASE-0028",
+      "incident_id": "INC-0028",
+      "actor": "Compliance Team",
+      "action": "CASE_UNDER_REVIEW",
+      "status": "UNDER_REVIEW",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0028 routed to Compliance Team with REVIEW decision and AML_5Y retention policy."
+    },
+    {
+      "event_id": "AUD-0029",
+      "case_id": "CASE-0029",
+      "incident_id": "INC-0029",
+      "actor": "Compliance Team",
+      "action": "CASE_UNDER_REVIEW",
+      "status": "UNDER_REVIEW",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0029 routed to Compliance Team with REVIEW decision and AML_5Y retention policy."
+    },
+    {
+      "event_id": "AUD-0030",
+      "case_id": "CASE-0030",
+      "incident_id": "INC-0030",
+      "actor": "Compliance Team",
+      "action": "CASE_UNDER_REVIEW",
+      "status": "UNDER_REVIEW",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0030 routed to Compliance Team with REVIEW decision and AML_5Y retention policy."
+    },
+    {
+      "event_id": "AUD-0031",
+      "case_id": "CASE-0031",
+      "incident_id": "INC-0031",
+      "actor": "Compliance Team",
+      "action": "CASE_UNDER_REVIEW",
+      "status": "UNDER_REVIEW",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0031 routed to Compliance Team with REVIEW decision and AML_5Y retention policy."
+    },
+    {
+      "event_id": "AUD-0032",
+      "case_id": "CASE-0032",
+      "incident_id": "INC-0032",
+      "actor": "DevOps / Node Operations Team",
+      "action": "CASE_ESCALATED",
+      "status": "ESCALATED",
+      "timestamp": "2026-06-22T09:40:57.207Z",
+      "note": "Case CASE-0032 routed to DevOps / Node Operations Team with REPORT decision and OPS_1Y retention policy."
+    }
+  ]
+}

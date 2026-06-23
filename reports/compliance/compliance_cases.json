@@ -1,0 +1,501 @@
+{
+  "generated_at": "2026-06-22T09:40:56.704Z",
+  "summary": {
+    "total_cases": 32,
+    "by_decision": {
+      "ALLOW": 15,
+      "REVIEW": 11,
+      "BLOCK": 2,
+      "REPORT": 4
+    },
+    "by_domain": {
+      "AML": 1,
+      "KYC": 1,
+      "KYT": 7,
+      "AUDIT": 22,
+      "OPS": 1
+    }
+  },
+  "cases": [
+    {
+      "case_id": "CASE-0001",
+      "incident_id": "INC-0001",
+      "compliance_domain": "AUDIT",
+      "policy_reference": "AUDIT-BLOCK-005",
+      "severity": "HIGH",
+      "decision": "REPORT",
+      "owner": "Application Security Team",
+      "reason": "Incident INC-0001 mapped to AUDIT controls and resulted in REPORT due to severity HIGH and supporting screening evidence.",
+      "evidence_refs": [
+        "slither-vulnerable",
+        "contracts/VulnerableBank.sol:38,39,40,41,42,43,44,45"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0002",
+      "incident_id": "INC-0002",
+      "compliance_domain": "AUDIT",
+      "policy_reference": "AUDIT-BLOCK-005",
+      "severity": "HIGH",
+      "decision": "REPORT",
+      "owner": "Application Security Team",
+      "reason": "Incident INC-0002 mapped to AUDIT controls and resulted in REPORT due to severity HIGH and supporting screening evidence.",
+      "evidence_refs": [
+        "slither-vulnerable",
+        "contracts/VulnerableBank.sol:21,22,23,24,25,26,27,28,29,30,31,32"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0003",
+      "incident_id": "INC-0003",
+      "compliance_domain": "AUDIT",
+      "policy_reference": "AUDIT-TRACE-006",
+      "severity": "MEDIUM",
+      "decision": "REVIEW",
+      "owner": "Application Security Team",
+      "reason": "Incident INC-0003 mapped to AUDIT controls and resulted in REVIEW due to severity MEDIUM and supporting screening evidence.",
+      "evidence_refs": [
+        "slither-vulnerable",
+        "contracts/VulnerableBank.sol:21,22,23,24,25,26,27,28,29,30,31,32"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0004",
+      "incident_id": "INC-0004",
+      "compliance_domain": "AUDIT",
+      "policy_reference": "AUDIT-TRACE-006",
+      "severity": "LOW",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "reason": "Incident INC-0004 mapped to AUDIT controls and resulted in ALLOW due to severity LOW and supporting screening evidence.",
+      "evidence_refs": [
+        "slither-vulnerable",
+        "contracts/VulnerableBank.sol:21,22,23,24,25,26,27,28,29,30,31,32"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0005",
+      "incident_id": "INC-0005",
+      "compliance_domain": "AUDIT",
+      "policy_reference": "AUDIT-TRACE-006",
+      "severity": "LOW",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "reason": "Incident INC-0005 mapped to AUDIT controls and resulted in ALLOW due to severity LOW and supporting screening evidence.",
+      "evidence_refs": [
+        "slither-vulnerable",
+        "contracts/VulnerableBank.sol:38,39,40,41,42,43,44,45"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0006",
+      "incident_id": "INC-0006",
+      "compliance_domain": "AUDIT",
+      "policy_reference": "AUDIT-TRACE-006",
+      "severity": "MEDIUM",
+      "decision": "REVIEW",
+      "owner": "Application Security Team",
+      "reason": "Incident INC-0006 mapped to AUDIT controls and resulted in REVIEW due to severity MEDIUM and supporting screening evidence.",
+      "evidence_refs": [
+        "slither-vulnerable",
+        "contracts/VulnerableBank.sol:21,22,23,24,25,26,27,28,29,30,31,32"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0007",
+      "incident_id": "INC-0007",
+      "compliance_domain": "AUDIT",
+      "policy_reference": "AUDIT-TRACE-006",
+      "severity": "MEDIUM",
+      "decision": "REVIEW",
+      "owner": "Application Security Team",
+      "reason": "Incident INC-0007 mapped to AUDIT controls and resulted in REVIEW due to severity MEDIUM and supporting screening evidence.",
+      "evidence_refs": [
+        "slither-vulnerable",
+        "contracts/VulnerableBank.sol:38,39,40,41,42,43,44,45"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0008",
+      "incident_id": "INC-0008",
+      "compliance_domain": "AUDIT",
+      "policy_reference": "AUDIT-TRACE-006",
+      "severity": "LOW",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "reason": "Incident INC-0008 mapped to AUDIT controls and resulted in ALLOW due to severity LOW and supporting screening evidence.",
+      "evidence_refs": [
+        "slither-secure",
+        "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:66,67,68,69,70"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0009",
+      "incident_id": "INC-0009",
+      "compliance_domain": "AUDIT",
+      "policy_reference": "AUDIT-TRACE-006",
+      "severity": "LOW",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "reason": "Incident INC-0009 mapped to AUDIT controls and resulted in ALLOW due to severity LOW and supporting screening evidence.",
+      "evidence_refs": [
+        "slither-secure",
+        "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:93,94,95,96,97"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0010",
+      "incident_id": "INC-0010",
+      "compliance_domain": "AUDIT",
+      "policy_reference": "AUDIT-TRACE-006",
+      "severity": "LOW",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "reason": "Incident INC-0010 mapped to AUDIT controls and resulted in ALLOW due to severity LOW and supporting screening evidence.",
+      "evidence_refs": [
+        "slither-secure",
+        "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:75,76,77,78,79"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0011",
+      "incident_id": "INC-0011",
+      "compliance_domain": "AUDIT",
+      "policy_reference": "AUDIT-TRACE-006",
+      "severity": "LOW",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "reason": "Incident INC-0011 mapped to AUDIT controls and resulted in ALLOW due to severity LOW and supporting screening evidence.",
+      "evidence_refs": [
+        "slither-secure",
+        "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:84,85,86,87,88"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0012",
+      "incident_id": "INC-0012",
+      "compliance_domain": "AUDIT",
+      "policy_reference": "AUDIT-TRACE-006",
+      "severity": "LOW",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "reason": "Incident INC-0012 mapped to AUDIT controls and resulted in ALLOW due to severity LOW and supporting screening evidence.",
+      "evidence_refs": [
+        "slither-secure",
+        "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:102,103,104,105,106"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0013",
+      "incident_id": "INC-0013",
+      "compliance_domain": "AUDIT",
+      "policy_reference": "AUDIT-TRACE-006",
+      "severity": "LOW",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "reason": "Incident INC-0013 mapped to AUDIT controls and resulted in ALLOW due to severity LOW and supporting screening evidence.",
+      "evidence_refs": [
+        "slither-secure",
+        "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:138,139,140,141,142"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0014",
+      "incident_id": "INC-0014",
+      "compliance_domain": "AUDIT",
+      "policy_reference": "AUDIT-TRACE-006",
+      "severity": "LOW",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "reason": "Incident INC-0014 mapped to AUDIT controls and resulted in ALLOW due to severity LOW and supporting screening evidence.",
+      "evidence_refs": [
+        "slither-secure",
+        "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:111,112,113,114,115"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0015",
+      "incident_id": "INC-0015",
+      "compliance_domain": "AUDIT",
+      "policy_reference": "AUDIT-TRACE-006",
+      "severity": "LOW",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "reason": "Incident INC-0015 mapped to AUDIT controls and resulted in ALLOW due to severity LOW and supporting screening evidence.",
+      "evidence_refs": [
+        "slither-secure",
+        "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:120,121,122,123,124"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0016",
+      "incident_id": "INC-0016",
+      "compliance_domain": "AUDIT",
+      "policy_reference": "AUDIT-TRACE-006",
+      "severity": "LOW",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "reason": "Incident INC-0016 mapped to AUDIT controls and resulted in ALLOW due to severity LOW and supporting screening evidence.",
+      "evidence_refs": [
+        "slither-secure",
+        "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:129,130,131,132,133"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0017",
+      "incident_id": "INC-0017",
+      "compliance_domain": "AUDIT",
+      "policy_reference": "AUDIT-TRACE-006",
+      "severity": "INFO",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "reason": "Incident INC-0017 mapped to AUDIT controls and resulted in ALLOW due to severity INFO and supporting screening evidence.",
+      "evidence_refs": [
+        "slither-secure",
+        "contracts/OpenZep-SecureBank.sol:2"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0018",
+      "incident_id": "INC-0018",
+      "compliance_domain": "AUDIT",
+      "policy_reference": "AUDIT-TRACE-006",
+      "severity": "INFO",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "reason": "Incident INC-0018 mapped to AUDIT controls and resulted in ALLOW due to severity INFO and supporting screening evidence.",
+      "evidence_refs": [
+        "slither-secure",
+        "node_modules/@openzeppelin/contracts/utils/ReentrancyGuard.sol:4"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0019",
+      "incident_id": "INC-0019",
+      "compliance_domain": "AUDIT",
+      "policy_reference": "AUDIT-TRACE-006",
+      "severity": "MEDIUM",
+      "decision": "REVIEW",
+      "owner": "Application Security Team",
+      "reason": "Incident INC-0019 mapped to AUDIT controls and resulted in REVIEW due to severity MEDIUM and supporting screening evidence.",
+      "evidence_refs": [
+        "slither-secure",
+        "contracts/OpenZep-SecureBank.sol:50,51,52,53,54,55,56,57"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0020",
+      "incident_id": "INC-0020",
+      "compliance_domain": "AUDIT",
+      "policy_reference": "AUDIT-TRACE-006",
+      "severity": "MEDIUM",
+      "decision": "REVIEW",
+      "owner": "Application Security Team",
+      "reason": "Incident INC-0020 mapped to AUDIT controls and resulted in REVIEW due to severity MEDIUM and supporting screening evidence.",
+      "evidence_refs": [
+        "slither-secure",
+        "contracts/OpenZep-SecureBank.sol:33,34,35,36,37,38,39,40,41,42,43,44"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0021",
+      "incident_id": "INC-0021",
+      "compliance_domain": "AUDIT",
+      "policy_reference": "AUDIT-TRACE-006",
+      "severity": "INFO",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "reason": "Incident INC-0021 mapped to AUDIT controls and resulted in ALLOW due to severity INFO and supporting screening evidence.",
+      "evidence_refs": [
+        "slither-secure",
+        "contracts/OpenZep-SecureBank.sol:6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0022",
+      "incident_id": "INC-0022",
+      "compliance_domain": "AUDIT",
+      "policy_reference": "AUDIT-TRACE-006",
+      "severity": "LOW",
+      "decision": "ALLOW",
+      "owner": "Application Security Team",
+      "reason": "Incident INC-0022 mapped to AUDIT controls and resulted in ALLOW due to severity LOW and supporting screening evidence.",
+      "evidence_refs": [
+        "slither-secure",
+        "contracts/OpenZep-SecureBank.sol:9"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0023",
+      "incident_id": "INC-0023",
+      "compliance_domain": "AML",
+      "policy_reference": "AML-SAR-001",
+      "severity": "HIGH",
+      "decision": "BLOCK",
+      "owner": "Compliance Team",
+      "reason": "Incident INC-0023 mapped to AML controls and resulted in BLOCK due to severity HIGH and supporting screening evidence.",
+      "evidence_refs": [
+        "defi-runtime-monitor",
+        "tx=0xccc333"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0024",
+      "incident_id": "INC-0024",
+      "compliance_domain": "KYT",
+      "policy_reference": "KYT-BLOCK-003",
+      "severity": "HIGH",
+      "decision": "REPORT",
+      "owner": "Compliance Team",
+      "reason": "Incident INC-0024 mapped to KYT controls and resulted in REPORT due to severity HIGH and supporting screening evidence.",
+      "evidence_refs": [
+        "defi-runtime-monitor",
+        "tx=0xaaa111"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0025",
+      "incident_id": "INC-0025",
+      "compliance_domain": "KYT",
+      "policy_reference": "KYT-BLOCK-003",
+      "severity": "HIGH",
+      "decision": "BLOCK",
+      "owner": "Compliance Team",
+      "reason": "Incident INC-0025 mapped to KYT controls and resulted in BLOCK due to severity HIGH and supporting screening evidence.",
+      "evidence_refs": [
+        "defi-runtime-monitor",
+        "tx=0xbbb222,0xbbb223,0xbbb224"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0026",
+      "incident_id": "INC-0026",
+      "compliance_domain": "KYT",
+      "policy_reference": "KYT-REVIEW-004",
+      "severity": "MEDIUM",
+      "decision": "REVIEW",
+      "owner": "Compliance Team",
+      "reason": "Incident INC-0026 mapped to KYT controls and resulted in REVIEW due to severity MEDIUM and supporting screening evidence.",
+      "evidence_refs": [
+        "defi-runtime-monitor",
+        "tx=0xddd444"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0027",
+      "incident_id": "INC-0027",
+      "compliance_domain": "KYT",
+      "policy_reference": "KYT-REVIEW-004",
+      "severity": "MEDIUM",
+      "decision": "REVIEW",
+      "owner": "Compliance Team",
+      "reason": "Incident INC-0027 mapped to KYT controls and resulted in REVIEW due to severity MEDIUM and supporting screening evidence.",
+      "evidence_refs": [
+        "defi-runtime-monitor",
+        "tx=0xddd445"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0028",
+      "incident_id": "INC-0028",
+      "compliance_domain": "KYT",
+      "policy_reference": "KYT-REVIEW-004",
+      "severity": "MEDIUM",
+      "decision": "REVIEW",
+      "owner": "Compliance Team",
+      "reason": "Incident INC-0028 mapped to KYT controls and resulted in REVIEW due to severity MEDIUM and supporting screening evidence.",
+      "evidence_refs": [
+        "defi-runtime-monitor",
+        "tx=0xddd446"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0029",
+      "incident_id": "INC-0029",
+      "compliance_domain": "KYT",
+      "policy_reference": "KYT-REVIEW-004",
+      "severity": "MEDIUM",
+      "decision": "REVIEW",
+      "owner": "Compliance Team",
+      "reason": "Incident INC-0029 mapped to KYT controls and resulted in REVIEW due to severity MEDIUM and supporting screening evidence.",
+      "evidence_refs": [
+        "defi-runtime-monitor",
+        "tx=0xeee556"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0030",
+      "incident_id": "INC-0030",
+      "compliance_domain": "KYC",
+      "policy_reference": "KYC-CDD-008",
+      "severity": "MEDIUM",
+      "decision": "REVIEW",
+      "owner": "Compliance Team",
+      "reason": "Incident INC-0030 mapped to KYC controls and resulted in REVIEW due to severity MEDIUM and supporting screening evidence.",
+      "evidence_refs": [
+        "defi-runtime-monitor",
+        "tx=0xeee555,0xeee556"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0031",
+      "incident_id": "INC-0031",
+      "compliance_domain": "KYT",
+      "policy_reference": "KYT-REVIEW-004",
+      "severity": "MEDIUM",
+      "decision": "REVIEW",
+      "owner": "Compliance Team",
+      "reason": "Incident INC-0031 mapped to KYT controls and resulted in REVIEW due to severity MEDIUM and supporting screening evidence.",
+      "evidence_refs": [
+        "defi-runtime-monitor",
+        "tx=0xddd444,0xddd445,0xddd446"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    },
+    {
+      "case_id": "CASE-0032",
+      "incident_id": "INC-0032",
+      "compliance_domain": "OPS",
+      "policy_reference": "OPS-RESILIENCE-007",
+      "severity": "HIGH",
+      "decision": "REPORT",
+      "owner": "DevOps / Node Operations Team",
+      "reason": "Incident INC-0032 mapped to OPS controls and resulted in REPORT due to severity HIGH and supporting screening evidence.",
+      "evidence_refs": [
+        "consensus-health",
+        "no-location"
+      ],
+      "generated_at": "2026-06-22T09:40:56.704Z"
+    }
+  ]
+}

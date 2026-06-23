@@ -1,0 +1,134 @@
+[
+  {
+    "tx_hash": "0xaaa111",
+    "block_number": 190001,
+    "timestamp": "2026-06-22T13:40:00Z",
+    "protocol": "DemoLend",
+    "address": "0xBorrower01",
+    "action": "borrow",
+    "asset": "ETH",
+    "amount": 500,
+    "counterparty": "0xPoolA"
+  },
+  {
+    "tx_hash": "0xaaa111",
+    "block_number": 190001,
+    "timestamp": "2026-06-22T13:40:01Z",
+    "protocol": "DemoSwap",
+    "address": "0xBorrower01",
+    "action": "swap",
+    "asset": "ETH-USDC",
+    "amount": 500,
+    "counterparty": "0xPoolB"
+  },
+  {
+    "tx_hash": "0xaaa111",
+    "block_number": 190001,
+    "timestamp": "2026-06-22T13:40:02Z",
+    "protocol": "DemoLend",
+    "address": "0xBorrower01",
+    "action": "repay",
+    "asset": "ETH",
+    "amount": 500,
+    "counterparty": "0xPoolA"
+  },
+  {
+    "tx_hash": "0xbbb222",
+    "block_number": 190010,
+    "timestamp": "2026-06-22T13:45:00Z",
+    "protocol": "VaultX",
+    "address": "0xUser77",
+    "action": "withdraw",
+    "asset": "ETH",
+    "amount": 40,
+    "counterparty": "0xVault1"
+  },
+  {
+    "tx_hash": "0xbbb223",
+    "block_number": 190011,
+    "timestamp": "2026-06-22T13:45:20Z",
+    "protocol": "VaultX",
+    "address": "0xUser77",
+    "action": "withdraw",
+    "asset": "ETH",
+    "amount": 42,
+    "counterparty": "0xVault1"
+  },
+  {
+    "tx_hash": "0xbbb224",
+    "block_number": 190012,
+    "timestamp": "2026-06-22T13:45:45Z",
+    "protocol": "VaultX",
+    "address": "0xUser77",
+    "action": "withdraw",
+    "asset": "ETH",
+    "amount": 41,
+    "counterparty": "0xVault1"
+  },
+  {
+    "tx_hash": "0xccc333",
+    "block_number": 190020,
+    "timestamp": "2026-06-22T13:50:00Z",
+    "protocol": "TreasuryCore",
+    "address": "0xAdmin01",
+    "action": "emergencyDrain",
+    "asset": "ETH",
+    "amount": 250,
+    "counterparty": "0xTreasury"
+  },
+  {
+    "tx_hash": "0xddd444",
+    "block_number": 190030,
+    "timestamp": "2026-06-22T13:55:00Z",
+    "protocol": "BridgeHop",
+    "address": "0xHop1",
+    "action": "transfer",
+    "asset": "USDC",
+    "amount": 200000,
+    "counterparty": "0xHop2"
+  },
+  {
+    "tx_hash": "0xddd445",
+    "block_number": 190031,
+    "timestamp": "2026-06-22T13:55:20Z",
+    "protocol": "BridgeHop",
+    "address": "0xHop2",
+    "action": "transfer",
+    "asset": "USDC",
+    "amount": 199500,
+    "counterparty": "0xHop3"
+  },
+  {
+    "tx_hash": "0xddd446",
+    "block_number": 190032,
+    "timestamp": "2026-06-22T13:55:50Z",
+    "protocol": "BridgeHop",
+    "address": "0xHop3",
+    "action": "transfer",
+    "asset": "USDC",
+    "amount": 199000,
+    "counterparty": "0xHop4"
+  },
+  {
+    "tx_hash": "0xeee555",
+    "block_number": 190040,
+    "timestamp": "2026-06-22T14:00:00Z",
+    "protocol": "LiquidityHub",
+    "address": "0xLP01",
+    "action": "liquidity_add",
+    "asset": "USDT",
+    "amount": 5000,
+    "counterparty": "0xPoolL"
+  },
+  {
+    "tx_hash": "0xeee556",
+    "block_number": 190041,
+    "timestamp": "2026-06-22T14:00:20Z",
+    "protocol": "LiquidityHub",
+    "address": "0xLP02",
+    "action": "liquidity_add",
+    "asset": "USDT",
+    "amount": 180000,
+    "counterparty": "0xPoolL"
+  }
+]

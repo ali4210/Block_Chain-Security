@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Security Pipeline HTML Report</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #121a2b;
+      --panel-2: #0f1726;
+      --text: #e8eefc;
+      --muted: #9fb0d0;
+      --border: #233252;
+      --high: #ef4444;
+      --medium: #f59e0b;
+      --low: #22c55e;
+      --info: #38bdf8;
+      --accent: #8b5cf6;
+      --shadow: 0 10px 30px rgba(0,0,0,0.28);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background: linear-gradient(180deg, #0a0f1d 0%, #12192b 100%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+    }
+
+    .hero, .panel {
+      background: rgba(18, 26, 43, 0.95);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      padding: 28px;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+    }
+
+    .hero p {
+      margin: 6px 0;
+      color: var(--muted);
+    }
+
+    .gate {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      background: rgba(239,68,68,0.12);
+      color: #fecaca;
+      border: 1px solid rgba(239,68,68,0.35);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .stat {
+      padding: 20px;
+      background: rgba(15, 23, 38, 0.95);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .stat .label {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .stat .value {
+      font-size: 30px;
+      font-weight: 800;
+    }
+
+    .stat.high .value { color: var(--high); }
+    .stat.medium .value { color: var(--medium); }
+    .stat.low .value { color: var(--low); }
+    .stat.info .value { color: var(--info); }
+
+    .panel {
+      padding: 22px;
+      margin-bottom: 22px;
+    }
+
+    .panel h2 {
+      margin: 0 0 14px;
+      font-size: 22px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .badge.high { background: rgba(239,68,68,0.16); color: #fecaca; border: 1px solid rgba(239,68,68,0.35); }
+    .badge.medium { background: rgba(245,158,11,0.16); color: #fde68a; border: 1px solid rgba(245,158,11,0.35); }
+    .badge.low { background: rgba(34,197,94,0.16); color: #bbf7d0; border: 1px solid rgba(34,197,94,0.35); }
+    .badge.info { background: rgba(56,189,248,0.16); color: #bae6fd; border: 1px solid rgba(56,189,248,0.35); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+
+    thead th {
+      text-align: left;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: rgba(255,255,255,0.03);
+      padding: 14px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    tbody td {
+      padding: 14px 12px;
+      border-bottom: 1px solid rgba(35,50,82,0.7);
+      vertical-align: top;
+      font-size: 14px;
+    }
+
+    tbody tr:hover {
+      background: rgba(255,255,255,0.025);
+    }
+
+    .sources {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .sources li {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.02);
+      word-break: break-word;
+    }
+
+    .source-status {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .source-status.present { color: #86efac; }
+    .source-status.missing { color: #fca5a5; }
+
+    .footer {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 14px;
+    }
+
+    @media (max-width: 960px) {
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 26px;
+      }
+
+      .container {
+        padding: 20px 14px 36px;
+      }
+
+      table, thead, tbody, th, td, tr {
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="hero">
+      <h1>Security Pipeline HTML Report</h1>
+      <p>Human-readable output for smart contract security, DeFi runtime alerts, consensus monitoring, wallet screening, and incident orchestration.</p>
+      <p>Generated at: 2026-06-23T07:27:56.202Z</p>
+      <div class="gate">Security Gate Status: FAIL</div>
+    </section>
+
+    <section class="grid">
+      <div class="stat high">
+        <div class="label">High</div>
+        <div class="value">6</div>
+      </div>
+      <div class="stat medium">
+        <div class="label">Medium</div>
+        <div class="value">11</div>
+      </div>
+      <div class="stat low">
+        <div class="label">Low</div>
+        <div class="value">12</div>
+      </div>
+      <div class="stat info">
+        <div class="label">Info</div>
+        <div class="value">3</div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="stat">
+        <div class="label">Total Findings</div>
+        <div class="value">32</div>
+      </div>
+      <div class="stat">
+        <div class="label">Total Incidents</div>
+        <div class="value">32</div>
+      </div>
+      <div class="stat">
+        <div class="label">Unique Tools</div>
+        <div class="value">3</div>
+      </div>
+      <div class="stat">
+        <div class="label">HTML Output</div>
+        <div class="value" style="font-size:18px;">reports/html/security-report-strict.html</div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Executive Summary</h2>
+      <p class="muted">
+        This report aggregates raw JSON outputs into a browser-readable format so stakeholders can review the overall risk picture, severity distribution, source tools, and response actions without opening machine-oriented files.
+      </p>
+      <p class="muted">
+        A FAIL status means at least one HIGH severity finding was detected by the pipeline input set. A PASS status means no HIGH severity findings were present in the collected findings.
+      </p>
+    </section>
+
+    <section class="panel">
+      <h2>Findings by Tool</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Tool</th>
+            <th>Finding Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+        <tr>
+          <td>consensus-monitor</td>
+          <td>1</td>
+        </tr>
+      
+        <tr>
+          <td>defi-detector</td>
+          <td>9</td>
+        </tr>
+      
+        <tr>
+          <td>slither</td>
+          <td>22</td>
+        </tr>
+      
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel">
+      <h2>Detailed Findings</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Severity</th>
+            <th>Tool</th>
+            <th>Affected Component</th>
+            <th>Rule</th>
+            <th>Title</th>
+            <th>Location</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+        <tr>
+          <td><span class="badge high">HIGH</span></td>
+          <td>consensus-monitor</td>
+          <td>31337</td>
+          <td>consensus-health</td>
+          <td>Consensus / chain health status</td>
+          <td>-</td>
+          <td>No new blocks for 1661 seconds. Chain may be stalled.. Network: 31337. Latest block: 0. Seconds since last block: 1661</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge high">HIGH</span></td>
+          <td>defi-detector</td>
+          <td>TreasuryCore</td>
+          <td>emergency-function-use</td>
+          <td>Emergency administrative action detected</td>
+          <td>tx=0xccc333</td>
+          <td>Administrative action emergencyDrain was executed by 0xAdmin01 against 0xTreasury.</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge high">HIGH</span></td>
+          <td>defi-detector</td>
+          <td>DemoLend, DemoSwap</td>
+          <td>flash-loan-pattern</td>
+          <td>Flash-loan-like transaction pattern detected</td>
+          <td>tx=0xaaa111</td>
+          <td>Transaction 0xaaa111 contains borrow, swap, and repay actions consistent with a flash-loan-style sequence for address 0xBorrower01.</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge high">HIGH</span></td>
+          <td>defi-detector</td>
+          <td>VaultX</td>
+          <td>rapid-withdrawals</td>
+          <td>Rapid repeated withdrawals detected</td>
+          <td>tx=0xbbb222,0xbbb223,0xbbb224</td>
+          <td>Address 0xUser77 executed 3 withdrawals within 45 seconds.</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge high">HIGH</span></td>
+          <td>slither</td>
+          <td>VulnerableBank</td>
+          <td>arbitrary-send-eth</td>
+          <td>arbitrary-send-eth</td>
+          <td>contracts/VulnerableBank.sol:38,39,40,41,42,43,44,45</td>
+          <td>VulnerableBank.emergencyDrain() (contracts/VulnerableBank.sol#38-45) sends eth to arbitrary user Dangerous calls: - (success,None) = address(msg.sender).call{value: amount}() (contracts/VulnerableBank.sol#41)</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge high">HIGH</span></td>
+          <td>slither</td>
+          <td>VulnerableBank</td>
+          <td>reentrancy-eth</td>
+          <td>reentrancy-eth</td>
+          <td>contracts/VulnerableBank.sol:21,22,23,24,25,26,27,28,29,30,31,32</td>
+          <td>Reentrancy in VulnerableBank.withdraw() (contracts/VulnerableBank.sol#21-32): External calls: - (success,None) = address(msg.sender).call{value: amount}() (contracts/VulnerableBank.sol#25) State variables written after the call(s): - balances[msg.sender] = 0 (contracts/VulnerableBank.sol#28) VulnerableBank.balances (contracts/VulnerableBank.sol#5) can be used in cross function reentrancies: - VulnerableBank.balances (contracts/VulnerableBank.sol#5) - VulnerableBank.deposit() (contracts/VulnerableBank.sol#12-19) - VulnerableBank.withdraw() (contracts/VulnerableBank.sol#21-32)</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>defi-detector</td>
+          <td>BridgeHop</td>
+          <td>large-transfer</td>
+          <td>Large value movement detected</td>
+          <td>tx=0xddd444</td>
+          <td>Transaction 0xddd444 moved 200000 USDC, exceeding the configured threshold of 100000.</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>defi-detector</td>
+          <td>BridgeHop</td>
+          <td>large-transfer</td>
+          <td>Large value movement detected</td>
+          <td>tx=0xddd445</td>
+          <td>Transaction 0xddd445 moved 199500 USDC, exceeding the configured threshold of 100000.</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>defi-detector</td>
+          <td>BridgeHop</td>
+          <td>large-transfer</td>
+          <td>Large value movement detected</td>
+          <td>tx=0xddd446</td>
+          <td>Transaction 0xddd446 moved 199000 USDC, exceeding the configured threshold of 100000.</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>defi-detector</td>
+          <td>LiquidityHub</td>
+          <td>large-transfer</td>
+          <td>Large value movement detected</td>
+          <td>tx=0xeee556</td>
+          <td>Transaction 0xeee556 moved 180000 USDT, exceeding the configured threshold of 100000.</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>defi-detector</td>
+          <td>LiquidityHub</td>
+          <td>liquidity-spike</td>
+          <td>Liquidity spike detected</td>
+          <td>tx=0xeee555,0xeee556</td>
+          <td>Liquidity activity increased by 175000 USDT between consecutive events in LiquidityHub.</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>defi-detector</td>
+          <td>BridgeHop</td>
+          <td>multi-hop-transfer</td>
+          <td>Rapid multi-hop transfer chain detected</td>
+          <td>tx=0xddd444,0xddd445,0xddd446</td>
+          <td>Detected 3 linked transfers across multiple addresses within 50 seconds.</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>slither</td>
+          <td>VulnerableBank</td>
+          <td>reentrancy-benign</td>
+          <td>reentrancy-benign</td>
+          <td>contracts/VulnerableBank.sol:21,22,23,24,25,26,27,28,29,30,31,32</td>
+          <td>Reentrancy in VulnerableBank.withdraw() (contracts/VulnerableBank.sol#21-32): External calls: - (success,None) = address(msg.sender).call{value: amount}() (contracts/VulnerableBank.sol#25) State variables written after the call(s): - totalDeposits -= amount (contracts/VulnerableBank.sol#29)</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>slither</td>
+          <td>VulnerableBank</td>
+          <td>low-level-calls</td>
+          <td>low-level-calls</td>
+          <td>contracts/VulnerableBank.sol:21,22,23,24,25,26,27,28,29,30,31,32</td>
+          <td>Low level call in VulnerableBank.withdraw() (contracts/VulnerableBank.sol#21-32): - (success,None) = address(msg.sender).call{value: amount}() (contracts/VulnerableBank.sol#25)</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>slither</td>
+          <td>VulnerableBank</td>
+          <td>low-level-calls</td>
+          <td>low-level-calls</td>
+          <td>contracts/VulnerableBank.sol:38,39,40,41,42,43,44,45</td>
+          <td>Low level call in VulnerableBank.emergencyDrain() (contracts/VulnerableBank.sol#38-45): - (success,None) = address(msg.sender).call{value: amount}() (contracts/VulnerableBank.sol#41)</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>slither</td>
+          <td>OpenZep_SecureBank</td>
+          <td>low-level-calls</td>
+          <td>low-level-calls</td>
+          <td>contracts/OpenZep-SecureBank.sol:50,51,52,53,54,55,56,57</td>
+          <td>Low level call in OpenZep_SecureBank.emergencyDrain() (contracts/OpenZep-SecureBank.sol#50-57): - (success,None) = address(owner).call{value: amount}() (contracts/OpenZep-SecureBank.sol#53)</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>slither</td>
+          <td>OpenZep_SecureBank</td>
+          <td>low-level-calls</td>
+          <td>low-level-calls</td>
+          <td>contracts/OpenZep-SecureBank.sol:33,34,35,36,37,38,39,40,41,42,43,44</td>
+          <td>Low level call in OpenZep_SecureBank.withdraw(uint256) (contracts/OpenZep-SecureBank.sol#33-44): - (success,None) = address(msg.sender).call{value: amount}() (contracts/OpenZep-SecureBank.sol#40)</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>VulnerableBank</td>
+          <td>reentrancy-events</td>
+          <td>reentrancy-events</td>
+          <td>contracts/VulnerableBank.sol:21,22,23,24,25,26,27,28,29,30,31,32</td>
+          <td>Reentrancy in VulnerableBank.withdraw() (contracts/VulnerableBank.sol#21-32): External calls: - (success,None) = address(msg.sender).call{value: amount}() (contracts/VulnerableBank.sol#25) Event emitted after the call(s): - Withdrawn(msg.sender,amount) (contracts/VulnerableBank.sol#31)</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>VulnerableBank</td>
+          <td>reentrancy-events</td>
+          <td>reentrancy-events</td>
+          <td>contracts/VulnerableBank.sol:38,39,40,41,42,43,44,45</td>
+          <td>Reentrancy in VulnerableBank.emergencyDrain() (contracts/VulnerableBank.sol#38-45): External calls: - (success,None) = address(msg.sender).call{value: amount}() (contracts/VulnerableBank.sol#41) Event emitted after the call(s): - EmergencyDrain(msg.sender,amount) (contracts/VulnerableBank.sol#44)</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>StorageSlot</td>
+          <td>assembly</td>
+          <td>assembly</td>
+          <td>node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:66,67,68,69,70</td>
+          <td>StorageSlot.getAddressSlot(bytes32) (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#66-70) uses assembly - INLINE ASM (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#67-69)</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>StorageSlot</td>
+          <td>assembly</td>
+          <td>assembly</td>
+          <td>node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:93,94,95,96,97</td>
+          <td>StorageSlot.getUint256Slot(bytes32) (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#93-97) uses assembly - INLINE ASM (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#94-96)</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>StorageSlot</td>
+          <td>assembly</td>
+          <td>assembly</td>
+          <td>node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:75,76,77,78,79</td>
+          <td>StorageSlot.getBooleanSlot(bytes32) (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#75-79) uses assembly - INLINE ASM (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#76-78)</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>StorageSlot</td>
+          <td>assembly</td>
+          <td>assembly</td>
+          <td>node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:84,85,86,87,88</td>
+          <td>StorageSlot.getBytes32Slot(bytes32) (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#84-88) uses assembly - INLINE ASM (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#85-87)</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>StorageSlot</td>
+          <td>assembly</td>
+          <td>assembly</td>
+          <td>node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:102,103,104,105,106</td>
+          <td>StorageSlot.getInt256Slot(bytes32) (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#102-106) uses assembly - INLINE ASM (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#103-105)</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>StorageSlot</td>
+          <td>assembly</td>
+          <td>assembly</td>
+          <td>node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:138,139,140,141,142</td>
+          <td>StorageSlot.getBytesSlot(bytes) (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#138-142) uses assembly - INLINE ASM (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#139-141)</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>StorageSlot</td>
+          <td>assembly</td>
+          <td>assembly</td>
+          <td>node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:111,112,113,114,115</td>
+          <td>StorageSlot.getStringSlot(bytes32) (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#111-115) uses assembly - INLINE ASM (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#112-114)</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>StorageSlot</td>
+          <td>assembly</td>
+          <td>assembly</td>
+          <td>node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:120,121,122,123,124</td>
+          <td>StorageSlot.getStringSlot(string) (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#120-124) uses assembly - INLINE ASM (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#121-123)</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>StorageSlot</td>
+          <td>assembly</td>
+          <td>assembly</td>
+          <td>node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:129,130,131,132,133</td>
+          <td>StorageSlot.getBytesSlot(bytes32) (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#129-133) uses assembly - INLINE ASM (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#130-132)</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>OpenZep_SecureBank</td>
+          <td>immutable-states</td>
+          <td>immutable-states</td>
+          <td>contracts/OpenZep-SecureBank.sol:9</td>
+          <td>OpenZep_SecureBank.owner (contracts/OpenZep-SecureBank.sol#9) should be immutable</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge info">INFO</span></td>
+          <td>slither</td>
+          <td>UnknownContract</td>
+          <td>pragma</td>
+          <td>pragma</td>
+          <td>contracts/OpenZep-SecureBank.sol:2</td>
+          <td>2 different versions of Solidity are used: - Version constraint ^0.8.28 is used by: -^0.8.28 (contracts/OpenZep-SecureBank.sol#2) - Version constraint ^0.8.20 is used by: -^0.8.20 (node_modules/@openzeppelin/contracts/utils/ReentrancyGuard.sol#4) -^0.8.20 (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#5)</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge info">INFO</span></td>
+          <td>slither</td>
+          <td>UnknownContract</td>
+          <td>solc-version</td>
+          <td>solc-version</td>
+          <td>node_modules/@openzeppelin/contracts/utils/ReentrancyGuard.sol:4</td>
+          <td>Version constraint ^0.8.20 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html) - VerbatimInvalidDeduplication - FullInlinerNonExpressionSplitArgumentEvaluationOrder - MissingSideEffectsOnSelectorAccess. It is used by: - ^0.8.20 (node_modules/@openzeppelin/contracts/utils/ReentrancyGuard.sol#4) - ^0.8.20 (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#5)</td>
+        </tr>
+      
+        <tr>
+          <td><span class="badge info">INFO</span></td>
+          <td>slither</td>
+          <td>UnknownContract</td>
+          <td>naming-convention</td>
+          <td>naming-convention</td>
+          <td>contracts/OpenZep-SecureBank.sol:6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58</td>
+          <td>Contract OpenZep_SecureBank (contracts/OpenZep-SecureBank.sol#6-58) is not in CapWords</td>
+        </tr>
+      
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel">
+      <h2>Incident Actions</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Severity</th>
+            <th>Tool</th>
+            <th>Affected Component</th>
+            <th>Action</th>
+            <th>Owner</th>
+            <th>Status</th>
+            <th>Remediation</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+        <tr>
+          <td>INC-0001</td>
+          <td><span class="badge high">HIGH</span></td>
+          <td>slither</td>
+          <td>VulnerableBank</td>
+          <td>BLOCK_BUILD</td>
+          <td>Application Security Team</td>
+          <td>OPEN</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0002</td>
+          <td><span class="badge high">HIGH</span></td>
+          <td>slither</td>
+          <td>VulnerableBank</td>
+          <td>BLOCK_BUILD</td>
+          <td>Application Security Team</td>
+          <td>OPEN</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0023</td>
+          <td><span class="badge high">HIGH</span></td>
+          <td>defi-detector</td>
+          <td>TreasuryCore</td>
+          <td>ESCALATE_SECURITY</td>
+          <td>SOC / Blockchain Monitoring Team</td>
+          <td>OPEN</td>
+          <td>Investigate the suspicious transaction pattern, validate counterparties and wallet behavior, and consider pausing sensitive protocol actions if exploit conditions are confirmed.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0024</td>
+          <td><span class="badge high">HIGH</span></td>
+          <td>defi-detector</td>
+          <td>DemoLend, DemoSwap</td>
+          <td>ESCALATE_SECURITY</td>
+          <td>SOC / Blockchain Monitoring Team</td>
+          <td>OPEN</td>
+          <td>Investigate the suspicious transaction pattern, validate counterparties and wallet behavior, and consider pausing sensitive protocol actions if exploit conditions are confirmed.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0025</td>
+          <td><span class="badge high">HIGH</span></td>
+          <td>defi-detector</td>
+          <td>VaultX</td>
+          <td>ESCALATE_SECURITY</td>
+          <td>SOC / Blockchain Monitoring Team</td>
+          <td>OPEN</td>
+          <td>Investigate the suspicious transaction pattern, validate counterparties and wallet behavior, and consider pausing sensitive protocol actions if exploit conditions are confirmed.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0032</td>
+          <td><span class="badge high">HIGH</span></td>
+          <td>consensus-monitor</td>
+          <td>31337</td>
+          <td>BLOCK_BUILD</td>
+          <td>DevOps / Node Operations Team</td>
+          <td>OPEN</td>
+          <td>Verify node health, inspect RPC connectivity and recent blocks, confirm expected chain activity, and restore normal monitoring thresholds if the slowdown is benign.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0003</td>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>slither</td>
+          <td>VulnerableBank</td>
+          <td>MANUAL_REVIEW</td>
+          <td>Application Security Team</td>
+          <td>REVIEW_REQUIRED</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0006</td>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>slither</td>
+          <td>VulnerableBank</td>
+          <td>MANUAL_REVIEW</td>
+          <td>Application Security Team</td>
+          <td>REVIEW_REQUIRED</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0007</td>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>slither</td>
+          <td>VulnerableBank</td>
+          <td>MANUAL_REVIEW</td>
+          <td>Application Security Team</td>
+          <td>REVIEW_REQUIRED</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0019</td>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>slither</td>
+          <td>OpenZep_SecureBank</td>
+          <td>MANUAL_REVIEW</td>
+          <td>Application Security Team</td>
+          <td>REVIEW_REQUIRED</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0020</td>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>slither</td>
+          <td>OpenZep_SecureBank</td>
+          <td>MANUAL_REVIEW</td>
+          <td>Application Security Team</td>
+          <td>REVIEW_REQUIRED</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0026</td>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>defi-detector</td>
+          <td>BridgeHop</td>
+          <td>MANUAL_REVIEW</td>
+          <td>SOC / Blockchain Monitoring Team</td>
+          <td>REVIEW_REQUIRED</td>
+          <td>Investigate the suspicious transaction pattern, validate counterparties and wallet behavior, and consider pausing sensitive protocol actions if exploit conditions are confirmed.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0027</td>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>defi-detector</td>
+          <td>BridgeHop</td>
+          <td>MANUAL_REVIEW</td>
+          <td>SOC / Blockchain Monitoring Team</td>
+          <td>REVIEW_REQUIRED</td>
+          <td>Investigate the suspicious transaction pattern, validate counterparties and wallet behavior, and consider pausing sensitive protocol actions if exploit conditions are confirmed.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0028</td>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>defi-detector</td>
+          <td>BridgeHop</td>
+          <td>MANUAL_REVIEW</td>
+          <td>SOC / Blockchain Monitoring Team</td>
+          <td>REVIEW_REQUIRED</td>
+          <td>Investigate the suspicious transaction pattern, validate counterparties and wallet behavior, and consider pausing sensitive protocol actions if exploit conditions are confirmed.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0029</td>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>defi-detector</td>
+          <td>LiquidityHub</td>
+          <td>MANUAL_REVIEW</td>
+          <td>SOC / Blockchain Monitoring Team</td>
+          <td>REVIEW_REQUIRED</td>
+          <td>Investigate the suspicious transaction pattern, validate counterparties and wallet behavior, and consider pausing sensitive protocol actions if exploit conditions are confirmed.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0030</td>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>defi-detector</td>
+          <td>LiquidityHub</td>
+          <td>MANUAL_REVIEW</td>
+          <td>SOC / Blockchain Monitoring Team</td>
+          <td>REVIEW_REQUIRED</td>
+          <td>Investigate the suspicious transaction pattern, validate counterparties and wallet behavior, and consider pausing sensitive protocol actions if exploit conditions are confirmed.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0031</td>
+          <td><span class="badge medium">MEDIUM</span></td>
+          <td>defi-detector</td>
+          <td>BridgeHop</td>
+          <td>MANUAL_REVIEW</td>
+          <td>SOC / Blockchain Monitoring Team</td>
+          <td>REVIEW_REQUIRED</td>
+          <td>Investigate the suspicious transaction pattern, validate counterparties and wallet behavior, and consider pausing sensitive protocol actions if exploit conditions are confirmed.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0004</td>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>VulnerableBank</td>
+          <td>MONITOR</td>
+          <td>Application Security Team</td>
+          <td>MONITORING</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0005</td>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>VulnerableBank</td>
+          <td>MONITOR</td>
+          <td>Application Security Team</td>
+          <td>MONITORING</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0008</td>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>StorageSlot</td>
+          <td>MONITOR</td>
+          <td>Application Security Team</td>
+          <td>MONITORING</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0009</td>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>StorageSlot</td>
+          <td>MONITOR</td>
+          <td>Application Security Team</td>
+          <td>MONITORING</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0010</td>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>StorageSlot</td>
+          <td>MONITOR</td>
+          <td>Application Security Team</td>
+          <td>MONITORING</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0011</td>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>StorageSlot</td>
+          <td>MONITOR</td>
+          <td>Application Security Team</td>
+          <td>MONITORING</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0012</td>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>StorageSlot</td>
+          <td>MONITOR</td>
+          <td>Application Security Team</td>
+          <td>MONITORING</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0013</td>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>StorageSlot</td>
+          <td>MONITOR</td>
+          <td>Application Security Team</td>
+          <td>MONITORING</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0014</td>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>StorageSlot</td>
+          <td>MONITOR</td>
+          <td>Application Security Team</td>
+          <td>MONITORING</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0015</td>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>StorageSlot</td>
+          <td>MONITOR</td>
+          <td>Application Security Team</td>
+          <td>MONITORING</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0016</td>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>StorageSlot</td>
+          <td>MONITOR</td>
+          <td>Application Security Team</td>
+          <td>MONITORING</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0022</td>
+          <td><span class="badge low">LOW</span></td>
+          <td>slither</td>
+          <td>OpenZep_SecureBank</td>
+          <td>MONITOR</td>
+          <td>Application Security Team</td>
+          <td>MONITORING</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0017</td>
+          <td><span class="badge info">INFO</span></td>
+          <td>slither</td>
+          <td>UnknownContract</td>
+          <td>LOG_ONLY</td>
+          <td>Application Security Team</td>
+          <td>CLOSED</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0018</td>
+          <td><span class="badge info">INFO</span></td>
+          <td>slither</td>
+          <td>UnknownContract</td>
+          <td>LOG_ONLY</td>
+          <td>Application Security Team</td>
+          <td>CLOSED</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        <tr>
+          <td>INC-0021</td>
+          <td><span class="badge info">INFO</span></td>
+          <td>slither</td>
+          <td>UnknownContract</td>
+          <td>LOG_ONLY</td>
+          <td>Application Security Team</td>
+          <td>CLOSED</td>
+          <td>Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.</td>
+        </tr>
+      
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel">
+      <h2>Source Files</h2>
+      <ul class="sources">
+        
+        <li>
+          <span>reports/slither/vulnerable_bank.json</span>
+          <span class="source-status present">present</span>
+        </li>
+      
+        <li>
+          <span>reports/slither/secure_bank.json</span>
+          <span class="source-status present">present</span>
+        </li>
+      
+        <li>
+          <span>reports/mythril/vulnerable_bank.json</span>
+          <span class="source-status present">present</span>
+        </li>
+      
+        <li>
+          <span>reports/defi/defi_alerts.json</span>
+          <span class="source-status present">present</span>
+        </li>
+      
+        <li>
+          <span>reports/consensus/consensus_status.json</span>
+          <span class="source-status present">present</span>
+        </li>
+      
+        <li>
+          <span>reports/wallet-screening/wallet_screening.json</span>
+          <span class="source-status present">present</span>
+        </li>
+      
+        <li>
+          <span>reports/incident/incident_response.json</span>
+          <span class="source-status present">present</span>
+        </li>
+      
+      </ul>
+      <div class="footer">
+        Open this file directly in your browser after pipeline execution.
+      </div>
+    </section>
+  </div>
+</body>
+</html>

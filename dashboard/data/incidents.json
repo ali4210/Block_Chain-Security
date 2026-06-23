@@ -1,0 +1,962 @@
+[
+  {
+    "id": "INC-0001",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "arbitrary-send-eth",
+    "summary": "This finding is severe enough to require immediate containment and should block promotion until reviewed.",
+    "severity": "HIGH",
+    "status": "OPEN",
+    "owner": "Application Security Team",
+    "action": "BLOCK_BUILD",
+    "affected_component": "VulnerableBank",
+    "rationale": "This finding is severe enough to require immediate containment and should block promotion until reviewed.",
+    "remediation": "Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.",
+    "evidence": {
+      "report": "slither-vulnerable",
+      "location": "contracts/VulnerableBank.sol:38,39,40,41,42,43,44,45",
+      "description": "VulnerableBank.emergencyDrain() (contracts/VulnerableBank.sol#38-45) sends eth to arbitrary user Dangerous calls: - (success,None) = address(msg.sender).call{value: amount}() (contracts/VulnerableBank.sol#41)",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "slither",
+      "rule": "arbitrary-send-eth"
+    }
+  },
+  {
+    "id": "INC-0002",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "reentrancy-eth",
+    "summary": "This finding is severe enough to require immediate containment and should block promotion until reviewed.",
+    "severity": "HIGH",
+    "status": "OPEN",
+    "owner": "Application Security Team",
+    "action": "BLOCK_BUILD",
+    "affected_component": "VulnerableBank",
+    "rationale": "This finding is severe enough to require immediate containment and should block promotion until reviewed.",
+    "remediation": "Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.",
+    "evidence": {
+      "report": "slither-vulnerable",
+      "location": "contracts/VulnerableBank.sol:21,22,23,24,25,26,27,28,29,30,31,32",
+      "description": "Reentrancy in VulnerableBank.withdraw() (contracts/VulnerableBank.sol#21-32): External calls: - (success,None) = address(msg.sender).call{value: amount}() (contracts/VulnerableBank.sol#25) State variables written after the call(s): - balances[msg.sender] = 0 (contracts/VulnerableBank.sol#28) VulnerableBank.balances (contracts/VulnerableBank.sol#5) can be used in cross function reentrancies: - VulnerableBank.balances (contracts/VulnerableBank.sol#5) - VulnerableBank.deposit() (contracts/VulnerableBank.sol#12-19) - VulnerableBank.withdraw() (contracts/VulnerableBank.sol#21-32)",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "slither",
+      "rule": "reentrancy-eth"
+    }
+  },
+  {
+    "id": "INC-0003",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "reentrancy-benign",
+    "summary": "This finding indicates meaningful risk and requires analyst review before it can be dismissed.",
+    "severity": "MEDIUM",
+    "status": "REVIEW_REQUIRED",
+    "owner": "Application Security Team",
+    "action": "MANUAL_REVIEW",
+    "affected_component": "VulnerableBank",
+    "rationale": "This finding indicates meaningful risk and requires analyst review before it can be dismissed.",
+    "remediation": "Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.",
+    "evidence": {
+      "report": "slither-vulnerable",
+      "location": "contracts/VulnerableBank.sol:21,22,23,24,25,26,27,28,29,30,31,32",
+      "description": "Reentrancy in VulnerableBank.withdraw() (contracts/VulnerableBank.sol#21-32): External calls: - (success,None) = address(msg.sender).call{value: amount}() (contracts/VulnerableBank.sol#25) State variables written after the call(s): - totalDeposits -= amount (contracts/VulnerableBank.sol#29)",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "slither",
+      "rule": "reentrancy-benign"
+    }
+  },
+  {
+    "id": "INC-0004",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "reentrancy-events",
+    "summary": "This finding should be tracked for operational awareness and future tuning.",
+    "severity": "LOW",
+    "status": "MONITORING",
+    "owner": "Application Security Team",
+    "action": "MONITOR",
+    "affected_component": "VulnerableBank",
+    "rationale": "This finding should be tracked for operational awareness and future tuning.",
+    "remediation": "Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.",
+    "evidence": {
+      "report": "slither-vulnerable",
+      "location": "contracts/VulnerableBank.sol:21,22,23,24,25,26,27,28,29,30,31,32",
+      "description": "Reentrancy in VulnerableBank.withdraw() (contracts/VulnerableBank.sol#21-32): External calls: - (success,None) = address(msg.sender).call{value: amount}() (contracts/VulnerableBank.sol#25) Event emitted after the call(s): - Withdrawn(msg.sender,amount) (contracts/VulnerableBank.sol#31)",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "slither",
+      "rule": "reentrancy-events"
+    }
+  },
+  {
+    "id": "INC-0005",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "reentrancy-events",
+    "summary": "This finding should be tracked for operational awareness and future tuning.",
+    "severity": "LOW",
+    "status": "MONITORING",
+    "owner": "Application Security Team",
+    "action": "MONITOR",
+    "affected_component": "VulnerableBank",
+    "rationale": "This finding should be tracked for operational awareness and future tuning.",
+    "remediation": "Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.",
+    "evidence": {
+      "report": "slither-vulnerable",
+      "location": "contracts/VulnerableBank.sol:38,39,40,41,42,43,44,45",
+      "description": "Reentrancy in VulnerableBank.emergencyDrain() (contracts/VulnerableBank.sol#38-45): External calls: - (success,None) = address(msg.sender).call{value: amount}() (contracts/VulnerableBank.sol#41) Event emitted after the call(s): - EmergencyDrain(msg.sender,amount) (contracts/VulnerableBank.sol#44)",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "slither",
+      "rule": "reentrancy-events"
+    }
+  },
+  {
+    "id": "INC-0006",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "low-level-calls",
+    "summary": "This finding indicates meaningful risk and requires analyst review before it can be dismissed.",
+    "severity": "MEDIUM",
+    "status": "REVIEW_REQUIRED",
+    "owner": "Application Security Team",
+    "action": "MANUAL_REVIEW",
+    "affected_component": "VulnerableBank",
+    "rationale": "This finding indicates meaningful risk and requires analyst review before it can be dismissed.",
+    "remediation": "Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.",
+    "evidence": {
+      "report": "slither-vulnerable",
+      "location": "contracts/VulnerableBank.sol:21,22,23,24,25,26,27,28,29,30,31,32",
+      "description": "Low level call in VulnerableBank.withdraw() (contracts/VulnerableBank.sol#21-32): - (success,None) = address(msg.sender).call{value: amount}() (contracts/VulnerableBank.sol#25)",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "slither",
+      "rule": "low-level-calls"
+    }
+  },
+  {
+    "id": "INC-0007",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "low-level-calls",
+    "summary": "This finding indicates meaningful risk and requires analyst review before it can be dismissed.",
+    "severity": "MEDIUM",
+    "status": "REVIEW_REQUIRED",
+    "owner": "Application Security Team",
+    "action": "MANUAL_REVIEW",
+    "affected_component": "VulnerableBank",
+    "rationale": "This finding indicates meaningful risk and requires analyst review before it can be dismissed.",
+    "remediation": "Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.",
+    "evidence": {
+      "report": "slither-vulnerable",
+      "location": "contracts/VulnerableBank.sol:38,39,40,41,42,43,44,45",
+      "description": "Low level call in VulnerableBank.emergencyDrain() (contracts/VulnerableBank.sol#38-45): - (success,None) = address(msg.sender).call{value: amount}() (contracts/VulnerableBank.sol#41)",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "slither",
+      "rule": "low-level-calls"
+    }
+  },
+  {
+    "id": "INC-0008",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "assembly",
+    "summary": "This finding should be tracked for operational awareness and future tuning.",
+    "severity": "LOW",
+    "status": "MONITORING",
+    "owner": "Application Security Team",
+    "action": "MONITOR",
+    "affected_component": "StorageSlot",
+    "rationale": "This finding should be tracked for operational awareness and future tuning.",
+    "remediation": "Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.",
+    "evidence": {
+      "report": "slither-secure",
+      "location": "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:66,67,68,69,70",
+      "description": "StorageSlot.getAddressSlot(bytes32) (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#66-70) uses assembly - INLINE ASM (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#67-69)",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "slither",
+      "rule": "assembly"
+    }
+  },
+  {
+    "id": "INC-0009",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "assembly",
+    "summary": "This finding should be tracked for operational awareness and future tuning.",
+    "severity": "LOW",
+    "status": "MONITORING",
+    "owner": "Application Security Team",
+    "action": "MONITOR",
+    "affected_component": "StorageSlot",
+    "rationale": "This finding should be tracked for operational awareness and future tuning.",
+    "remediation": "Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.",
+    "evidence": {
+      "report": "slither-secure",
+      "location": "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:93,94,95,96,97",
+      "description": "StorageSlot.getUint256Slot(bytes32) (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#93-97) uses assembly - INLINE ASM (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#94-96)",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "slither",
+      "rule": "assembly"
+    }
+  },
+  {
+    "id": "INC-0010",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "assembly",
+    "summary": "This finding should be tracked for operational awareness and future tuning.",
+    "severity": "LOW",
+    "status": "MONITORING",
+    "owner": "Application Security Team",
+    "action": "MONITOR",
+    "affected_component": "StorageSlot",
+    "rationale": "This finding should be tracked for operational awareness and future tuning.",
+    "remediation": "Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.",
+    "evidence": {
+      "report": "slither-secure",
+      "location": "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:75,76,77,78,79",
+      "description": "StorageSlot.getBooleanSlot(bytes32) (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#75-79) uses assembly - INLINE ASM (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#76-78)",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "slither",
+      "rule": "assembly"
+    }
+  },
+  {
+    "id": "INC-0011",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "assembly",
+    "summary": "This finding should be tracked for operational awareness and future tuning.",
+    "severity": "LOW",
+    "status": "MONITORING",
+    "owner": "Application Security Team",
+    "action": "MONITOR",
+    "affected_component": "StorageSlot",
+    "rationale": "This finding should be tracked for operational awareness and future tuning.",
+    "remediation": "Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.",
+    "evidence": {
+      "report": "slither-secure",
+      "location": "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:84,85,86,87,88",
+      "description": "StorageSlot.getBytes32Slot(bytes32) (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#84-88) uses assembly - INLINE ASM (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#85-87)",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "slither",
+      "rule": "assembly"
+    }
+  },
+  {
+    "id": "INC-0012",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "assembly",
+    "summary": "This finding should be tracked for operational awareness and future tuning.",
+    "severity": "LOW",
+    "status": "MONITORING",
+    "owner": "Application Security Team",
+    "action": "MONITOR",
+    "affected_component": "StorageSlot",
+    "rationale": "This finding should be tracked for operational awareness and future tuning.",
+    "remediation": "Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.",
+    "evidence": {
+      "report": "slither-secure",
+      "location": "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:102,103,104,105,106",
+      "description": "StorageSlot.getInt256Slot(bytes32) (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#102-106) uses assembly - INLINE ASM (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#103-105)",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "slither",
+      "rule": "assembly"
+    }
+  },
+  {
+    "id": "INC-0013",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "assembly",
+    "summary": "This finding should be tracked for operational awareness and future tuning.",
+    "severity": "LOW",
+    "status": "MONITORING",
+    "owner": "Application Security Team",
+    "action": "MONITOR",
+    "affected_component": "StorageSlot",
+    "rationale": "This finding should be tracked for operational awareness and future tuning.",
+    "remediation": "Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.",
+    "evidence": {
+      "report": "slither-secure",
+      "location": "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:138,139,140,141,142",
+      "description": "StorageSlot.getBytesSlot(bytes) (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#138-142) uses assembly - INLINE ASM (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#139-141)",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "slither",
+      "rule": "assembly"
+    }
+  },
+  {
+    "id": "INC-0014",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "assembly",
+    "summary": "This finding should be tracked for operational awareness and future tuning.",
+    "severity": "LOW",
+    "status": "MONITORING",
+    "owner": "Application Security Team",
+    "action": "MONITOR",
+    "affected_component": "StorageSlot",
+    "rationale": "This finding should be tracked for operational awareness and future tuning.",
+    "remediation": "Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.",
+    "evidence": {
+      "report": "slither-secure",
+      "location": "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:111,112,113,114,115",
+      "description": "StorageSlot.getStringSlot(bytes32) (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#111-115) uses assembly - INLINE ASM (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#112-114)",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "slither",
+      "rule": "assembly"
+    }
+  },
+  {
+    "id": "INC-0015",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "assembly",
+    "summary": "This finding should be tracked for operational awareness and future tuning.",
+    "severity": "LOW",
+    "status": "MONITORING",
+    "owner": "Application Security Team",
+    "action": "MONITOR",
+    "affected_component": "StorageSlot",
+    "rationale": "This finding should be tracked for operational awareness and future tuning.",
+    "remediation": "Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.",
+    "evidence": {
+      "report": "slither-secure",
+      "location": "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:120,121,122,123,124",
+      "description": "StorageSlot.getStringSlot(string) (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#120-124) uses assembly - INLINE ASM (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#121-123)",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "slither",
+      "rule": "assembly"
+    }
+  },
+  {
+    "id": "INC-0016",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "assembly",
+    "summary": "This finding should be tracked for operational awareness and future tuning.",
+    "severity": "LOW",
+    "status": "MONITORING",
+    "owner": "Application Security Team",
+    "action": "MONITOR",
+    "affected_component": "StorageSlot",
+    "rationale": "This finding should be tracked for operational awareness and future tuning.",
+    "remediation": "Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.",
+    "evidence": {
+      "report": "slither-secure",
+      "location": "node_modules/@openzeppelin/contracts/utils/StorageSlot.sol:129,130,131,132,133",
+      "description": "StorageSlot.getBytesSlot(bytes32) (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#129-133) uses assembly - INLINE ASM (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#130-132)",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "slither",
+      "rule": "assembly"
+    }
+  },
+  {
+    "id": "INC-0017",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "pragma",
+    "summary": "This finding is informational and is being retained for audit visibility.",
+    "severity": "INFO",
+    "status": "CLOSED",
+    "owner": "Application Security Team",
+    "action": "LOG_ONLY",
+    "affected_component": "UnknownContract",
+    "rationale": "This finding is informational and is being retained for audit visibility.",
+    "remediation": "Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.",
+    "evidence": {
+      "report": "slither-secure",
+      "location": "contracts/OpenZep-SecureBank.sol:2",
+      "description": "2 different versions of Solidity are used: - Version constraint ^0.8.28 is used by: -^0.8.28 (contracts/OpenZep-SecureBank.sol#2) - Version constraint ^0.8.20 is used by: -^0.8.20 (node_modules/@openzeppelin/contracts/utils/ReentrancyGuard.sol#4) -^0.8.20 (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#5)",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "slither",
+      "rule": "pragma"
+    }
+  },
+  {
+    "id": "INC-0018",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "solc-version",
+    "summary": "This finding is informational and is being retained for audit visibility.",
+    "severity": "INFO",
+    "status": "CLOSED",
+    "owner": "Application Security Team",
+    "action": "LOG_ONLY",
+    "affected_component": "UnknownContract",
+    "rationale": "This finding is informational and is being retained for audit visibility.",
+    "remediation": "Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.",
+    "evidence": {
+      "report": "slither-secure",
+      "location": "node_modules/@openzeppelin/contracts/utils/ReentrancyGuard.sol:4",
+      "description": "Version constraint ^0.8.20 contains known severe issues (https://solidity.readthedocs.io/en/latest/bugs.html) - VerbatimInvalidDeduplication - FullInlinerNonExpressionSplitArgumentEvaluationOrder - MissingSideEffectsOnSelectorAccess. It is used by: - ^0.8.20 (node_modules/@openzeppelin/contracts/utils/ReentrancyGuard.sol#4) - ^0.8.20 (node_modules/@openzeppelin/contracts/utils/StorageSlot.sol#5)",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "slither",
+      "rule": "solc-version"
+    }
+  },
+  {
+    "id": "INC-0019",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "low-level-calls",
+    "summary": "This finding indicates meaningful risk and requires analyst review before it can be dismissed.",
+    "severity": "MEDIUM",
+    "status": "REVIEW_REQUIRED",
+    "owner": "Application Security Team",
+    "action": "MANUAL_REVIEW",
+    "affected_component": "OpenZep_SecureBank",
+    "rationale": "This finding indicates meaningful risk and requires analyst review before it can be dismissed.",
+    "remediation": "Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.",
+    "evidence": {
+      "report": "slither-secure",
+      "location": "contracts/OpenZep-SecureBank.sol:50,51,52,53,54,55,56,57",
+      "description": "Low level call in OpenZep_SecureBank.emergencyDrain() (contracts/OpenZep-SecureBank.sol#50-57): - (success,None) = address(owner).call{value: amount}() (contracts/OpenZep-SecureBank.sol#53)",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "slither",
+      "rule": "low-level-calls"
+    }
+  },
+  {
+    "id": "INC-0020",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "low-level-calls",
+    "summary": "This finding indicates meaningful risk and requires analyst review before it can be dismissed.",
+    "severity": "MEDIUM",
+    "status": "REVIEW_REQUIRED",
+    "owner": "Application Security Team",
+    "action": "MANUAL_REVIEW",
+    "affected_component": "OpenZep_SecureBank",
+    "rationale": "This finding indicates meaningful risk and requires analyst review before it can be dismissed.",
+    "remediation": "Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.",
+    "evidence": {
+      "report": "slither-secure",
+      "location": "contracts/OpenZep-SecureBank.sol:33,34,35,36,37,38,39,40,41,42,43,44",
+      "description": "Low level call in OpenZep_SecureBank.withdraw(uint256) (contracts/OpenZep-SecureBank.sol#33-44): - (success,None) = address(msg.sender).call{value: amount}() (contracts/OpenZep-SecureBank.sol#40)",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "slither",
+      "rule": "low-level-calls"
+    }
+  },
+  {
+    "id": "INC-0021",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "naming-convention",
+    "summary": "This finding is informational and is being retained for audit visibility.",
+    "severity": "INFO",
+    "status": "CLOSED",
+    "owner": "Application Security Team",
+    "action": "LOG_ONLY",
+    "affected_component": "UnknownContract",
+    "rationale": "This finding is informational and is being retained for audit visibility.",
+    "remediation": "Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.",
+    "evidence": {
+      "report": "slither-secure",
+      "location": "contracts/OpenZep-SecureBank.sol:6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58",
+      "description": "Contract OpenZep_SecureBank (contracts/OpenZep-SecureBank.sol#6-58) is not in CapWords",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "slither",
+      "rule": "naming-convention"
+    }
+  },
+  {
+    "id": "INC-0022",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "immutable-states",
+    "summary": "This finding should be tracked for operational awareness and future tuning.",
+    "severity": "LOW",
+    "status": "MONITORING",
+    "owner": "Application Security Team",
+    "action": "MONITOR",
+    "affected_component": "OpenZep_SecureBank",
+    "rationale": "This finding should be tracked for operational awareness and future tuning.",
+    "remediation": "Review the affected contract logic, patch the vulnerable code path, rerun static analysis, and require secure code review before redeployment.",
+    "evidence": {
+      "report": "slither-secure",
+      "location": "contracts/OpenZep-SecureBank.sol:9",
+      "description": "OpenZep_SecureBank.owner (contracts/OpenZep-SecureBank.sol#9) should be immutable",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "slither",
+      "rule": "immutable-states"
+    }
+  },
+  {
+    "id": "INC-0023",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "Emergency administrative action detected",
+    "summary": "This finding is severe enough to require immediate containment and should block promotion until reviewed.",
+    "severity": "HIGH",
+    "status": "OPEN",
+    "owner": "SOC / Blockchain Monitoring Team",
+    "action": "ESCALATE_SECURITY",
+    "affected_component": "TreasuryCore",
+    "rationale": "This finding is severe enough to require immediate containment and should block promotion until reviewed.",
+    "remediation": "Investigate the suspicious transaction pattern, validate counterparties and wallet behavior, and consider pausing sensitive protocol actions if exploit conditions are confirmed.",
+    "evidence": {
+      "report": "defi-runtime-monitor",
+      "location": "tx=0xccc333",
+      "description": "Administrative action emergencyDrain was executed by 0xAdmin01 against 0xTreasury.",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "defi-detector",
+      "rule": "emergency-function-use"
+    }
+  },
+  {
+    "id": "INC-0024",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "Flash-loan-like transaction pattern detected",
+    "summary": "This finding is severe enough to require immediate containment and should block promotion until reviewed.",
+    "severity": "HIGH",
+    "status": "OPEN",
+    "owner": "SOC / Blockchain Monitoring Team",
+    "action": "ESCALATE_SECURITY",
+    "affected_component": "DemoLend, DemoSwap",
+    "rationale": "This finding is severe enough to require immediate containment and should block promotion until reviewed.",
+    "remediation": "Investigate the suspicious transaction pattern, validate counterparties and wallet behavior, and consider pausing sensitive protocol actions if exploit conditions are confirmed.",
+    "evidence": {
+      "report": "defi-runtime-monitor",
+      "location": "tx=0xaaa111",
+      "description": "Transaction 0xaaa111 contains borrow, swap, and repay actions consistent with a flash-loan-style sequence for address 0xBorrower01.",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "defi-detector",
+      "rule": "flash-loan-pattern"
+    }
+  },
+  {
+    "id": "INC-0025",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "Rapid repeated withdrawals detected",
+    "summary": "This finding is severe enough to require immediate containment and should block promotion until reviewed.",
+    "severity": "HIGH",
+    "status": "OPEN",
+    "owner": "SOC / Blockchain Monitoring Team",
+    "action": "ESCALATE_SECURITY",
+    "affected_component": "VaultX",
+    "rationale": "This finding is severe enough to require immediate containment and should block promotion until reviewed.",
+    "remediation": "Investigate the suspicious transaction pattern, validate counterparties and wallet behavior, and consider pausing sensitive protocol actions if exploit conditions are confirmed.",
+    "evidence": {
+      "report": "defi-runtime-monitor",
+      "location": "tx=0xbbb222,0xbbb223,0xbbb224",
+      "description": "Address 0xUser77 executed 3 withdrawals within 45 seconds.",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "defi-detector",
+      "rule": "rapid-withdrawals"
+    }
+  },
+  {
+    "id": "INC-0026",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "Large value movement detected",
+    "summary": "This finding indicates meaningful risk and requires analyst review before it can be dismissed.",
+    "severity": "MEDIUM",
+    "status": "REVIEW_REQUIRED",
+    "owner": "SOC / Blockchain Monitoring Team",
+    "action": "MANUAL_REVIEW",
+    "affected_component": "BridgeHop",
+    "rationale": "This finding indicates meaningful risk and requires analyst review before it can be dismissed.",
+    "remediation": "Investigate the suspicious transaction pattern, validate counterparties and wallet behavior, and consider pausing sensitive protocol actions if exploit conditions are confirmed.",
+    "evidence": {
+      "report": "defi-runtime-monitor",
+      "location": "tx=0xddd444",
+      "description": "Transaction 0xddd444 moved 200000 USDC, exceeding the configured threshold of 100000.",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "defi-detector",
+      "rule": "large-transfer"
+    }
+  },
+  {
+    "id": "INC-0027",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "Large value movement detected",
+    "summary": "This finding indicates meaningful risk and requires analyst review before it can be dismissed.",
+    "severity": "MEDIUM",
+    "status": "REVIEW_REQUIRED",
+    "owner": "SOC / Blockchain Monitoring Team",
+    "action": "MANUAL_REVIEW",
+    "affected_component": "BridgeHop",
+    "rationale": "This finding indicates meaningful risk and requires analyst review before it can be dismissed.",
+    "remediation": "Investigate the suspicious transaction pattern, validate counterparties and wallet behavior, and consider pausing sensitive protocol actions if exploit conditions are confirmed.",
+    "evidence": {
+      "report": "defi-runtime-monitor",
+      "location": "tx=0xddd445",
+      "description": "Transaction 0xddd445 moved 199500 USDC, exceeding the configured threshold of 100000.",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "defi-detector",
+      "rule": "large-transfer"
+    }
+  },
+  {
+    "id": "INC-0028",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "Large value movement detected",
+    "summary": "This finding indicates meaningful risk and requires analyst review before it can be dismissed.",
+    "severity": "MEDIUM",
+    "status": "REVIEW_REQUIRED",
+    "owner": "SOC / Blockchain Monitoring Team",
+    "action": "MANUAL_REVIEW",
+    "affected_component": "BridgeHop",
+    "rationale": "This finding indicates meaningful risk and requires analyst review before it can be dismissed.",
+    "remediation": "Investigate the suspicious transaction pattern, validate counterparties and wallet behavior, and consider pausing sensitive protocol actions if exploit conditions are confirmed.",
+    "evidence": {
+      "report": "defi-runtime-monitor",
+      "location": "tx=0xddd446",
+      "description": "Transaction 0xddd446 moved 199000 USDC, exceeding the configured threshold of 100000.",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "defi-detector",
+      "rule": "large-transfer"
+    }
+  },
+  {
+    "id": "INC-0029",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "Large value movement detected",
+    "summary": "This finding indicates meaningful risk and requires analyst review before it can be dismissed.",
+    "severity": "MEDIUM",
+    "status": "REVIEW_REQUIRED",
+    "owner": "SOC / Blockchain Monitoring Team",
+    "action": "MANUAL_REVIEW",
+    "affected_component": "LiquidityHub",
+    "rationale": "This finding indicates meaningful risk and requires analyst review before it can be dismissed.",
+    "remediation": "Investigate the suspicious transaction pattern, validate counterparties and wallet behavior, and consider pausing sensitive protocol actions if exploit conditions are confirmed.",
+    "evidence": {
+      "report": "defi-runtime-monitor",
+      "location": "tx=0xeee556",
+      "description": "Transaction 0xeee556 moved 180000 USDT, exceeding the configured threshold of 100000.",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "defi-detector",
+      "rule": "large-transfer"
+    }
+  },
+  {
+    "id": "INC-0030",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "Liquidity spike detected",
+    "summary": "This finding indicates meaningful risk and requires analyst review before it can be dismissed.",
+    "severity": "MEDIUM",
+    "status": "REVIEW_REQUIRED",
+    "owner": "SOC / Blockchain Monitoring Team",
+    "action": "MANUAL_REVIEW",
+    "affected_component": "LiquidityHub",
+    "rationale": "This finding indicates meaningful risk and requires analyst review before it can be dismissed.",
+    "remediation": "Investigate the suspicious transaction pattern, validate counterparties and wallet behavior, and consider pausing sensitive protocol actions if exploit conditions are confirmed.",
+    "evidence": {
+      "report": "defi-runtime-monitor",
+      "location": "tx=0xeee555,0xeee556",
+      "description": "Liquidity activity increased by 175000 USDT between consecutive events in LiquidityHub.",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "defi-detector",
+      "rule": "liquidity-spike"
+    }
+  },
+  {
+    "id": "INC-0031",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "Rapid multi-hop transfer chain detected",
+    "summary": "This finding indicates meaningful risk and requires analyst review before it can be dismissed.",
+    "severity": "MEDIUM",
+    "status": "REVIEW_REQUIRED",
+    "owner": "SOC / Blockchain Monitoring Team",
+    "action": "MANUAL_REVIEW",
+    "affected_component": "BridgeHop",
+    "rationale": "This finding indicates meaningful risk and requires analyst review before it can be dismissed.",
+    "remediation": "Investigate the suspicious transaction pattern, validate counterparties and wallet behavior, and consider pausing sensitive protocol actions if exploit conditions are confirmed.",
+    "evidence": {
+      "report": "defi-runtime-monitor",
+      "location": "tx=0xddd444,0xddd445,0xddd446",
+      "description": "Detected 3 linked transfers across multiple addresses within 50 seconds.",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "defi-detector",
+      "rule": "multi-hop-transfer"
+    }
+  },
+  {
+    "id": "INC-0032",
+    "record_type": "incident",
+    "source": "incident-orchestrator",
+    "source_report": "incident-orchestrator",
+    "title": "Consensus / chain health status",
+    "summary": "This finding is severe enough to require immediate containment and should block promotion until reviewed.",
+    "severity": "HIGH",
+    "status": "OPEN",
+    "owner": "DevOps / Node Operations Team",
+    "action": "BLOCK_BUILD",
+    "affected_component": "31337",
+    "rationale": "This finding is severe enough to require immediate containment and should block promotion until reviewed.",
+    "remediation": "Verify node health, inspect RPC connectivity and recent blocks, confirm expected chain activity, and restore normal monitoring thresholds if the slowdown is benign.",
+    "evidence": {
+      "report": "consensus-health",
+      "location": null,
+      "description": "No new blocks for 1661 seconds. Chain may be stalled.. Network: 31337. Latest block: 0. Seconds since last block: 1661",
+      "raw_ref": "reports/incident/incident_response.json"
+    },
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "updated_at": null,
+      "closed_at": null
+    },
+    "metadata": {
+      "tool": "consensus-monitor",
+      "rule": "consensus-health"
+    }
+  }
+]

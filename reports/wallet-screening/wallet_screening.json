@@ -1,0 +1,674 @@
+{
+  "generated_at": "2026-06-23T07:28:00.405Z",
+  "summary": {
+    "total_records": 19,
+    "critical_risk": 2,
+    "high_risk": 6,
+    "medium_risk": 11,
+    "low_risk": 0,
+    "info_risk": 0,
+    "review_required": 17,
+    "allow_listed": 0,
+    "blocked": 2
+  },
+  "records": [
+    {
+      "id": "WLT-0001",
+      "wallet_address": "0xAdmin01",
+      "network": "ethereum",
+      "label": "TreasuryCore",
+      "risk_score": 90,
+      "risk_level": "CRITICAL",
+      "status": "BLOCKED",
+      "screening_result": "blocked",
+      "matched_lists": [
+        "EXPLOIT_ACTIVITY"
+      ],
+      "flags": [
+        "exploit_pattern"
+      ],
+      "screening_reason": "Risk level assessed as CRITICAL. Flags: exploit_pattern. Matched lists: EXPLOIT_ACTIVITY",
+      "source_signals": [
+        "DeFi alert: Emergency administrative action detected"
+      ],
+      "evidence_refs": [
+        "0xccc333"
+      ],
+      "screened_at": "2026-06-23T07:28:00.404Z",
+      "metadata": {
+        "source_reports": [
+          "defi-runtime-monitor"
+        ],
+        "sha256_fingerprint": "ff926593a4b8eaaf6a989fcc0e1ff0dbc97dcacdb4c8719f219bc3ed1ce3129f",
+        "derived_from_rule_ids": [
+          "emergency-function-use"
+        ],
+        "tx_hashes": [
+          "0xccc333"
+        ]
+      }
+    },
+    {
+      "id": "WLT-0002",
+      "wallet_address": "0xTreasury",
+      "network": "ethereum",
+      "label": "TreasuryCore",
+      "risk_score": 90,
+      "risk_level": "CRITICAL",
+      "status": "BLOCKED",
+      "screening_result": "blocked",
+      "matched_lists": [
+        "EXPLOIT_ACTIVITY"
+      ],
+      "flags": [
+        "exploit_pattern"
+      ],
+      "screening_reason": "Risk level assessed as CRITICAL. Flags: exploit_pattern. Matched lists: EXPLOIT_ACTIVITY",
+      "source_signals": [
+        "DeFi alert: Emergency administrative action detected"
+      ],
+      "evidence_refs": [
+        "0xccc333"
+      ],
+      "screened_at": "2026-06-23T07:28:00.404Z",
+      "metadata": {
+        "source_reports": [
+          "defi-runtime-monitor"
+        ],
+        "sha256_fingerprint": "3fa5a0b6be626684b3726b9becc1597120f6484a5e1b9549940337077c29a1b8",
+        "derived_from_rule_ids": [
+          "emergency-function-use"
+        ],
+        "tx_hashes": [
+          "0xccc333"
+        ]
+      }
+    },
+    {
+      "id": "WLT-0003",
+      "wallet_address": "0xBorrower01",
+      "network": "ethereum",
+      "label": "DemoLend, DemoSwap",
+      "risk_score": 80,
+      "risk_level": "HIGH",
+      "status": "REVIEW_REQUIRED",
+      "screening_result": "review_required",
+      "matched_lists": [],
+      "flags": [],
+      "screening_reason": "Risk level assessed as HIGH",
+      "source_signals": [
+        "DeFi alert: Flash-loan-like transaction pattern detected"
+      ],
+      "evidence_refs": [
+        "0xaaa111"
+      ],
+      "screened_at": "2026-06-23T07:28:00.404Z",
+      "metadata": {
+        "source_reports": [
+          "defi-runtime-monitor"
+        ],
+        "sha256_fingerprint": "e4df68b4965bccb6012b9d215d02df0b07fdf6b2cabea3d0abd5f1ece54dfbb7",
+        "derived_from_rule_ids": [
+          "flash-loan-pattern"
+        ],
+        "tx_hashes": [
+          "0xaaa111"
+        ]
+      }
+    },
+    {
+      "id": "WLT-0004",
+      "wallet_address": "0xaaa111",
+      "network": "ethereum",
+      "label": "DemoLend, DemoSwap",
+      "risk_score": 80,
+      "risk_level": "HIGH",
+      "status": "REVIEW_REQUIRED",
+      "screening_result": "review_required",
+      "matched_lists": [],
+      "flags": [],
+      "screening_reason": "Risk level assessed as HIGH",
+      "source_signals": [
+        "DeFi alert: Flash-loan-like transaction pattern detected"
+      ],
+      "evidence_refs": [
+        "0xaaa111"
+      ],
+      "screened_at": "2026-06-23T07:28:00.404Z",
+      "metadata": {
+        "source_reports": [
+          "defi-runtime-monitor"
+        ],
+        "sha256_fingerprint": "2577d5746afedd02817d881f8b72f74c4cfe4c174423f58747f639c3efeabb26",
+        "derived_from_rule_ids": [
+          "flash-loan-pattern"
+        ],
+        "tx_hashes": [
+          "0xaaa111"
+        ]
+      }
+    },
+    {
+      "id": "WLT-0005",
+      "wallet_address": "0xPoolA",
+      "network": "ethereum",
+      "label": "DemoLend, DemoSwap",
+      "risk_score": 80,
+      "risk_level": "HIGH",
+      "status": "REVIEW_REQUIRED",
+      "screening_result": "review_required",
+      "matched_lists": [],
+      "flags": [],
+      "screening_reason": "Risk level assessed as HIGH",
+      "source_signals": [
+        "DeFi alert: Flash-loan-like transaction pattern detected"
+      ],
+      "evidence_refs": [
+        "0xaaa111"
+      ],
+      "screened_at": "2026-06-23T07:28:00.404Z",
+      "metadata": {
+        "source_reports": [
+          "defi-runtime-monitor"
+        ],
+        "sha256_fingerprint": "da032d8ba553b6a5fc82d4d93336e41c195c5ac30eefea4ccf199125ab8a2a73",
+        "derived_from_rule_ids": [
+          "flash-loan-pattern"
+        ],
+        "tx_hashes": [
+          "0xaaa111"
+        ]
+      }
+    },
+    {
+      "id": "WLT-0006",
+      "wallet_address": "0xPoolB",
+      "network": "ethereum",
+      "label": "DemoLend, DemoSwap",
+      "risk_score": 80,
+      "risk_level": "HIGH",
+      "status": "REVIEW_REQUIRED",
+      "screening_result": "review_required",
+      "matched_lists": [],
+      "flags": [],
+      "screening_reason": "Risk level assessed as HIGH",
+      "source_signals": [
+        "DeFi alert: Flash-loan-like transaction pattern detected"
+      ],
+      "evidence_refs": [
+        "0xaaa111"
+      ],
+      "screened_at": "2026-06-23T07:28:00.404Z",
+      "metadata": {
+        "source_reports": [
+          "defi-runtime-monitor"
+        ],
+        "sha256_fingerprint": "2a60a4ed6a857b85d3d326c5f15b61fbc769ab9f3e561a20688fc87d4ae5bebe",
+        "derived_from_rule_ids": [
+          "flash-loan-pattern"
+        ],
+        "tx_hashes": [
+          "0xaaa111"
+        ]
+      }
+    },
+    {
+      "id": "WLT-0007",
+      "wallet_address": "0xUser77",
+      "network": "ethereum",
+      "label": "VaultX",
+      "risk_score": 80,
+      "risk_level": "HIGH",
+      "status": "REVIEW_REQUIRED",
+      "screening_result": "review_required",
+      "matched_lists": [],
+      "flags": [],
+      "screening_reason": "Risk level assessed as HIGH",
+      "source_signals": [
+        "DeFi alert: Rapid repeated withdrawals detected"
+      ],
+      "evidence_refs": [
+        "0xbbb222",
+        "0xbbb223",
+        "0xbbb224"
+      ],
+      "screened_at": "2026-06-23T07:28:00.404Z",
+      "metadata": {
+        "source_reports": [
+          "defi-runtime-monitor"
+        ],
+        "sha256_fingerprint": "e5438abce10fdf515443ed9974beb12867ff838a4786440c1012f279d085f4a7",
+        "derived_from_rule_ids": [
+          "rapid-withdrawals"
+        ],
+        "tx_hashes": [
+          "0xbbb222",
+          "0xbbb223",
+          "0xbbb224"
+        ]
+      }
+    },
+    {
+      "id": "WLT-0008",
+      "wallet_address": "0xVault1",
+      "network": "ethereum",
+      "label": "VaultX",
+      "risk_score": 80,
+      "risk_level": "HIGH",
+      "status": "REVIEW_REQUIRED",
+      "screening_result": "review_required",
+      "matched_lists": [],
+      "flags": [],
+      "screening_reason": "Risk level assessed as HIGH",
+      "source_signals": [
+        "DeFi alert: Rapid repeated withdrawals detected"
+      ],
+      "evidence_refs": [
+        "0xbbb222",
+        "0xbbb223",
+        "0xbbb224"
+      ],
+      "screened_at": "2026-06-23T07:28:00.404Z",
+      "metadata": {
+        "source_reports": [
+          "defi-runtime-monitor"
+        ],
+        "sha256_fingerprint": "2de051d246d1762513f27bc2c61fda8f95d5827263d286b74395325281ccb278",
+        "derived_from_rule_ids": [
+          "rapid-withdrawals"
+        ],
+        "tx_hashes": [
+          "0xbbb222",
+          "0xbbb223",
+          "0xbbb224"
+        ]
+      }
+    },
+    {
+      "id": "WLT-0009",
+      "wallet_address": "0xHop1",
+      "network": "ethereum",
+      "label": "BridgeHop",
+      "risk_score": 55,
+      "risk_level": "MEDIUM",
+      "status": "REVIEW_REQUIRED",
+      "screening_result": "review_required",
+      "matched_lists": [],
+      "flags": [],
+      "screening_reason": "Risk level assessed as MEDIUM",
+      "source_signals": [
+        "DeFi alert: Large value movement detected",
+        "DeFi alert: Rapid multi-hop transfer chain detected"
+      ],
+      "evidence_refs": [
+        "0xddd444",
+        "0xddd445",
+        "0xddd446"
+      ],
+      "screened_at": "2026-06-23T07:28:00.404Z",
+      "metadata": {
+        "source_reports": [
+          "defi-runtime-monitor"
+        ],
+        "sha256_fingerprint": "8fa62ace3902733c854197045d5729ac7d1ca21a18bcc8c32ef1d1abe30b9227",
+        "derived_from_rule_ids": [
+          "large-transfer",
+          "multi-hop-transfer"
+        ],
+        "tx_hashes": [
+          "0xddd444",
+          "0xddd445",
+          "0xddd446"
+        ]
+      }
+    },
+    {
+      "id": "WLT-0010",
+      "wallet_address": "0xddd444",
+      "network": "ethereum",
+      "label": "BridgeHop",
+      "risk_score": 55,
+      "risk_level": "MEDIUM",
+      "status": "REVIEW_REQUIRED",
+      "screening_result": "review_required",
+      "matched_lists": [],
+      "flags": [],
+      "screening_reason": "Risk level assessed as MEDIUM",
+      "source_signals": [
+        "DeFi alert: Large value movement detected"
+      ],
+      "evidence_refs": [
+        "0xddd444"
+      ],
+      "screened_at": "2026-06-23T07:28:00.404Z",
+      "metadata": {
+        "source_reports": [
+          "defi-runtime-monitor"
+        ],
+        "sha256_fingerprint": "3a4aef517d5763d0ceb7486899674f6ff9a7679dd527137a73f015c582ab32c1",
+        "derived_from_rule_ids": [
+          "large-transfer"
+        ],
+        "tx_hashes": [
+          "0xddd444"
+        ]
+      }
+    },
+    {
+      "id": "WLT-0011",
+      "wallet_address": "0xHop2",
+      "network": "ethereum",
+      "label": "BridgeHop",
+      "risk_score": 55,
+      "risk_level": "MEDIUM",
+      "status": "REVIEW_REQUIRED",
+      "screening_result": "review_required",
+      "matched_lists": [],
+      "flags": [],
+      "screening_reason": "Risk level assessed as MEDIUM",
+      "source_signals": [
+        "DeFi alert: Large value movement detected",
+        "DeFi alert: Rapid multi-hop transfer chain detected"
+      ],
+      "evidence_refs": [
+        "0xddd444",
+        "0xddd445",
+        "0xddd446"
+      ],
+      "screened_at": "2026-06-23T07:28:00.404Z",
+      "metadata": {
+        "source_reports": [
+          "defi-runtime-monitor"
+        ],
+        "sha256_fingerprint": "aeb96c4c9ecd02a8a88a5476a374fc8d5888293f40d5f2a5b7a5acde4dccdcf2",
+        "derived_from_rule_ids": [
+          "large-transfer",
+          "multi-hop-transfer"
+        ],
+        "tx_hashes": [
+          "0xddd444",
+          "0xddd445",
+          "0xddd446"
+        ]
+      }
+    },
+    {
+      "id": "WLT-0012",
+      "wallet_address": "0xddd445",
+      "network": "ethereum",
+      "label": "BridgeHop",
+      "risk_score": 55,
+      "risk_level": "MEDIUM",
+      "status": "REVIEW_REQUIRED",
+      "screening_result": "review_required",
+      "matched_lists": [],
+      "flags": [],
+      "screening_reason": "Risk level assessed as MEDIUM",
+      "source_signals": [
+        "DeFi alert: Large value movement detected"
+      ],
+      "evidence_refs": [
+        "0xddd445"
+      ],
+      "screened_at": "2026-06-23T07:28:00.404Z",
+      "metadata": {
+        "source_reports": [
+          "defi-runtime-monitor"
+        ],
+        "sha256_fingerprint": "848da03c0c11cdd8bf223f038300ba25fc6019062bffabb1fda34cdb66dca0c8",
+        "derived_from_rule_ids": [
+          "large-transfer"
+        ],
+        "tx_hashes": [
+          "0xddd445"
+        ]
+      }
+    },
+    {
+      "id": "WLT-0013",
+      "wallet_address": "0xHop3",
+      "network": "ethereum",
+      "label": "BridgeHop",
+      "risk_score": 55,
+      "risk_level": "MEDIUM",
+      "status": "REVIEW_REQUIRED",
+      "screening_result": "review_required",
+      "matched_lists": [],
+      "flags": [],
+      "screening_reason": "Risk level assessed as MEDIUM",
+      "source_signals": [
+        "DeFi alert: Large value movement detected",
+        "DeFi alert: Rapid multi-hop transfer chain detected"
+      ],
+      "evidence_refs": [
+        "0xddd445",
+        "0xddd446",
+        "0xddd444"
+      ],
+      "screened_at": "2026-06-23T07:28:00.404Z",
+      "metadata": {
+        "source_reports": [
+          "defi-runtime-monitor"
+        ],
+        "sha256_fingerprint": "752a72eeebc4dd95a9ed556b0e2320f3b57cd675f5d55f2cbe0cdbe6bf81929f",
+        "derived_from_rule_ids": [
+          "large-transfer",
+          "multi-hop-transfer"
+        ],
+        "tx_hashes": [
+          "0xddd445",
+          "0xddd446",
+          "0xddd444"
+        ]
+      }
+    },
+    {
+      "id": "WLT-0014",
+      "wallet_address": "0xddd446",
+      "network": "ethereum",
+      "label": "BridgeHop",
+      "risk_score": 55,
+      "risk_level": "MEDIUM",
+      "status": "REVIEW_REQUIRED",
+      "screening_result": "review_required",
+      "matched_lists": [],
+      "flags": [],
+      "screening_reason": "Risk level assessed as MEDIUM",
+      "source_signals": [
+        "DeFi alert: Large value movement detected"
+      ],
+      "evidence_refs": [
+        "0xddd446"
+      ],
+      "screened_at": "2026-06-23T07:28:00.404Z",
+      "metadata": {
+        "source_reports": [
+          "defi-runtime-monitor"
+        ],
+        "sha256_fingerprint": "3ab604cc507f715b75a6e9013bd72ca023351d98b69957136ef440496f35815b",
+        "derived_from_rule_ids": [
+          "large-transfer"
+        ],
+        "tx_hashes": [
+          "0xddd446"
+        ]
+      }
+    },
+    {
+      "id": "WLT-0015",
+      "wallet_address": "0xHop4",
+      "network": "ethereum",
+      "label": "BridgeHop",
+      "risk_score": 55,
+      "risk_level": "MEDIUM",
+      "status": "REVIEW_REQUIRED",
+      "screening_result": "review_required",
+      "matched_lists": [],
+      "flags": [],
+      "screening_reason": "Risk level assessed as MEDIUM",
+      "source_signals": [
+        "DeFi alert: Large value movement detected",
+        "DeFi alert: Rapid multi-hop transfer chain detected"
+      ],
+      "evidence_refs": [
+        "0xddd446",
+        "0xddd444",
+        "0xddd445"
+      ],
+      "screened_at": "2026-06-23T07:28:00.404Z",
+      "metadata": {
+        "source_reports": [
+          "defi-runtime-monitor"
+        ],
+        "sha256_fingerprint": "1f16b6cbf579471bc7a4f17fb9f33d038f87cf09f93415508a048f9037301b80",
+        "derived_from_rule_ids": [
+          "large-transfer",
+          "multi-hop-transfer"
+        ],
+        "tx_hashes": [
+          "0xddd446",
+          "0xddd444",
+          "0xddd445"
+        ]
+      }
+    },
+    {
+      "id": "WLT-0016",
+      "wallet_address": "0xLP02",
+      "network": "ethereum",
+      "label": "LiquidityHub",
+      "risk_score": 55,
+      "risk_level": "MEDIUM",
+      "status": "REVIEW_REQUIRED",
+      "screening_result": "review_required",
+      "matched_lists": [],
+      "flags": [],
+      "screening_reason": "Risk level assessed as MEDIUM",
+      "source_signals": [
+        "DeFi alert: Large value movement detected",
+        "DeFi alert: Liquidity spike detected"
+      ],
+      "evidence_refs": [
+        "0xeee556",
+        "0xeee555"
+      ],
+      "screened_at": "2026-06-23T07:28:00.404Z",
+      "metadata": {
+        "source_reports": [
+          "defi-runtime-monitor"
+        ],
+        "sha256_fingerprint": "a749458b8dd29e19f1f33250ef103dd11c4c57d4e3754d1ee6e3ec096beb45f8",
+        "derived_from_rule_ids": [
+          "large-transfer",
+          "liquidity-spike"
+        ],
+        "tx_hashes": [
+          "0xeee556",
+          "0xeee555"
+        ]
+      }
+    },
+    {
+      "id": "WLT-0017",
+      "wallet_address": "0xeee556",
+      "network": "ethereum",
+      "label": "LiquidityHub",
+      "risk_score": 55,
+      "risk_level": "MEDIUM",
+      "status": "REVIEW_REQUIRED",
+      "screening_result": "review_required",
+      "matched_lists": [],
+      "flags": [],
+      "screening_reason": "Risk level assessed as MEDIUM",
+      "source_signals": [
+        "DeFi alert: Large value movement detected"
+      ],
+      "evidence_refs": [
+        "0xeee556"
+      ],
+      "screened_at": "2026-06-23T07:28:00.404Z",
+      "metadata": {
+        "source_reports": [
+          "defi-runtime-monitor"
+        ],
+        "sha256_fingerprint": "7eb06e00e19095d133f4e437b2a004fa50277e93fca4bfa1afd6932d06d848ea",
+        "derived_from_rule_ids": [
+          "large-transfer"
+        ],
+        "tx_hashes": [
+          "0xeee556"
+        ]
+      }
+    },
+    {
+      "id": "WLT-0018",
+      "wallet_address": "0xPoolL",
+      "network": "ethereum",
+      "label": "LiquidityHub",
+      "risk_score": 55,
+      "risk_level": "MEDIUM",
+      "status": "REVIEW_REQUIRED",
+      "screening_result": "review_required",
+      "matched_lists": [],
+      "flags": [],
+      "screening_reason": "Risk level assessed as MEDIUM",
+      "source_signals": [
+        "DeFi alert: Large value movement detected",
+        "DeFi alert: Liquidity spike detected"
+      ],
+      "evidence_refs": [
+        "0xeee556",
+        "0xeee555"
+      ],
+      "screened_at": "2026-06-23T07:28:00.404Z",
+      "metadata": {
+        "source_reports": [
+          "defi-runtime-monitor"
+        ],
+        "sha256_fingerprint": "297a25d9e01204f9e196e1ceac518922cf8f275d0267f54de14f9f1b7f28dcfe",
+        "derived_from_rule_ids": [
+          "large-transfer",
+          "liquidity-spike"
+        ],
+        "tx_hashes": [
+          "0xeee556",
+          "0xeee555"
+        ]
+      }
+    },
+    {
+      "id": "WLT-0019",
+      "wallet_address": "0xLP01",
+      "network": "ethereum",
+      "label": "LiquidityHub",
+      "risk_score": 55,
+      "risk_level": "MEDIUM",
+      "status": "REVIEW_REQUIRED",
+      "screening_result": "review_required",
+      "matched_lists": [],
+      "flags": [],
+      "screening_reason": "Risk level assessed as MEDIUM",
+      "source_signals": [
+        "DeFi alert: Liquidity spike detected"
+      ],
+      "evidence_refs": [
+        "0xeee555",
+        "0xeee556"
+      ],
+      "screened_at": "2026-06-23T07:28:00.404Z",
+      "metadata": {
+        "source_reports": [
+          "defi-runtime-monitor"
+        ],
+        "sha256_fingerprint": "e8b82ed3a9aceda851d0e9faab20a99562fd46c64043d58a1fc8caaf2ef64d8a",
+        "derived_from_rule_ids": [
+          "liquidity-spike"
+        ],
+        "tx_hashes": [
+          "0xeee555",
+          "0xeee556"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,366 @@
+{
+  "generated_at": "2026-06-22T09:40:56.201Z",
+  "summary": {
+    "total_records": 18,
+    "high_risk": 7,
+    "review_required": 11,
+    "allow_listed": 0
+  },
+  "records": [
+    {
+      "wallet_id": "VulnerableBank",
+      "source_type": "counterparty",
+      "source_reference": "general-screening",
+      "risk_category": "UNKNOWN_COUNTERPARTY",
+      "severity": "LOW",
+      "score": 35,
+      "decision": "REVIEW",
+      "rationale": "Observed in security evidence and retained for manual counterparty review.",
+      "evidence": [
+        "incident-derived-wallet-reference"
+      ],
+      "tags": [
+        "generic-screening"
+      ],
+      "generated_at": "2026-06-22T09:40:56.201Z"
+    },
+    {
+      "wallet_id": "StorageSlot",
+      "source_type": "counterparty",
+      "source_reference": "general-screening",
+      "risk_category": "UNKNOWN_COUNTERPARTY",
+      "severity": "LOW",
+      "score": 35,
+      "decision": "REVIEW",
+      "rationale": "Observed in security evidence and retained for manual counterparty review.",
+      "evidence": [
+        "incident-derived-wallet-reference"
+      ],
+      "tags": [
+        "generic-screening"
+      ],
+      "generated_at": "2026-06-22T09:40:56.201Z"
+    },
+    {
+      "wallet_id": "OpenZep_SecureBank",
+      "source_type": "counterparty",
+      "source_reference": "general-screening",
+      "risk_category": "UNKNOWN_COUNTERPARTY",
+      "severity": "LOW",
+      "score": 35,
+      "decision": "REVIEW",
+      "rationale": "Observed in security evidence and retained for manual counterparty review.",
+      "evidence": [
+        "incident-derived-wallet-reference"
+      ],
+      "tags": [
+        "generic-screening"
+      ],
+      "generated_at": "2026-06-22T09:40:56.201Z"
+    },
+    {
+      "wallet_id": "0xccc333",
+      "source_type": "actor",
+      "source_reference": "emergency-function-use",
+      "risk_category": "HIGH_RISK_BEHAVIOR",
+      "severity": "HIGH",
+      "score": 85,
+      "decision": "BLOCK",
+      "rationale": "Associated with emergency administrative execution that requires immediate compliance and security review.",
+      "evidence": [
+        "emergency-function-use",
+        "administrative emergencyDrain"
+      ],
+      "tags": [
+        "admin-action",
+        "treasury",
+        "privileged-operation"
+      ],
+      "generated_at": "2026-06-22T09:40:56.201Z"
+    },
+    {
+      "wallet_id": "TreasuryCore",
+      "source_type": "actor",
+      "source_reference": "emergency-function-use",
+      "risk_category": "HIGH_RISK_BEHAVIOR",
+      "severity": "HIGH",
+      "score": 85,
+      "decision": "BLOCK",
+      "rationale": "Associated with emergency administrative execution that requires immediate compliance and security review.",
+      "evidence": [
+        "emergency-function-use",
+        "administrative emergencyDrain"
+      ],
+      "tags": [
+        "admin-action",
+        "treasury",
+        "privileged-operation"
+      ],
+      "generated_at": "2026-06-22T09:40:56.201Z"
+    },
+    {
+      "wallet_id": "0xaaa111",
+      "source_type": "tx_hash",
+      "source_reference": "flash-loan-pattern",
+      "risk_category": "HIGH_RISK_BEHAVIOR",
+      "severity": "HIGH",
+      "score": 92,
+      "decision": "BLOCK",
+      "rationale": "Linked to a flash-loan-style transaction sequence that indicates elevated exploit or manipulation risk.",
+      "evidence": [
+        "flash-loan-pattern",
+        "borrow-swap-repay sequence"
+      ],
+      "tags": [
+        "defi",
+        "flash-loan",
+        "runtime-monitoring"
+      ],
+      "generated_at": "2026-06-22T09:40:56.201Z"
+    },
+    {
+      "wallet_id": "DemoLend, DemoSwap",
+      "source_type": "counterparty",
+      "source_reference": "general-screening",
+      "risk_category": "UNKNOWN_COUNTERPARTY",
+      "severity": "LOW",
+      "score": 35,
+      "decision": "REVIEW",
+      "rationale": "Observed in security evidence and retained for manual counterparty review.",
+      "evidence": [
+        "incident-derived-wallet-reference"
+      ],
+      "tags": [
+        "generic-screening"
+      ],
+      "generated_at": "2026-06-22T09:40:56.201Z"
+    },
+    {
+      "wallet_id": "0xbbb222",
+      "source_type": "tx_hash",
+      "source_reference": "rapid-withdrawals",
+      "risk_category": "HIGH_RISK_BEHAVIOR",
+      "severity": "HIGH",
+      "score": 88,
+      "decision": "BLOCK",
+      "rationale": "Linked to rapid repeated withdrawals within a short interval, indicating potential abusive fund movement.",
+      "evidence": [
+        "rapid-withdrawals",
+        "3 withdrawals within 45 seconds"
+      ],
+      "tags": [
+        "vault",
+        "withdrawal-pattern",
+        "behavioral-risk"
+      ],
+      "generated_at": "2026-06-22T09:40:56.201Z"
+    },
+    {
+      "wallet_id": "0xbbb223",
+      "source_type": "tx_hash",
+      "source_reference": "rapid-withdrawals",
+      "risk_category": "HIGH_RISK_BEHAVIOR",
+      "severity": "HIGH",
+      "score": 88,
+      "decision": "BLOCK",
+      "rationale": "Linked to rapid repeated withdrawals within a short interval, indicating potential abusive fund movement.",
+      "evidence": [
+        "rapid-withdrawals",
+        "3 withdrawals within 45 seconds"
+      ],
+      "tags": [
+        "vault",
+        "withdrawal-pattern",
+        "behavioral-risk"
+      ],
+      "generated_at": "2026-06-22T09:40:56.201Z"
+    },
+    {
+      "wallet_id": "0xbbb224",
+      "source_type": "tx_hash",
+      "source_reference": "rapid-withdrawals",
+      "risk_category": "HIGH_RISK_BEHAVIOR",
+      "severity": "HIGH",
+      "score": 88,
+      "decision": "BLOCK",
+      "rationale": "Linked to rapid repeated withdrawals within a short interval, indicating potential abusive fund movement.",
+      "evidence": [
+        "rapid-withdrawals",
+        "3 withdrawals within 45 seconds"
+      ],
+      "tags": [
+        "vault",
+        "withdrawal-pattern",
+        "behavioral-risk"
+      ],
+      "generated_at": "2026-06-22T09:40:56.201Z"
+    },
+    {
+      "wallet_id": "VaultX",
+      "source_type": "tx_hash",
+      "source_reference": "rapid-withdrawals",
+      "risk_category": "HIGH_RISK_BEHAVIOR",
+      "severity": "HIGH",
+      "score": 88,
+      "decision": "BLOCK",
+      "rationale": "Linked to rapid repeated withdrawals within a short interval, indicating potential abusive fund movement.",
+      "evidence": [
+        "rapid-withdrawals",
+        "3 withdrawals within 45 seconds"
+      ],
+      "tags": [
+        "vault",
+        "withdrawal-pattern",
+        "behavioral-risk"
+      ],
+      "generated_at": "2026-06-22T09:40:56.201Z"
+    },
+    {
+      "wallet_id": "0xddd444",
+      "source_type": "counterparty",
+      "source_reference": "large-transfer-or-liquidity-spike",
+      "risk_category": "UNKNOWN_COUNTERPARTY",
+      "severity": "MEDIUM",
+      "score": 63,
+      "decision": "REVIEW",
+      "rationale": "Associated with large-value transfers or liquidity spikes that should be reviewed for AML and source-of-funds context.",
+      "evidence": [
+        "large-transfer",
+        "liquidity-spike",
+        "multi-hop-transfer"
+      ],
+      "tags": [
+        "kyt",
+        "large-transfer",
+        "liquidity"
+      ],
+      "generated_at": "2026-06-22T09:40:56.201Z"
+    },
+    {
+      "wallet_id": "BridgeHop",
+      "source_type": "counterparty",
+      "source_reference": "large-transfer-or-liquidity-spike",
+      "risk_category": "UNKNOWN_COUNTERPARTY",
+      "severity": "MEDIUM",
+      "score": 63,
+      "decision": "REVIEW",
+      "rationale": "Associated with large-value transfers or liquidity spikes that should be reviewed for AML and source-of-funds context.",
+      "evidence": [
+        "large-transfer",
+        "liquidity-spike",
+        "multi-hop-transfer"
+      ],
+      "tags": [
+        "kyt",
+        "large-transfer",
+        "liquidity"
+      ],
+      "generated_at": "2026-06-22T09:40:56.201Z"
+    },
+    {
+      "wallet_id": "0xddd445",
+      "source_type": "counterparty",
+      "source_reference": "large-transfer-or-liquidity-spike",
+      "risk_category": "UNKNOWN_COUNTERPARTY",
+      "severity": "MEDIUM",
+      "score": 63,
+      "decision": "REVIEW",
+      "rationale": "Associated with large-value transfers or liquidity spikes that should be reviewed for AML and source-of-funds context.",
+      "evidence": [
+        "large-transfer",
+        "liquidity-spike",
+        "multi-hop-transfer"
+      ],
+      "tags": [
+        "kyt",
+        "large-transfer",
+        "liquidity"
+      ],
+      "generated_at": "2026-06-22T09:40:56.201Z"
+    },
+    {
+      "wallet_id": "0xddd446",
+      "source_type": "counterparty",
+      "source_reference": "large-transfer-or-liquidity-spike",
+      "risk_category": "UNKNOWN_COUNTERPARTY",
+      "severity": "MEDIUM",
+      "score": 63,
+      "decision": "REVIEW",
+      "rationale": "Associated with large-value transfers or liquidity spikes that should be reviewed for AML and source-of-funds context.",
+      "evidence": [
+        "large-transfer",
+        "liquidity-spike",
+        "multi-hop-transfer"
+      ],
+      "tags": [
+        "kyt",
+        "large-transfer",
+        "liquidity"
+      ],
+      "generated_at": "2026-06-22T09:40:56.201Z"
+    },
+    {
+      "wallet_id": "0xeee556",
+      "source_type": "counterparty",
+      "source_reference": "large-transfer-or-liquidity-spike",
+      "risk_category": "UNKNOWN_COUNTERPARTY",
+      "severity": "MEDIUM",
+      "score": 63,
+      "decision": "REVIEW",
+      "rationale": "Associated with large-value transfers or liquidity spikes that should be reviewed for AML and source-of-funds context.",
+      "evidence": [
+        "large-transfer",
+        "liquidity-spike",
+        "multi-hop-transfer"
+      ],
+      "tags": [
+        "kyt",
+        "large-transfer",
+        "liquidity"
+      ],
+      "generated_at": "2026-06-22T09:40:56.201Z"
+    },
+    {
+      "wallet_id": "LiquidityHub",
+      "source_type": "counterparty",
+      "source_reference": "large-transfer-or-liquidity-spike",
+      "risk_category": "UNKNOWN_COUNTERPARTY",
+      "severity": "MEDIUM",
+      "score": 63,
+      "decision": "REVIEW",
+      "rationale": "Associated with large-value transfers or liquidity spikes that should be reviewed for AML and source-of-funds context.",
+      "evidence": [
+        "large-transfer",
+        "liquidity-spike",
+        "multi-hop-transfer"
+      ],
+      "tags": [
+        "kyt",
+        "large-transfer",
+        "liquidity"
+      ],
+      "generated_at": "2026-06-22T09:40:56.201Z"
+    },
+    {
+      "wallet_id": "0xeee555",
+      "source_type": "counterparty",
+      "source_reference": "large-transfer-or-liquidity-spike",
+      "risk_category": "UNKNOWN_COUNTERPARTY",
+      "severity": "MEDIUM",
+      "score": 63,
+      "decision": "REVIEW",
+      "rationale": "Associated with large-value transfers or liquidity spikes that should be reviewed for AML and source-of-funds context.",
+      "evidence": [
+        "large-transfer",
+        "liquidity-spike",
+        "multi-hop-transfer"
+      ],
+      "tags": [
+        "kyt",
+        "large-transfer",
+        "liquidity"
+      ],
+      "generated_at": "2026-06-22T09:40:56.201Z"
+    }
+  ]
+}

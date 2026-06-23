@@ -1,0 +1,674 @@
+[
+  {
+    "id": "ALT-0001",
+    "record_type": "alert",
+    "title": "Alert for INC-0001",
+    "severity": "HIGH",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "Application Security Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0001",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "BLOCK_BUILD"
+    }
+  },
+  {
+    "id": "ALT-0002",
+    "record_type": "alert",
+    "title": "Alert for INC-0002",
+    "severity": "HIGH",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "Application Security Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0002",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "BLOCK_BUILD"
+    }
+  },
+  {
+    "id": "ALT-0003",
+    "record_type": "alert",
+    "title": "Alert for INC-0003",
+    "severity": "MEDIUM",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "Application Security Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0003",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "MANUAL_REVIEW"
+    }
+  },
+  {
+    "id": "ALT-0004",
+    "record_type": "alert",
+    "title": "Alert for INC-0004",
+    "severity": "LOW",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "Application Security Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0004",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "MONITOR"
+    }
+  },
+  {
+    "id": "ALT-0005",
+    "record_type": "alert",
+    "title": "Alert for INC-0005",
+    "severity": "LOW",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "Application Security Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0005",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "MONITOR"
+    }
+  },
+  {
+    "id": "ALT-0006",
+    "record_type": "alert",
+    "title": "Alert for INC-0006",
+    "severity": "MEDIUM",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "Application Security Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0006",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "MANUAL_REVIEW"
+    }
+  },
+  {
+    "id": "ALT-0007",
+    "record_type": "alert",
+    "title": "Alert for INC-0007",
+    "severity": "MEDIUM",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "Application Security Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0007",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "MANUAL_REVIEW"
+    }
+  },
+  {
+    "id": "ALT-0008",
+    "record_type": "alert",
+    "title": "Alert for INC-0008",
+    "severity": "LOW",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "Application Security Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0008",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "MONITOR"
+    }
+  },
+  {
+    "id": "ALT-0009",
+    "record_type": "alert",
+    "title": "Alert for INC-0009",
+    "severity": "LOW",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "Application Security Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0009",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "MONITOR"
+    }
+  },
+  {
+    "id": "ALT-0010",
+    "record_type": "alert",
+    "title": "Alert for INC-0010",
+    "severity": "LOW",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "Application Security Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0010",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "MONITOR"
+    }
+  },
+  {
+    "id": "ALT-0011",
+    "record_type": "alert",
+    "title": "Alert for INC-0011",
+    "severity": "LOW",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "Application Security Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0011",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "MONITOR"
+    }
+  },
+  {
+    "id": "ALT-0012",
+    "record_type": "alert",
+    "title": "Alert for INC-0012",
+    "severity": "LOW",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "Application Security Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0012",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "MONITOR"
+    }
+  },
+  {
+    "id": "ALT-0013",
+    "record_type": "alert",
+    "title": "Alert for INC-0013",
+    "severity": "LOW",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "Application Security Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0013",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "MONITOR"
+    }
+  },
+  {
+    "id": "ALT-0014",
+    "record_type": "alert",
+    "title": "Alert for INC-0014",
+    "severity": "LOW",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "Application Security Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0014",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "MONITOR"
+    }
+  },
+  {
+    "id": "ALT-0015",
+    "record_type": "alert",
+    "title": "Alert for INC-0015",
+    "severity": "LOW",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "Application Security Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0015",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "MONITOR"
+    }
+  },
+  {
+    "id": "ALT-0016",
+    "record_type": "alert",
+    "title": "Alert for INC-0016",
+    "severity": "LOW",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "Application Security Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0016",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "MONITOR"
+    }
+  },
+  {
+    "id": "ALT-0017",
+    "record_type": "alert",
+    "title": "Alert for INC-0017",
+    "severity": "INFO",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "Application Security Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0017",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "LOG_ONLY"
+    }
+  },
+  {
+    "id": "ALT-0018",
+    "record_type": "alert",
+    "title": "Alert for INC-0018",
+    "severity": "INFO",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "Application Security Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0018",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "LOG_ONLY"
+    }
+  },
+  {
+    "id": "ALT-0019",
+    "record_type": "alert",
+    "title": "Alert for INC-0019",
+    "severity": "MEDIUM",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "Application Security Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0019",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "MANUAL_REVIEW"
+    }
+  },
+  {
+    "id": "ALT-0020",
+    "record_type": "alert",
+    "title": "Alert for INC-0020",
+    "severity": "MEDIUM",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "Application Security Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0020",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "MANUAL_REVIEW"
+    }
+  },
+  {
+    "id": "ALT-0021",
+    "record_type": "alert",
+    "title": "Alert for INC-0021",
+    "severity": "INFO",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "Application Security Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0021",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "LOG_ONLY"
+    }
+  },
+  {
+    "id": "ALT-0022",
+    "record_type": "alert",
+    "title": "Alert for INC-0022",
+    "severity": "LOW",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "Application Security Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0022",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "MONITOR"
+    }
+  },
+  {
+    "id": "ALT-0023",
+    "record_type": "alert",
+    "title": "Alert for INC-0023",
+    "severity": "HIGH",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "SOC / Blockchain Monitoring Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0023",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "ESCALATE_SECURITY"
+    }
+  },
+  {
+    "id": "ALT-0024",
+    "record_type": "alert",
+    "title": "Alert for INC-0024",
+    "severity": "HIGH",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "SOC / Blockchain Monitoring Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0024",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "ESCALATE_SECURITY"
+    }
+  },
+  {
+    "id": "ALT-0025",
+    "record_type": "alert",
+    "title": "Alert for INC-0025",
+    "severity": "HIGH",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "SOC / Blockchain Monitoring Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0025",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "ESCALATE_SECURITY"
+    }
+  },
+  {
+    "id": "ALT-0026",
+    "record_type": "alert",
+    "title": "Alert for INC-0026",
+    "severity": "MEDIUM",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "SOC / Blockchain Monitoring Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0026",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "MANUAL_REVIEW"
+    }
+  },
+  {
+    "id": "ALT-0027",
+    "record_type": "alert",
+    "title": "Alert for INC-0027",
+    "severity": "MEDIUM",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "SOC / Blockchain Monitoring Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0027",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "MANUAL_REVIEW"
+    }
+  },
+  {
+    "id": "ALT-0028",
+    "record_type": "alert",
+    "title": "Alert for INC-0028",
+    "severity": "MEDIUM",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "SOC / Blockchain Monitoring Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0028",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "MANUAL_REVIEW"
+    }
+  },
+  {
+    "id": "ALT-0029",
+    "record_type": "alert",
+    "title": "Alert for INC-0029",
+    "severity": "MEDIUM",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "SOC / Blockchain Monitoring Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0029",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "MANUAL_REVIEW"
+    }
+  },
+  {
+    "id": "ALT-0030",
+    "record_type": "alert",
+    "title": "Alert for INC-0030",
+    "severity": "MEDIUM",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "SOC / Blockchain Monitoring Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0030",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "MANUAL_REVIEW"
+    }
+  },
+  {
+    "id": "ALT-0031",
+    "record_type": "alert",
+    "title": "Alert for INC-0031",
+    "severity": "MEDIUM",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "SOC / Blockchain Monitoring Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0031",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "MANUAL_REVIEW"
+    }
+  },
+  {
+    "id": "ALT-0032",
+    "record_type": "alert",
+    "title": "Alert for INC-0032",
+    "severity": "HIGH",
+    "status": "SENT",
+    "channel": "WEBHOOK",
+    "recipient": "DevOps / Node Operations Team",
+    "related_record_type": "incident",
+    "related_record_id": "INC-0032",
+    "source": "derived-from-incidents",
+    "timestamps": {
+      "created_at": "2026-06-23T07:27:55.201Z",
+      "sent_at": "2026-06-23T07:27:55.201Z",
+      "acknowledged_at": null
+    },
+    "metadata": {
+      "derived": true,
+      "incident_action": "BLOCK_BUILD"
+    }
+  }
+]

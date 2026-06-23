@@ -1,0 +1,386 @@
+[
+  {
+    "id": "WLT-0001",
+    "record_type": "wallet",
+    "wallet_address": "0xAdmin01",
+    "network": "ethereum",
+    "label": "TreasuryCore",
+    "risk_score": 90,
+    "risk_level": "CRITICAL",
+    "status": "BLOCKED",
+    "screening_result": "blocked",
+    "matched_lists": [
+      "EXPLOIT_ACTIVITY"
+    ],
+    "source": "wallet-screening",
+    "timestamps": {
+      "screened_at": "2026-06-23T07:27:54.204Z",
+      "updated_at": null
+    },
+    "metadata": {
+      "raw_status": "BLOCKED"
+    }
+  },
+  {
+    "id": "WLT-0002",
+    "record_type": "wallet",
+    "wallet_address": "0xTreasury",
+    "network": "ethereum",
+    "label": "TreasuryCore",
+    "risk_score": 90,
+    "risk_level": "CRITICAL",
+    "status": "BLOCKED",
+    "screening_result": "blocked",
+    "matched_lists": [
+      "EXPLOIT_ACTIVITY"
+    ],
+    "source": "wallet-screening",
+    "timestamps": {
+      "screened_at": "2026-06-23T07:27:54.204Z",
+      "updated_at": null
+    },
+    "metadata": {
+      "raw_status": "BLOCKED"
+    }
+  },
+  {
+    "id": "WLT-0003",
+    "record_type": "wallet",
+    "wallet_address": "0xBorrower01",
+    "network": "ethereum",
+    "label": "DemoLend, DemoSwap",
+    "risk_score": 80,
+    "risk_level": "HIGH",
+    "status": "REVIEW_REQUIRED",
+    "screening_result": "review_required",
+    "matched_lists": [],
+    "source": "wallet-screening",
+    "timestamps": {
+      "screened_at": "2026-06-23T07:27:54.204Z",
+      "updated_at": null
+    },
+    "metadata": {
+      "raw_status": "REVIEW_REQUIRED"
+    }
+  },
+  {
+    "id": "WLT-0004",
+    "record_type": "wallet",
+    "wallet_address": "0xaaa111",
+    "network": "ethereum",
+    "label": "DemoLend, DemoSwap",
+    "risk_score": 80,
+    "risk_level": "HIGH",
+    "status": "REVIEW_REQUIRED",
+    "screening_result": "review_required",
+    "matched_lists": [],
+    "source": "wallet-screening",
+    "timestamps": {
+      "screened_at": "2026-06-23T07:27:54.204Z",
+      "updated_at": null
+    },
+    "metadata": {
+      "raw_status": "REVIEW_REQUIRED"
+    }
+  },
+  {
+    "id": "WLT-0005",
+    "record_type": "wallet",
+    "wallet_address": "0xPoolA",
+    "network": "ethereum",
+    "label": "DemoLend, DemoSwap",
+    "risk_score": 80,
+    "risk_level": "HIGH",
+    "status": "REVIEW_REQUIRED",
+    "screening_result": "review_required",
+    "matched_lists": [],
+    "source": "wallet-screening",
+    "timestamps": {
+      "screened_at": "2026-06-23T07:27:54.204Z",
+      "updated_at": null
+    },
+    "metadata": {
+      "raw_status": "REVIEW_REQUIRED"
+    }
+  },
+  {
+    "id": "WLT-0006",
+    "record_type": "wallet",
+    "wallet_address": "0xPoolB",
+    "network": "ethereum",
+    "label": "DemoLend, DemoSwap",
+    "risk_score": 80,
+    "risk_level": "HIGH",
+    "status": "REVIEW_REQUIRED",
+    "screening_result": "review_required",
+    "matched_lists": [],
+    "source": "wallet-screening",
+    "timestamps": {
+      "screened_at": "2026-06-23T07:27:54.204Z",
+      "updated_at": null
+    },
+    "metadata": {
+      "raw_status": "REVIEW_REQUIRED"
+    }
+  },
+  {
+    "id": "WLT-0007",
+    "record_type": "wallet",
+    "wallet_address": "0xUser77",
+    "network": "ethereum",
+    "label": "VaultX",
+    "risk_score": 80,
+    "risk_level": "HIGH",
+    "status": "REVIEW_REQUIRED",
+    "screening_result": "review_required",
+    "matched_lists": [],
+    "source": "wallet-screening",
+    "timestamps": {
+      "screened_at": "2026-06-23T07:27:54.204Z",
+      "updated_at": null
+    },
+    "metadata": {
+      "raw_status": "REVIEW_REQUIRED"
+    }
+  },
+  {
+    "id": "WLT-0008",
+    "record_type": "wallet",
+    "wallet_address": "0xVault1",
+    "network": "ethereum",
+    "label": "VaultX",
+    "risk_score": 80,
+    "risk_level": "HIGH",
+    "status": "REVIEW_REQUIRED",
+    "screening_result": "review_required",
+    "matched_lists": [],
+    "source": "wallet-screening",
+    "timestamps": {
+      "screened_at": "2026-06-23T07:27:54.204Z",
+      "updated_at": null
+    },
+    "metadata": {
+      "raw_status": "REVIEW_REQUIRED"
+    }
+  },
+  {
+    "id": "WLT-0009",
+    "record_type": "wallet",
+    "wallet_address": "0xHop1",
+    "network": "ethereum",
+    "label": "BridgeHop",
+    "risk_score": 55,
+    "risk_level": "MEDIUM",
+    "status": "REVIEW_REQUIRED",
+    "screening_result": "review_required",
+    "matched_lists": [],
+    "source": "wallet-screening",
+    "timestamps": {
+      "screened_at": "2026-06-23T07:27:54.204Z",
+      "updated_at": null
+    },
+    "metadata": {
+      "raw_status": "REVIEW_REQUIRED"
+    }
+  },
+  {
+    "id": "WLT-0010",
+    "record_type": "wallet",
+    "wallet_address": "0xddd444",
+    "network": "ethereum",
+    "label": "BridgeHop",
+    "risk_score": 55,
+    "risk_level": "MEDIUM",
+    "status": "REVIEW_REQUIRED",
+    "screening_result": "review_required",
+    "matched_lists": [],
+    "source": "wallet-screening",
+    "timestamps": {
+      "screened_at": "2026-06-23T07:27:54.204Z",
+      "updated_at": null
+    },
+    "metadata": {
+      "raw_status": "REVIEW_REQUIRED"
+    }
+  },
+  {
+    "id": "WLT-0011",
+    "record_type": "wallet",
+    "wallet_address": "0xHop2",
+    "network": "ethereum",
+    "label": "BridgeHop",
+    "risk_score": 55,
+    "risk_level": "MEDIUM",
+    "status": "REVIEW_REQUIRED",
+    "screening_result": "review_required",
+    "matched_lists": [],
+    "source": "wallet-screening",
+    "timestamps": {
+      "screened_at": "2026-06-23T07:27:54.204Z",
+      "updated_at": null
+    },
+    "metadata": {
+      "raw_status": "REVIEW_REQUIRED"
+    }
+  },
+  {
+    "id": "WLT-0012",
+    "record_type": "wallet",
+    "wallet_address": "0xddd445",
+    "network": "ethereum",
+    "label": "BridgeHop",
+    "risk_score": 55,
+    "risk_level": "MEDIUM",
+    "status": "REVIEW_REQUIRED",
+    "screening_result": "review_required",
+    "matched_lists": [],
+    "source": "wallet-screening",
+    "timestamps": {
+      "screened_at": "2026-06-23T07:27:54.204Z",
+      "updated_at": null
+    },
+    "metadata": {
+      "raw_status": "REVIEW_REQUIRED"
+    }
+  },
+  {
+    "id": "WLT-0013",
+    "record_type": "wallet",
+    "wallet_address": "0xHop3",
+    "network": "ethereum",
+    "label": "BridgeHop",
+    "risk_score": 55,
+    "risk_level": "MEDIUM",
+    "status": "REVIEW_REQUIRED",
+    "screening_result": "review_required",
+    "matched_lists": [],
+    "source": "wallet-screening",
+    "timestamps": {
+      "screened_at": "2026-06-23T07:27:54.204Z",
+      "updated_at": null
+    },
+    "metadata": {
+      "raw_status": "REVIEW_REQUIRED"
+    }
+  },
+  {
+    "id": "WLT-0014",
+    "record_type": "wallet",
+    "wallet_address": "0xddd446",
+    "network": "ethereum",
+    "label": "BridgeHop",
+    "risk_score": 55,
+    "risk_level": "MEDIUM",
+    "status": "REVIEW_REQUIRED",
+    "screening_result": "review_required",
+    "matched_lists": [],
+    "source": "wallet-screening",
+    "timestamps": {
+      "screened_at": "2026-06-23T07:27:54.204Z",
+      "updated_at": null
+    },
+    "metadata": {
+      "raw_status": "REVIEW_REQUIRED"
+    }
+  },
+  {
+    "id": "WLT-0015",
+    "record_type": "wallet",
+    "wallet_address": "0xHop4",
+    "network": "ethereum",
+    "label": "BridgeHop",
+    "risk_score": 55,
+    "risk_level": "MEDIUM",
+    "status": "REVIEW_REQUIRED",
+    "screening_result": "review_required",
+    "matched_lists": [],
+    "source": "wallet-screening",
+    "timestamps": {
+      "screened_at": "2026-06-23T07:27:54.204Z",
+      "updated_at": null
+    },
+    "metadata": {
+      "raw_status": "REVIEW_REQUIRED"
+    }
+  },
+  {
+    "id": "WLT-0016",
+    "record_type": "wallet",
+    "wallet_address": "0xLP02",
+    "network": "ethereum",
+    "label": "LiquidityHub",
+    "risk_score": 55,
+    "risk_level": "MEDIUM",
+    "status": "REVIEW_REQUIRED",
+    "screening_result": "review_required",
+    "matched_lists": [],
+    "source": "wallet-screening",
+    "timestamps": {
+      "screened_at": "2026-06-23T07:27:54.204Z",
+      "updated_at": null
+    },
+    "metadata": {
+      "raw_status": "REVIEW_REQUIRED"
+    }
+  },
+  {
+    "id": "WLT-0017",
+    "record_type": "wallet",
+    "wallet_address": "0xeee556",
+    "network": "ethereum",
+    "label": "LiquidityHub",
+    "risk_score": 55,
+    "risk_level": "MEDIUM",
+    "status": "REVIEW_REQUIRED",
+    "screening_result": "review_required",
+    "matched_lists": [],
+    "source": "wallet-screening",
+    "timestamps": {
+      "screened_at": "2026-06-23T07:27:54.204Z",
+      "updated_at": null
+    },
+    "metadata": {
+      "raw_status": "REVIEW_REQUIRED"
+    }
+  },
+  {
+    "id": "WLT-0018",
+    "record_type": "wallet",
+    "wallet_address": "0xPoolL",
+    "network": "ethereum",
+    "label": "LiquidityHub",
+    "risk_score": 55,
+    "risk_level": "MEDIUM",
+    "status": "REVIEW_REQUIRED",
+    "screening_result": "review_required",
+    "matched_lists": [],
+    "source": "wallet-screening",
+    "timestamps": {
+      "screened_at": "2026-06-23T07:27:54.204Z",
+      "updated_at": null
+    },
+    "metadata": {
+      "raw_status": "REVIEW_REQUIRED"
+    }
+  },
+  {
+    "id": "WLT-0019",
+    "record_type": "wallet",
+    "wallet_address": "0xLP01",
+    "network": "ethereum",
+    "label": "LiquidityHub",
+    "risk_score": 55,
+    "risk_level": "MEDIUM",
+    "status": "REVIEW_REQUIRED",
+    "screening_result": "review_required",
+    "matched_lists": [],
+    "source": "wallet-screening",
+    "timestamps": {
+      "screened_at": "2026-06-23T07:27:54.204Z",
+      "updated_at": null
+    },
+    "metadata": {
+      "raw_status": "REVIEW_REQUIRED"
+    }
+  }
+]

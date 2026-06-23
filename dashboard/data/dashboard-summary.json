@@ -1,0 +1,118 @@
+{
+  "generated_at": "2026-06-23T07:27:55.691Z",
+  "pipeline_status": "FAIL",
+  "last_pipeline_run": "2026-06-23T07:27:55.691Z",
+  "kpis": {
+    "total_findings": 32,
+    "high_findings": 6,
+    "total_incidents": 32,
+    "high_risk_wallets": 8,
+    "block_cases": 0,
+    "escalated_cases": 0
+  },
+  "breakdowns": {
+    "findings_by_severity": {
+      "HIGH": 6,
+      "MEDIUM": 11,
+      "LOW": 12,
+      "INFO": 3
+    },
+    "incidents_by_severity": {
+      "HIGH": 6,
+      "MEDIUM": 11,
+      "LOW": 12,
+      "INFO": 3
+    },
+    "compliance_by_decision": {},
+    "cases_by_status": {}
+  },
+  "input_presence": {
+    "total_declared_inputs": 10,
+    "found": 7,
+    "missing": 3,
+    "empty": 0,
+    "invalid": 0,
+    "files": [
+      {
+        "label": "slither-vulnerable",
+        "file": "reports/slither/vulnerable_bank.json",
+        "state": "FOUND",
+        "size_bytes": 65990,
+        "sha256": "7794b678176e1f780f5fdedc1978cec06582f0f50e361439a548f91560d1aa60",
+        "note": null
+      },
+      {
+        "label": "slither-secure",
+        "file": "reports/slither/secure_bank.json",
+        "state": "FOUND",
+        "size_bytes": 125050,
+        "sha256": "39e27d5e21b1f89def1c1fd31c89d4ed1da0e5d838464eb079ec4d58b0aadc60",
+        "note": null
+      },
+      {
+        "label": "mythril-vulnerable",
+        "file": "reports/mythril/vulnerable_bank.json",
+        "state": "FOUND",
+        "size_bytes": 473,
+        "sha256": "6c4f8f06ce41f82b09b7778b5981e5183769c18d615707acc5d4b3d59e41cf2c",
+        "note": null
+      },
+      {
+        "label": "defi-runtime-monitor",
+        "file": "reports/defi/defi_alerts.json",
+        "state": "FOUND",
+        "size_bytes": 11536,
+        "sha256": "dcec147ad1c10412bbf9ac6656a1c8f2720ab87c142aa8d36fc07d9c15143d97",
+        "note": null
+      },
+      {
+        "label": "consensus-health",
+        "file": "reports/consensus/consensus_status.json",
+        "state": "FOUND",
+        "size_bytes": 287,
+        "sha256": "a023e204715f405e0e7331f39195d6098e491fb6203699c7c78ce650eb5f2df7",
+        "note": null
+      },
+      {
+        "label": "incident-orchestrator",
+        "file": "reports/incident/incident_response.json",
+        "state": "FOUND",
+        "size_bytes": 32397,
+        "sha256": "b09cd6dcc69df55bc40e98b14cdc9d8dc4fabb84b37ffe0d65d4afdb8223f7f7",
+        "note": null
+      },
+      {
+        "label": "wallet-screening",
+        "file": "reports/wallet-screening/wallet_screening.json",
+        "state": "FOUND",
+        "size_bytes": 18594,
+        "sha256": "0dc324e56950c9e030cd01ad25aa8bdec75b86e980626933a43acfe1b7cc7d97",
+        "note": null
+      },
+      {
+        "label": "compliance-engine",
+        "file": "reports/compliance/compliance_report.json",
+        "state": "MISSING",
+        "size_bytes": null,
+        "sha256": null,
+        "note": "Optional input missing"
+      },
+      {
+        "label": "case-management",
+        "file": "reports/cases/case_management.json",
+        "state": "MISSING",
+        "size_bytes": null,
+        "sha256": null,
+        "note": "Optional input missing"
+      },
+      {
+        "label": "alert-dispatcher",
+        "file": "reports/alerts/alerts.json",
+        "state": "MISSING",
+        "size_bytes": null,
+        "sha256": null,
+        "note": "Optional input missing"
+      }
+    ]
+  }
+}

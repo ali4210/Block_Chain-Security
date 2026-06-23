@@ -1,0 +1,93 @@
+name: DevSecOps Security Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  security-pipeline:
+    name: Run Blockchain DevSecOps Pipeline
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-pip jq curl build-essential
+
+      - name: Install Solidity compiler
+        run: |
+          sudo add-apt-repository ppa:ethereum/ethereum -y
+          sudo apt-get update
+          sudo apt-get install -y solc
+
+      - name: Install Python security tools
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install slither-analyzer mythril
+
+      - name: Install Node dependencies
+        run: npm install
+
+      - name: Make pipeline scripts executable
+        run: |
+          chmod +x ./scripts/run-slither.sh || true
+          chmod +x ./scripts/pipeline-security.sh || true
+          chmod +x ./scripts/pipeline-security-strict.sh || true
+          chmod +x ./scripts/pipeline-security-failfast.sh || true
+
+      - name: Run normal security pipeline
+        run: npm run pipeline:security
+
+      - name: Upload HTML reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-html-reports
+          path: reports/html/
+          if-no-files-found: warn
+
+      - name: Upload incident reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-incident-reports
+          path: reports/incident/
+          if-no-files-found: warn
+
+      - name: Upload normalized dashboard data
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-dashboard-data
+          path: dashboard/data/
+          if-no-files-found: warn
+
+      - name: Upload all raw reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-raw-reports
+          path: reports/
+          if-no-files-found: warn

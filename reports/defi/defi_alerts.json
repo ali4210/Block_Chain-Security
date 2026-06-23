@@ -1,0 +1,449 @@
+{
+  "tool": "defi-detector",
+  "generated_at": "2026-06-23T07:27:59.230447Z",
+  "source_file": "data/defi-events.json",
+  "rules": {
+    "large_transfer_threshold": 100000,
+    "rapid_withdrawal_window_sec": 60,
+    "rapid_withdrawal_min_count": 3,
+    "liquidity_spike_threshold": 100000,
+    "multi_hop_window_sec": 120,
+    "multi_hop_min_count": 3,
+    "emergency_actions": [
+      "emergencyDrain",
+      "pause",
+      "rescueFunds"
+    ]
+  },
+  "summary": {
+    "total_events": 12,
+    "total_alerts": 9,
+    "severity_counts": {
+      "HIGH": 3,
+      "MEDIUM": 6,
+      "LOW": 0,
+      "INFO": 0
+    }
+  },
+  "alerts": [
+    {
+      "rule_id": "emergency-function-use",
+      "severity": "HIGH",
+      "title": "Emergency administrative action detected",
+      "description": "Administrative action emergencyDrain was executed by 0xAdmin01 against 0xTreasury.",
+      "event_count": 1,
+      "tx_hashes": [
+        "0xccc333"
+      ],
+      "addresses": [
+        "0xAdmin01"
+      ],
+      "protocols": [
+        "TreasuryCore"
+      ],
+      "assets": [
+        "ETH"
+      ],
+      "time_range": {
+        "start": "2026-06-22T13:50:00Z",
+        "end": "2026-06-22T13:50:00Z"
+      },
+      "events": [
+        {
+          "tx_hash": "0xccc333",
+          "block_number": 190020,
+          "timestamp": "2026-06-22T13:50:00Z",
+          "protocol": "TreasuryCore",
+          "address": "0xAdmin01",
+          "action": "emergencyDrain",
+          "asset": "ETH",
+          "amount": 250,
+          "counterparty": "0xTreasury"
+        }
+      ]
+    },
+    {
+      "rule_id": "flash-loan-pattern",
+      "severity": "HIGH",
+      "title": "Flash-loan-like transaction pattern detected",
+      "description": "Transaction 0xaaa111 contains borrow, swap, and repay actions consistent with a flash-loan-style sequence for address 0xBorrower01.",
+      "event_count": 3,
+      "tx_hashes": [
+        "0xaaa111"
+      ],
+      "addresses": [
+        "0xBorrower01"
+      ],
+      "protocols": [
+        "DemoLend",
+        "DemoSwap"
+      ],
+      "assets": [
+        "ETH",
+        "ETH-USDC"
+      ],
+      "time_range": {
+        "start": "2026-06-22T13:40:00Z",
+        "end": "2026-06-22T13:40:02Z"
+      },
+      "events": [
+        {
+          "tx_hash": "0xaaa111",
+          "block_number": 190001,
+          "timestamp": "2026-06-22T13:40:00Z",
+          "protocol": "DemoLend",
+          "address": "0xBorrower01",
+          "action": "borrow",
+          "asset": "ETH",
+          "amount": 500,
+          "counterparty": "0xPoolA"
+        },
+        {
+          "tx_hash": "0xaaa111",
+          "block_number": 190001,
+          "timestamp": "2026-06-22T13:40:01Z",
+          "protocol": "DemoSwap",
+          "address": "0xBorrower01",
+          "action": "swap",
+          "asset": "ETH-USDC",
+          "amount": 500,
+          "counterparty": "0xPoolB"
+        },
+        {
+          "tx_hash": "0xaaa111",
+          "block_number": 190001,
+          "timestamp": "2026-06-22T13:40:02Z",
+          "protocol": "DemoLend",
+          "address": "0xBorrower01",
+          "action": "repay",
+          "asset": "ETH",
+          "amount": 500,
+          "counterparty": "0xPoolA"
+        }
+      ]
+    },
+    {
+      "rule_id": "rapid-withdrawals",
+      "severity": "HIGH",
+      "title": "Rapid repeated withdrawals detected",
+      "description": "Address 0xUser77 executed 3 withdrawals within 45 seconds.",
+      "event_count": 3,
+      "tx_hashes": [
+        "0xbbb222",
+        "0xbbb223",
+        "0xbbb224"
+      ],
+      "addresses": [
+        "0xUser77"
+      ],
+      "protocols": [
+        "VaultX"
+      ],
+      "assets": [
+        "ETH"
+      ],
+      "time_range": {
+        "start": "2026-06-22T13:45:00Z",
+        "end": "2026-06-22T13:45:45Z"
+      },
+      "events": [
+        {
+          "tx_hash": "0xbbb222",
+          "block_number": 190010,
+          "timestamp": "2026-06-22T13:45:00Z",
+          "protocol": "VaultX",
+          "address": "0xUser77",
+          "action": "withdraw",
+          "asset": "ETH",
+          "amount": 40,
+          "counterparty": "0xVault1"
+        },
+        {
+          "tx_hash": "0xbbb223",
+          "block_number": 190011,
+          "timestamp": "2026-06-22T13:45:20Z",
+          "protocol": "VaultX",
+          "address": "0xUser77",
+          "action": "withdraw",
+          "asset": "ETH",
+          "amount": 42,
+          "counterparty": "0xVault1"
+        },
+        {
+          "tx_hash": "0xbbb224",
+          "block_number": 190012,
+          "timestamp": "2026-06-22T13:45:45Z",
+          "protocol": "VaultX",
+          "address": "0xUser77",
+          "action": "withdraw",
+          "asset": "ETH",
+          "amount": 41,
+          "counterparty": "0xVault1"
+        }
+      ],
+      "window_seconds": 60
+    },
+    {
+      "rule_id": "large-transfer",
+      "severity": "MEDIUM",
+      "title": "Large value movement detected",
+      "description": "Transaction 0xddd444 moved 200000 USDC, exceeding the configured threshold of 100000.",
+      "event_count": 1,
+      "tx_hashes": [
+        "0xddd444"
+      ],
+      "addresses": [
+        "0xHop1"
+      ],
+      "protocols": [
+        "BridgeHop"
+      ],
+      "assets": [
+        "USDC"
+      ],
+      "time_range": {
+        "start": "2026-06-22T13:55:00Z",
+        "end": "2026-06-22T13:55:00Z"
+      },
+      "events": [
+        {
+          "tx_hash": "0xddd444",
+          "block_number": 190030,
+          "timestamp": "2026-06-22T13:55:00Z",
+          "protocol": "BridgeHop",
+          "address": "0xHop1",
+          "action": "transfer",
+          "asset": "USDC",
+          "amount": 200000,
+          "counterparty": "0xHop2"
+        }
+      ],
+      "threshold": 100000
+    },
+    {
+      "rule_id": "large-transfer",
+      "severity": "MEDIUM",
+      "title": "Large value movement detected",
+      "description": "Transaction 0xddd445 moved 199500 USDC, exceeding the configured threshold of 100000.",
+      "event_count": 1,
+      "tx_hashes": [
+        "0xddd445"
+      ],
+      "addresses": [
+        "0xHop2"
+      ],
+      "protocols": [
+        "BridgeHop"
+      ],
+      "assets": [
+        "USDC"
+      ],
+      "time_range": {
+        "start": "2026-06-22T13:55:20Z",
+        "end": "2026-06-22T13:55:20Z"
+      },
+      "events": [
+        {
+          "tx_hash": "0xddd445",
+          "block_number": 190031,
+          "timestamp": "2026-06-22T13:55:20Z",
+          "protocol": "BridgeHop",
+          "address": "0xHop2",
+          "action": "transfer",
+          "asset": "USDC",
+          "amount": 199500,
+          "counterparty": "0xHop3"
+        }
+      ],
+      "threshold": 100000
+    },
+    {
+      "rule_id": "large-transfer",
+      "severity": "MEDIUM",
+      "title": "Large value movement detected",
+      "description": "Transaction 0xddd446 moved 199000 USDC, exceeding the configured threshold of 100000.",
+      "event_count": 1,
+      "tx_hashes": [
+        "0xddd446"
+      ],
+      "addresses": [
+        "0xHop3"
+      ],
+      "protocols": [
+        "BridgeHop"
+      ],
+      "assets": [
+        "USDC"
+      ],
+      "time_range": {
+        "start": "2026-06-22T13:55:50Z",
+        "end": "2026-06-22T13:55:50Z"
+      },
+      "events": [
+        {
+          "tx_hash": "0xddd446",
+          "block_number": 190032,
+          "timestamp": "2026-06-22T13:55:50Z",
+          "protocol": "BridgeHop",
+          "address": "0xHop3",
+          "action": "transfer",
+          "asset": "USDC",
+          "amount": 199000,
+          "counterparty": "0xHop4"
+        }
+      ],
+      "threshold": 100000
+    },
+    {
+      "rule_id": "large-transfer",
+      "severity": "MEDIUM",
+      "title": "Large value movement detected",
+      "description": "Transaction 0xeee556 moved 180000 USDT, exceeding the configured threshold of 100000.",
+      "event_count": 1,
+      "tx_hashes": [
+        "0xeee556"
+      ],
+      "addresses": [
+        "0xLP02"
+      ],
+      "protocols": [
+        "LiquidityHub"
+      ],
+      "assets": [
+        "USDT"
+      ],
+      "time_range": {
+        "start": "2026-06-22T14:00:20Z",
+        "end": "2026-06-22T14:00:20Z"
+      },
+      "events": [
+        {
+          "tx_hash": "0xeee556",
+          "block_number": 190041,
+          "timestamp": "2026-06-22T14:00:20Z",
+          "protocol": "LiquidityHub",
+          "address": "0xLP02",
+          "action": "liquidity_add",
+          "asset": "USDT",
+          "amount": 180000,
+          "counterparty": "0xPoolL"
+        }
+      ],
+      "threshold": 100000
+    },
+    {
+      "rule_id": "liquidity-spike",
+      "severity": "MEDIUM",
+      "title": "Liquidity spike detected",
+      "description": "Liquidity activity increased by 175000 USDT between consecutive events in LiquidityHub.",
+      "event_count": 2,
+      "tx_hashes": [
+        "0xeee555",
+        "0xeee556"
+      ],
+      "addresses": [
+        "0xLP01",
+        "0xLP02"
+      ],
+      "protocols": [
+        "LiquidityHub"
+      ],
+      "assets": [
+        "USDT"
+      ],
+      "time_range": {
+        "start": "2026-06-22T14:00:00Z",
+        "end": "2026-06-22T14:00:20Z"
+      },
+      "events": [
+        {
+          "tx_hash": "0xeee555",
+          "block_number": 190040,
+          "timestamp": "2026-06-22T14:00:00Z",
+          "protocol": "LiquidityHub",
+          "address": "0xLP01",
+          "action": "liquidity_add",
+          "asset": "USDT",
+          "amount": 5000,
+          "counterparty": "0xPoolL"
+        },
+        {
+          "tx_hash": "0xeee556",
+          "block_number": 190041,
+          "timestamp": "2026-06-22T14:00:20Z",
+          "protocol": "LiquidityHub",
+          "address": "0xLP02",
+          "action": "liquidity_add",
+          "asset": "USDT",
+          "amount": 180000,
+          "counterparty": "0xPoolL"
+        }
+      ],
+      "delta": 175000,
+      "threshold": 100000
+    },
+    {
+      "rule_id": "multi-hop-transfer",
+      "severity": "MEDIUM",
+      "title": "Rapid multi-hop transfer chain detected",
+      "description": "Detected 3 linked transfers across multiple addresses within 50 seconds.",
+      "event_count": 3,
+      "tx_hashes": [
+        "0xddd444",
+        "0xddd445",
+        "0xddd446"
+      ],
+      "addresses": [
+        "0xHop1",
+        "0xHop2",
+        "0xHop3"
+      ],
+      "protocols": [
+        "BridgeHop"
+      ],
+      "assets": [
+        "USDC"
+      ],
+      "time_range": {
+        "start": "2026-06-22T13:55:00Z",
+        "end": "2026-06-22T13:55:50Z"
+      },
+      "events": [
+        {
+          "tx_hash": "0xddd444",
+          "block_number": 190030,
+          "timestamp": "2026-06-22T13:55:00Z",
+          "protocol": "BridgeHop",
+          "address": "0xHop1",
+          "action": "transfer",
+          "asset": "USDC",
+          "amount": 200000,
+          "counterparty": "0xHop2"
+        },
+        {
+          "tx_hash": "0xddd445",
+          "block_number": 190031,
+          "timestamp": "2026-06-22T13:55:20Z",
+          "protocol": "BridgeHop",
+          "address": "0xHop2",
+          "action": "transfer",
+          "asset": "USDC",
+          "amount": 199500,
+          "counterparty": "0xHop3"
+        },
+        {
+          "tx_hash": "0xddd446",
+          "block_number": 190032,
+          "timestamp": "2026-06-22T13:55:50Z",
+          "protocol": "BridgeHop",
+          "address": "0xHop3",
+          "action": "transfer",
+          "asset": "USDC",
+          "amount": 199000,
+          "counterparty": "0xHop4"
+        }
+      ],
+      "window_seconds": 120
+    }
+  ]
+}

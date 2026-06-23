@@ -1,0 +1,10 @@
+{
+  "network": "31337",
+  "rpc_url": "http://127.0.0.1:8545",
+  "latest_block_number": 0,
+  "latest_block_timestamp": 1782198012,
+  "now_timestamp": 1782199679,
+  "seconds_since_last_block": 1667,
+  "health": "HIGH",
+  "details": "No new blocks for 1667 seconds. Chain may be stalled."
+}
