@@ -1,6 +1,6 @@
 {
   "tool": "defi-detector",
-  "generated_at": "2026-06-23T07:27:59.230447Z",
+  "generated_at": "2026-06-23T09:12:53.930803Z",
   "source_file": "data/defi-events.json",
   "rules": {
     "large_transfer_threshold": 100000,
