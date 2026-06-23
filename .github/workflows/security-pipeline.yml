@@ -11,6 +11,9 @@ on:
       - master
   workflow_dispatch:
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   security-pipeline:
     name: Run Blockchain DevSecOps Pipeline
@@ -23,8 +26,11 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: npm
+
+      - name: Install Node dependencies
+        run: npm install
 
       - name: Setup Python 3.11 for Slither
         uses: actions/setup-python@v5
@@ -34,7 +40,7 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y python3-pip python3-venv jq curl build-essential software-properties-common
+          sudo apt-get install -y python3-pip python3-venv python3-virtualenv jq curl build-essential software-properties-common
 
       - name: Install Solidity compiler
         run: |
@@ -48,18 +54,21 @@ jobs:
           python3 -m pip install "slither-analyzer==0.11.5"
 
       - name: Create Mythril isolated environment
+        continue-on-error: true
         run: |
-          python3 -m venv mythril-only-env
-          ./mythril-only-env/bin/python -m pip install --upgrade pip setuptools wheel
-          ./mythril-only-env/bin/pip install "mythril==0.24.8" || true
+          virtualenv -p python3 mythril-only-env
+          ./mythril-only-env/bin/pip install --upgrade pip setuptools wheel
+          ./mythril-only-env/bin/pip install "mythril==0.24.8"
 
       - name: Verify Python security tools
+        if: always()
         run: |
           slither --version
-          ./mythril-only-env/bin/myth version || true
-
-      - name: Install Node dependencies
-        run: npm install
+          if [ -x "./mythril-only-env/bin/myth" ]; then
+            ./mythril-only-env/bin/myth version
+          else
+            echo "Mythril not available, continuing without it"
+          fi
 
       - name: Make scripts executable
         run: |
