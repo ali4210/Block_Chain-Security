@@ -9,14 +9,23 @@
     "test": "npx hardhat test",
 
     "scan:slither": "./scripts/run-slither.sh",
+
     "scan:mythril": "mkdir -p reports/mythril && if [ -f ./mythril-only-env/bin/myth ] && [ -x ./mythril-only-env/bin/myth ]; then ./mythril-only-env/bin/myth analyze ./contracts/VulnerableBank.sol -o json > reports/mythril/vulnerable_bank.json || echo '{\"issues\":[]}' > reports/mythril/vulnerable_bank.json; else echo '{\"issues\":[]}' > reports/mythril/vulnerable_bank.json; fi",
+
     "detect:defi": "mkdir -p reports/defi && python3 ./scripts/defi-detector.py",
-    "screen:wallets": "mkdir -p reports/wallet-screening && tsx ./scripts/wallet-screening.mts",
+
     "monitor:consensus": "mkdir -p reports/consensus && (RPC_URL=${RPC_URL:-http://127.0.0.1:8545} tsx ./scripts/consensus-monitor.mts || echo '{\"status\":\"ERROR\",\"message\":\"Consensus monitor failed\",\"source\":\"fallback\"}' > reports/consensus/consensus_status.json)",
+
+    "screen:wallets": "mkdir -p reports/wallet-screening && tsx ./scripts/wallet-screening.mts",
+
     "security:gate": "tsx ./scripts/security-gate.mts",
+
     "incident:orchestrate": "mkdir -p reports/incident && tsx ./scripts/incident-orchestrator.mts",
+
     "normalize:reports": "mkdir -p dashboard/data && tsx ./scripts/normalize-reports.mts",
+
     "enrich:findings": "mkdir -p dashboard/data && if [ -f dashboard/data/findings.json ]; then tsx ./scripts/enrich-findings.mts; else echo 'Skipping enrichment: findings.json not found'; fi",
+
     "report:html": "mkdir -p reports/html && tsx ./scripts/generate-html-report.mts",
 
     "pipeline:security": "bash ./scripts/pipeline-security.sh",
@@ -39,6 +48,9 @@
   ],
   "author": "Saleem Ali",
   "license": "ISC",
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.6.1"
+  },
   "devDependencies": {
     "@nomicfoundation/hardhat-ignition": "^3.1.7",
     "@nomicfoundation/hardhat-toolbox-viem": "^5.0.7",
@@ -48,8 +60,5 @@
     "tsx": "^4.22.4",
     "typescript": "~6.0.3",
     "viem": "^2.53.1"
-  },
-  "dependencies": {
-    "@openzeppelin/contracts": "^5.6.1"
   }
 }

@@ -68,8 +68,8 @@ jobs:
         run: |
           rm -rf mythril-only-env
           python3 -m venv mythril-only-env
-          ./mythril-only-env/bin/python -m pip install --upgrade pip setuptools wheel
-          ./mythril-only-env/bin/pip install setuptools
+          ./mythril-only-env/bin/python -m pip install --upgrade pip
+          ./mythril-only-env/bin/pip install "setuptools<82" wheel
           ./mythril-only-env/bin/pip install "mythril==0.24.8" || true
 
       - name: Verify Python security tools
