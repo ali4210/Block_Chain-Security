@@ -13,6 +13,8 @@ on:
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+  HOME: ${{ github.workspace }}
+  SOLC_SELECT_HOME: ${{ github.workspace }}/.solc-select
 
 jobs:
   security-pipeline:
@@ -42,6 +44,14 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y python3-pip python3-venv jq curl build-essential software-properties-common
 
+      - name: Prepare runner-owned tool directories
+        run: |
+          mkdir -p "$HOME"
+          mkdir -p "$SOLC_SELECT_HOME"
+          mkdir -p "$SOLC_SELECT_HOME/artifacts"
+          echo "HOME=$HOME"
+          echo "SOLC_SELECT_HOME=$SOLC_SELECT_HOME"
+
       - name: Install Solidity compiler
         run: |
           sudo add-apt-repository ppa:ethereum/ethereum -y
@@ -59,6 +69,7 @@ jobs:
           rm -rf mythril-only-env
           python3 -m venv mythril-only-env
           ./mythril-only-env/bin/python -m pip install --upgrade pip setuptools wheel
+          ./mythril-only-env/bin/pip install setuptools
           ./mythril-only-env/bin/pip install "mythril==0.24.8" || true
 
       - name: Verify Python security tools
@@ -77,6 +88,11 @@ jobs:
           chmod +x ./scripts/pipeline-security.sh || true
           chmod +x ./scripts/pipeline-security-strict.sh || true
           chmod +x ./scripts/pipeline-security-failfast.sh || true
+
+      - name: Clean generated outputs
+        run: |
+          rm -rf reports/slither reports/mythril reports/defi reports/consensus reports/wallet-screening reports/incident reports/html dashboard/data
+          mkdir -p reports/slither reports/mythril reports/defi reports/consensus reports/wallet-screening reports/incident reports/html dashboard/data
 
       - name: Run normal security pipeline
         run: npm run pipeline:security
